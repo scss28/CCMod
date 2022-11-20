@@ -4,5 +4,6 @@ namespace CCMod
 {
 	public class CCMod : Mod
 	{
+
 	}
 }
