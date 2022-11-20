@@ -1,0 +1,3 @@
+displayName = Community Content Mod
+author = TModloader Community
+version = 0.1
