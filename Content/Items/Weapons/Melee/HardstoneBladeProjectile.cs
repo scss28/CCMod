@@ -12,18 +12,16 @@ namespace CCMod.Content.Items.Weapons.Melee
 {
     public class HardstoneBladeProjectile : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Item_" + ItemID.Emerald;
-
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Type] = 5;
+            ProjectileID.Sets.TrailCacheLength[Type] = 4;
             ProjectileID.Sets.TrailingMode[Type] = 2;
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 20;
+            Projectile.height = 20;
 
             Projectile.aiStyle = -1;
 
@@ -57,8 +55,8 @@ namespace CCMod.Content.Items.Weapons.Melee
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 4; i++)
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemEmerald, Projectile.velocity.X, Projectile.velocity.Y);
+            for (int i = 0; i < 5; i++)
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenMoss, -Projectile.velocity.X * 0.3f, -Projectile.velocity.Y * 0.3f);
 
             if (Main.rand.NextBool(200))
             {

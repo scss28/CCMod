@@ -11,11 +11,11 @@ namespace CCMod.Content.Items.Weapons.Melee
     public class HardstoneBlade : ModItem, IMadeBy
     {
         public string CodedBy => "sucss";
-        public string SpritedBy => "_person";
+        public string SpritedBy => "_person, AnUncreativeName";
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("[c/4bad5e:Shoots emerald projectiles that have a tiny chance to drop emeralds on hit.]");
+            Tooltip.SetDefault("[c/4bad5e:Shoots stone projectiles that have a tiny chance to drop emeralds on hit.]");
         }
 
         public override void SetDefaults()
@@ -24,7 +24,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             Item.height = 54;
 
             Item.crit = 7;
-            Item.damage = 32;
+            Item.damage = 12;
             Item.knockBack = 4f;
             Item.DamageType = DamageClass.Melee;
 

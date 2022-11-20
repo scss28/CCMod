@@ -76,7 +76,7 @@ namespace CCMod.Content.Items.Weapons.Melee
                     Projectile.Center + Projectile.rotation.ToRotationVector2() * (6 + swordLength * Main.rand.NextFloat()),
                     Player.Center.DirectionTo(Main.MouseWorld) * 13,
                     ModContent.ProjectileType<HardstoneBladeProjectile>(),
-                    (int)(Projectile.damage * 0.2f),
+                    (int)(Projectile.damage * 0.3f),
                     0.5f,
                     Projectile.owner
                     );
