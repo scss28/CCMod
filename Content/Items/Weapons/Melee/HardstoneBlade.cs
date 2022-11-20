@@ -13,6 +13,11 @@ namespace CCMod.Content.Items.Weapons.Melee
         public string CodedBy => "sucss";
         public string SpritedBy => "_person";
 
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("[c/4bad5e:Shoots emerald projectiles that have a tiny chance to drop emeralds on hit.]");
+        }
+
         public override void SetDefaults()
         {
             Item.width = 54;
