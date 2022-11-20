@@ -59,6 +59,11 @@ namespace CCMod.Content.Items.Weapons.Melee
         {
             for (int i = 0; i < 4; i++)
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemEmerald, Projectile.velocity.X, Projectile.velocity.Y);
+
+            if (Main.rand.NextBool(200))
+            {
+                Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, ItemID.Emerald);
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)
