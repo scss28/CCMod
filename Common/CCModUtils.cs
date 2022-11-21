@@ -31,5 +31,32 @@ namespace CCMod.Common
             return Vector2.Lerp(q1, q2, ammount);
         }
 
+        public static Vector2 Normalized(this Vector2 vector)
+        {
+            vector.Normalize();
+            return vector;
+        }
+
+        public static Vector2[] GenerateCircularPositions(this Vector2 center, float radius, int amount = 8, float rotation = 0)
+        {
+            if (amount <= 0)
+                return Array.Empty<Vector2>();
+
+            Vector2[] postitions = new Vector2[amount];
+
+            float angle = MathHelper.Pi * 2f / amount;
+            angle += rotation;
+
+            for (int i = 0; i < amount; i++)
+            {
+                Vector2 position = (angle * i).ToRotationVector2();
+                position *= radius;
+                position += center;
+
+                postitions[i] = position;
+            }
+
+            return postitions;
+        }
     }
 }
