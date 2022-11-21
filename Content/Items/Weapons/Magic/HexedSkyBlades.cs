@@ -9,9 +9,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CCMod.Content.Items.Weapons.Melee
+namespace CCMod.Content.Items.Weapons.Magic
 {
-    public class HexedSkyBlades : ModItem, IMadeBy, IChestItem
+    public class HexedSkyblades : ModItem, IMadeBy, IChestItem
     {
         public string CodedBy => "sucss";
         public string SpritedBy => "_person";
@@ -35,20 +35,20 @@ namespace CCMod.Content.Items.Weapons.Melee
             Item.damage = 17;
             Item.knockBack = 4f;
             Item.DamageType = DamageClass.Magic;
-            
+
             Item.UseSound = SoundID.Item63;
             Item.useTime = 8;
             Item.useAnimation = Item.useTime;
             Item.autoReuse = true;
 
             Item.useStyle = ItemUseStyleID.Shoot;
-            
+
             Item.noMelee = true;
 
             Item.value = Item.sellPrice(0, 0, 60, 0);
             Item.rare = ItemRarityID.Blue;
 
-            Item.shoot = ModContent.ProjectileType<HexedSkyBladesProjectile>();
+            Item.shoot = ModContent.ProjectileType<HexedSkybladesProjectile>();
             Item.shootSpeed = 30f;
 
             Item.noUseGraphic = true;

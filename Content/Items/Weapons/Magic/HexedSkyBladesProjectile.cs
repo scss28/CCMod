@@ -8,9 +8,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CCMod.Content.Items.Weapons.Melee
+namespace CCMod.Content.Items.Weapons.Magic
 {
-    public class HexedSkyBladesProjectile : ModProjectile
+    public class HexedSkybladesProjectile : ModProjectile
     {
         public override string Texture => base.Texture.Replace("Projectile", string.Empty);
 
