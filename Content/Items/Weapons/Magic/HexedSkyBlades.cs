@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Magic
 {
-    public class HexedSkyblades : ModItem, IMadeBy, IChestItem
+    public class HexedSkyBlades : ModItem, IMadeBy, IChestItem
     {
         public string CodedBy => "sucss";
         public string SpritedBy => "_person";
@@ -23,6 +23,7 @@ namespace CCMod.Content.Items.Weapons.Magic
 
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Hexed Skyblades");
             Tooltip.SetDefault("[c/6dc7d1:The blades deal heavy damage] [c/e84343:but can also hurt the player...]\n[c/f3fa4f:Do you believe in \'gravity\'?]");
         }
 
@@ -48,7 +49,7 @@ namespace CCMod.Content.Items.Weapons.Magic
             Item.value = Item.sellPrice(0, 0, 60, 0);
             Item.rare = ItemRarityID.Blue;
 
-            Item.shoot = ModContent.ProjectileType<HexedSkybladesProjectile>();
+            Item.shoot = ModContent.ProjectileType<HexedSkyBladesProjectile>();
             Item.shootSpeed = 30f;
 
             Item.noUseGraphic = true;

@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Magic
 {
-    public class HexedSkybladesProjectile : ModProjectile
+    public class HexedSkyBladesProjectile : ModProjectile
     {
         public override string Texture => base.Texture.Replace("Projectile", string.Empty);
 
