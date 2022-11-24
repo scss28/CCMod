@@ -21,8 +21,8 @@ namespace CCMod.Common.GlobalItems
                 //spriterColor = new Color(Main.rand.NextFloat(0.6f, 1f), Main.rand.NextFloat(0.6f, 1f), Main.rand.NextFloat(0.6f, 1f));
                 //coderColor = new Color(Main.rand.NextFloat(0.6f, 1f), Main.rand.NextFloat(0.6f, 1f), Main.rand.NextFloat(0.6f, 1f));
 
-                spriterColor = RandomColorWithBrightness(0.85f);
-                coderColor = RandomColorWithBrightness(0.85f);
+                spriterColor = RandomColorWithBrightness(0.95f);
+                coderColor = RandomColorWithBrightness(0.95f);
             }
         }
 

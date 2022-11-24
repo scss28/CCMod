@@ -74,7 +74,7 @@ namespace CCMod.Content.Items.Weapons.Melee
                 Projectile.NewProjectile(
                     Projectile.GetSource_FromAI(), 
                     Projectile.Center + Projectile.rotation.ToRotationVector2() * (6 + swordLength * Main.rand.NextFloat()),
-                    Player.Center.DirectionTo(Main.MouseWorld) * 13,
+                    Player.Center.DirectionTo(Main.MouseWorld) * 9 * Main.rand.NextFloat(0.85f, 1f),
                     ModContent.ProjectileType<HardstoneBladeProjectile>(),
                     (int)(Projectile.damage * 0.3f),
                     0.5f,
@@ -83,7 +83,7 @@ namespace CCMod.Content.Items.Weapons.Melee
         }
 
         // Sword length in this case is around the lenght of the diagonal of the texture.
-        const float swordLength = 78f;
+        const float swordLength = 82f;
         const float swordWidth = 12f;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {

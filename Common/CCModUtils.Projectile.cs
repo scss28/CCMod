@@ -12,7 +12,7 @@ namespace CCMod.Common
 {
     public static partial class CCModUtils
     {
-        public static void EasyDraw(this Projectile projectile, Color color, Vector2? position = null, float? rotation = null, Vector2? origin = null, SpriteEffects? spriteEffects = null)
+        public static void EasyDraw(this Projectile projectile, Color color, Vector2? position = null, float? rotation = null, Vector2? origin = null, float? scale = null, SpriteEffects? spriteEffects = null)
         {
             Texture2D tex = TextureAssets.Projectile[projectile.type].Value;
 
@@ -26,7 +26,7 @@ namespace CCMod.Common
                 color * ((255f - Math.Clamp(projectile.alpha, 0, 255)) / Math.Clamp(projectile.alpha, 1, 255)),
                 rotation ?? projectile.rotation,
                 origin ?? (rect.Size() * 0.5f),
-                projectile.scale,
+                scale ?? projectile.scale,
                 spriteEffects ?? (projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None),
                 0
                 );

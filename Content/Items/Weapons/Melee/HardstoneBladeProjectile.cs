@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -47,7 +48,7 @@ namespace CCMod.Content.Items.Weapons.Melee
         public override void AI()
         {
             Projectile.rotation += rotationSpeed;
-            Projectile.velocity.Y += 0.12f;
+            Projectile.velocity.Y += 0.16f;
 
             if (Main.rand.NextBool(3))
                 Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GemEmerald, Scale: 0.6f).noGravity = true;
@@ -58,10 +59,12 @@ namespace CCMod.Content.Items.Weapons.Melee
             for (int i = 0; i < 5; i++)
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenMoss, -Projectile.velocity.X * 0.3f, -Projectile.velocity.Y * 0.3f);
 
-            if (Main.rand.NextBool(200))
+            if (Main.rand.NextBool(300))
             {
                 Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, ItemID.Emerald);
             }
+
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
         }
 
         public override bool PreDraw(ref Color lightColor)
