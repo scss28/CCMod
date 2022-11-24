@@ -16,8 +16,8 @@ namespace CCMod.Content.Items.Weapons.Magic
 
         public override void SetDefaults()
         {
-            Projectile.width = 0;
-            Projectile.height = 0;
+            Projectile.width = 1;
+            Projectile.height = 1;
 
             Projectile.aiStyle = -1;
 
@@ -40,6 +40,7 @@ namespace CCMod.Content.Items.Weapons.Magic
         public override void OnSpawn(IEntitySource source)
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
+            CCModUtils.NewDustCircular(Projectile.Center, 10, DustID.SilverFlame, 16, minMaxSpeedFromCenter: (6, 6), dustAction: d => d.noGravity = true);
         }
 
         public override void AI()
@@ -52,7 +53,7 @@ namespace CCMod.Content.Items.Weapons.Magic
                 if ((Projectile.alpha += 4) >= 255)
                     Projectile.Kill();
             }
-
+            
             if (Projectile.timeLeft % 3 == 0)
             {
                 Dust.NewDustDirect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 32 * Main.rand.NextFloatDirection(), 0, 0, DustID.SilverFlame).noGravity = true;

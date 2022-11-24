@@ -3,7 +3,7 @@ using CCMod.Common.ModSystems;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-
+using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -62,12 +62,6 @@ namespace CCMod.Content.Items.Weapons.Magic
             direction = -direction;
 
             velocity = position.DirectionTo(Main.MouseWorld) * Item.shootSpeed;
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            CCModUtils.NewDustCircular(position, 10, DustID.SilverFlame, 16, minMaxSpeedFromCenter: (6, 6), dustAction: d => d.noGravity = true);
-            return true;
         }
     }
 }
