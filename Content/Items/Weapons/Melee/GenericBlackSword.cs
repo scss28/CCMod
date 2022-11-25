@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using System.IO;
 using Terraria.ID;
 using CCMod.Common;
@@ -27,7 +28,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             Item.width = 40;
             Item.height = 40;
 
-            Item.damage = 20;
+            Item.damage = 27;
             Item.knockBack = 2f;
             Item.useTime = 14;
             Item.useAnimation = 14;
@@ -91,30 +92,31 @@ namespace CCMod.Content.Items.Weapons.Melee
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 50;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
-
         public void Behavior(Player player, float offSet, int Counter, float Distance = 150)
         {
             Vector2 Rotate = new Vector2(1, 1).RotatedBy(MathHelper.ToRadians(offSet));
             Vector2 NewCenter = player.Center + Rotate.RotatedBy(Counter * 0.01f) * Distance;
             Projectile.Center = NewCenter;
-            if (Counter == 0)
+            if (Counter == 0 && Check2 == 0)
             {
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 90; i++)
                 {
-                    Vector2 randomSpeed = Main.rand.NextVector2Circular(1, 1);
-                    Dust.NewDust(NewCenter, 0, 0, DustID.Smoke, randomSpeed.X, randomSpeed.Y, 0, Color.Black, Main.rand.NextFloat(2f, 2.5f));
+                    Vector2 randomSpeed = Main.rand.NextVector2CircularEdge(5, 5);
+                    int dust = Dust.NewDust(NewCenter, 0, 0, DustID.Granite, randomSpeed.X, randomSpeed.Y, 0, Color.Black, 1f);
+                    Main.dust[dust].noGravity = true;
                 }
+                Check2++;
             }
         }
         int Counter = 0;
         int Multiplier = 1;
         int Check = 0;
+        int Check2 = 0;
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
             if (player.GetModPlayer<GenericBlackSwordPlayer>().YouGotHitLMAO)
             {
-                
                 Projectile.ai[0]++;
                 if (Projectile.ai[0] == 150)
                 {
@@ -124,15 +126,19 @@ namespace CCMod.Content.Items.Weapons.Melee
                     float distance = 1500;
 
                     NPC closestNPC = FindClosestNPC(distance);
-                    if (closestNPC != null || Check == 0)
+                    if (closestNPC != null && Check == 0)
                     {
-                        Projectile.damage *= 3;
+                        Projectile.damage *= 5;
                         Projectile.velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 10f;
                         Projectile.timeLeft = 100;
                         Check++;
                     }
+                    Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
                 }
-                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+                else
+                {
+                    Projectile.rotation =  MathHelper.PiOver4 + (Main.MouseWorld - Projectile.Center).SafeNormalize(Vector2.UnitX).ToRotation();
+                }
             }
             else
             {
@@ -164,10 +170,22 @@ namespace CCMod.Content.Items.Weapons.Melee
                     Projectile.velocity = Vector2.Zero;
                     Projectile.ai[0]++;
                 }
+                if (Main.rand.NextBool(3))
+                {
+                    int dust = Dust.NewDust(Projectile.position, 10, 10, DustID.t_Granite, 0, 0, 0, Color.Black, Main.rand.NextFloat(.8f, 1f));
+                    Main.dust[dust].noGravity = true;
+                }
                 Projectile.rotation = MathHelper.PiOver4 + MathHelper.ToRadians(72 * Multiplier) - MathHelper.ToRadians(Counter);
                 Behavior(player, 72 * Multiplier, Counter);
-                if (Counter == MathHelper.TwoPi * 100 + 1) { Counter = 1; }
-                Counter++;
+                if (Math.Abs(Counter) == MathHelper.TwoPi * 100 + 1) { Counter = 1; }
+                if (player.direction == 1)
+                {
+                    Counter++;
+                }
+                else
+                {
+                    Counter--;
+                }
             }
         }
 
@@ -206,10 +224,10 @@ namespace CCMod.Content.Items.Weapons.Melee
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 32; i++)
+            for (int i = 0; i < 40; i++)
             {
-                Vector2 randomSpeed = Main.rand.NextVector2Circular(3, 3);
-                Dust.NewDust(Projectile.position, 0, 0, DustID.Smoke, randomSpeed.X, randomSpeed.Y, 0, Color.Black, Main.rand.NextFloat(1.4f, 1.9f));
+                Vector2 randomSpeed = Main.rand.NextVector2CircularEdge(3, 3);
+                Dust.NewDust(Projectile.position, 0, 0, DustID.t_Granite, randomSpeed.X, randomSpeed.Y, 0, Color.Black, Main.rand.NextFloat(1f, 1.25f));
             }
         }
 
@@ -279,8 +297,12 @@ namespace CCMod.Content.Items.Weapons.Melee
                         Projectile.velocity.Y = -10;
                     }
                 }
+                else
+                {
+                    Projectile.Kill();
+                }
             }
-            int dust = Dust.NewDust(Projectile.Center, 5, 5, DustID.t_Granite, 0, 0, 0, Color.Black, Main.rand.NextFloat(1.55f, 2f));
+            int dust = Dust.NewDust(Projectile.Center, 5, 5, DustID.t_Granite, 0, 0, 0, Color.Black, Main.rand.NextFloat(1f, 1.5f));
             Main.dust[dust].noGravity = true;
         }
 
@@ -328,27 +350,29 @@ namespace CCMod.Content.Items.Weapons.Melee
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
+
+            Vector2 BetterTop = new Vector2(Projectile.Center.X, Projectile.Center.Y - Projectile.height * 0.5f);
+            Dust.NewDust(BetterTop, Projectile.width, Projectile.height, DustID.t_Granite, Projectile.velocity.X, 0, 0, Color.Black, Main.rand.NextFloat(0.55f, 1f));
+
+            if (Main.rand.NextBool(20))
+            {
+                Vector2 circle = Main.rand.NextVector2Circular(50, 50);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + circle, Vector2.Zero, ModContent.ProjectileType<GenericBlackSwordProjectile>(), (int)(Projectile.damage * .5f), 0, Projectile.owner);
+            }
         }
         public override void Kill(int timeLeft)
         {
             Vector2 BetterTop = new Vector2(Projectile.Center.X, Projectile.Center.Y - Projectile.height * 0.5f);
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 20; i++)
             {
-                int dust = Dust.NewDust(BetterTop, Projectile.width, Projectile.height, DustID.t_Granite, 0, 0, 0, Color.Black, Main.rand.NextFloat(2.25f, 2.75f));
-                Main.dust[dust].noGravity = true;
+               Dust.NewDust(BetterTop, Projectile.width, Projectile.height, DustID.t_Granite, Projectile.velocity.X, 0, 0, Color.Black, Main.rand.NextFloat(0.5f, 1f));
             }
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Player player = Main.player[Projectile.owner];
-                player.GetModPlayer<GenericBlackSwordPlayer>().VoidCount++;
-            
+            player.GetModPlayer<GenericBlackSwordPlayer>().VoidCount++;
             target.immune[Projectile.owner] = 7;
-            for (int i = 0; i < player.GetModPlayer<GenericBlackSwordPlayer>().VoidCount/4 + 1; i++)
-            {
-                Vector2 RanVel = Main.rand.NextVector2CircularEdge(10, 10);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, RanVel, ModContent.ProjectileType<GenericBlackSwordProjectile>(), Projectile.damage, 0, Projectile.owner);
-            }
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -385,18 +409,36 @@ namespace CCMod.Content.Items.Weapons.Melee
             {
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<GenericBlackSwordProjectileBlade>()] < 1)
                 {
+                    int PostUpdateDamage = Player.HeldItem.damage;
+                    if(HowDIDyouFigureThatOut >= 1 || Player.name == "LowQualityTrashXinim")
+                    {
+                        PostUpdateDamage *= 10;
+                    }
                     YouGotHitLMAO = false;
                     for (int i = 0; i < 5; i++)
                     {
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, new Vector2(1 + i, 1 + i), ModContent.ProjectileType<GenericBlackSwordProjectileBlade>(), Player.HeldItem.damage, 0, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, new Vector2(1 + i, 0), ModContent.ProjectileType<GenericBlackSwordProjectileBlade>(), PostUpdateDamage, 0, Player.whoAmI);
                     }
+                }
+            }
+        }
+
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        {
+            if(proj.type == ModContent.ProjectileType<GenericBlackSwordProjectile>() || proj.type == ModContent.ProjectileType<GenericBlackSwordProjectileBlade>())
+            {
+                for (int i = 0; i < 35; i++)
+                {
+                    Vector2 randomSpeed = Main.rand.NextVector2CircularEdge(10, 10);
+                    int dust = Dust.NewDust(proj.position, 0, 0, DustID.t_Granite, randomSpeed.X, randomSpeed.Y, 0, Color.Black, 1.2f);
+                    Main.dust[dust].noGravity = true;
                 }
             }
         }
 
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
         {
-            if (HowDIDyouFigureThatOut >= 1 || Player.name == "LowQualityTrashXinim") { damage += 10; }
+            if (HowDIDyouFigureThatOut >= 1 || Player.name == "LowQualityTrashXinim") { damage *= 10; }
         }
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
