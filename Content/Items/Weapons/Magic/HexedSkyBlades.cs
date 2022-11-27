@@ -63,5 +63,7 @@ namespace CCMod.Content.Items.Weapons.Magic
 
             velocity = position.DirectionTo(Main.MouseWorld) * Item.shootSpeed;
         }
+
+        
     }
 }

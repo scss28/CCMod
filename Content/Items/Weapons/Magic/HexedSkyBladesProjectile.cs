@@ -22,14 +22,15 @@ namespace CCMod.Content.Items.Weapons.Magic
             Projectile.aiStyle = -1;
 
             Projectile.DamageType = DamageClass.Magic;
-
             Projectile.penetrate = -1;
 
             Projectile.friendly = true;
-            Projectile.hostile = true;
+            Projectile.hostile = false;
 
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
+
+            Projectile.netImportant = true;
 
             Projectile.timeLeft = 500;
 
@@ -37,14 +38,20 @@ namespace CCMod.Content.Items.Weapons.Magic
             Projectile.localNPCHitCooldown = 999;
         }
 
-        public override void OnSpawn(IEntitySource source)
-        {
-            Projectile.rotation = Projectile.velocity.ToRotation();
-            CCModUtils.NewDustCircular(Projectile.Center, 10, DustID.SilverFlame, 16, minMaxSpeedFromCenter: (6, 6), dustAction: d => d.noGravity = true);
-        }
-
+        bool onSpawnStuff = true;
         public override void AI()
         {
+            if (onSpawnStuff)
+            {
+                onSpawnStuff = false;
+
+                Projectile.rotation = Projectile.velocity.ToRotation();
+                Projectile.hostile = true;
+                Projectile.netUpdate = true;
+
+                CCModUtils.NewDustCircular(Projectile.Center, 10, DustID.SilverFlame, 16, minMaxSpeedFromCenter: (6, 6), dustAction: d => d.noGravity = true);
+            }
+
             Projectile.velocity *= 0.87f;
 
             float lSQ = Projectile.velocity.LengthSquared();
