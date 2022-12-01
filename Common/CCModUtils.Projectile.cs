@@ -12,9 +12,9 @@ namespace CCMod.Common
 {
     public static partial class CCModUtils
     {
-        public static void EasyDraw(this Projectile projectile, Color color, Vector2? position = null, float? rotation = null, Vector2? origin = null, float? scale = null, SpriteEffects? spriteEffects = null)
+        public static void EasyDraw(this Projectile projectile, Color color, Vector2? position = null, float? rotation = null, Vector2? origin = null, float? scale = null, SpriteEffects? spriteEffects = null, Texture2D altTex = null)
         {
-            Texture2D tex = TextureAssets.Projectile[projectile.type].Value;
+            Texture2D tex = altTex ?? TextureAssets.Projectile[projectile.type].Value;
 
             int frameHeight = tex.Height / Main.projFrames[projectile.type];
             Rectangle rect = new Rectangle(0, frameHeight * projectile.frame, tex.Width, frameHeight);
@@ -23,7 +23,7 @@ namespace CCMod.Common
                 tex,
                 (position ?? projectile.Center) - Main.screenPosition,
                 rect,
-                color * ((255f - Math.Clamp(projectile.alpha, 0, 255)) / Math.Clamp(projectile.alpha, 1, 255)),
+                color * ((255f - Math.Clamp(projectile.alpha, 0, 255)) / 255f),
                 rotation ?? projectile.rotation,
                 origin ?? (rect.Size() * 0.5f),
                 scale ?? projectile.scale,
@@ -32,9 +32,9 @@ namespace CCMod.Common
                 );
         }
 
-        public static void EasyDrawAfterImage(this Projectile projectile, Color? color = null, Vector2[] oldPos = null, Vector2? origin = null, SpriteEffects? spriteEffects = null)
+        public static void EasyDrawAfterImage(this Projectile projectile, Color? color = null, Vector2[] oldPos = null, Vector2? origin = null, SpriteEffects? spriteEffects = null, Texture2D altTex = null)
         {
-            Texture2D tex = TextureAssets.Projectile[projectile.type].Value;
+            Texture2D tex = altTex ?? TextureAssets.Projectile[projectile.type].Value;
 
             int frameHeight = tex.Height / Main.projFrames[projectile.type];
             Rectangle rect = new Rectangle(0, frameHeight * projectile.frame, tex.Width, frameHeight);
