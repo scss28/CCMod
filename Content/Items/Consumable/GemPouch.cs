@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CCMod.Common;
+using CCMod.Common.ModSystems;
+using System;
 using System.Collections.Generic;
 
 using Terraria;
@@ -8,12 +10,30 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Consumable
 {
-    public class GemPouch : ModItem
+    public class GemPouch : ModItem, IMadeBy, IChestItem
     {
+        public string CodedBy => "sucss";
+
+        public string SpritedBy => "RockyStan";
+
+        public int ChestTypeChestItem => 21;
+
+        public int ChestStyleChestItem => 1;
+
+        public int StackChestItem => 1;
+
+        public bool ShouldSpawnChestItem => Main.rand.NextBool(4);
+
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("Right click to open");
+        }
+
         public override void SetDefaults()
         {
             Item.width = 25;
             Item.height = 25;
+            Item.rare = ItemRarityID.Green;
             Item.maxStack = 99;
         }
 
@@ -23,7 +43,7 @@ namespace CCMod.Content.Items.Consumable
         }
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            /*
+            /* dont ask .______.
             itemLoot.Add(
                 ItemDropRule.AlwaysAtleastOneSuccess(
                     ItemDropRule.Common(ItemID.Emerald, 5, 1, 20),

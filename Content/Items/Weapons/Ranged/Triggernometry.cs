@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-
+using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -19,13 +19,18 @@ namespace CCMod.Content.Items.Weapons.Ranged
 
         public string SpritedBy => "Pick";
 
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault($"[c/{Color.YellowGreen.Hex3()}:Redirects bullets with a ruler for bonus damage]");
+        }
+
         public override void SetDefaults()
         {
             Item.width = 46;
             Item.height = 46;
 
             Item.crit = 7;
-            Item.damage = 17;
+            Item.damage = 14;
             Item.knockBack = 4f;
             Item.DamageType = DamageClass.Ranged;
 
@@ -43,7 +48,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
 
             Item.shoot = ModContent.ProjectileType<TriggernometryHeldProj>();
             Item.useAmmo = AmmoID.Bullet;
-            Item.shootSpeed = 16f;
+            Item.shootSpeed = 21f;
             Item.noUseGraphic = true;
         }
 
@@ -81,6 +86,23 @@ namespace CCMod.Content.Items.Weapons.Ranged
                     player.whoAmI
                     );
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.IllegalGunParts)
+                .AddIngredient(ItemID.Musket)
+                .AddIngredient(ItemID.Ruler)
+                .AddTile(TileID.Anvils)
+                .Register();
+
+            CreateRecipe()
+                .AddIngredient(ItemID.IllegalGunParts)
+                .AddIngredient(ItemID.FlintlockPistol)
+                .AddIngredient(ItemID.Ruler)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
     }
 
     public class TriggernometryHeldProj : ModProjectile
@@ -116,13 +138,6 @@ namespace CCMod.Content.Items.Weapons.Ranged
                 Projectile.knockBack,
                 Player.whoAmI
                 );
-
-            CCModUtils.NewDustCircular(muzzlePos, 0.2f, d => Main.rand.NextFromList(DustID.TreasureSparkle, DustID.Smoke, DustID.YellowTorch), Main.rand.Next(7, 14), 0, (5, 8), d =>
-            {
-                d.noGravity = true;
-                d.scale = Main.rand.NextFloat(0.2f, 1.4f);
-                d.velocity = directionToMouse.RotatedByRandom(MathHelper.PiOver4 * 0.125f) * Main.rand.NextFloat(8, 25);
-            });
         }
 
         void UpdateCenterRot()
@@ -134,6 +149,8 @@ namespace CCMod.Content.Items.Weapons.Ranged
 
             Projectile.Center += directionToMouse.RotatedBy(-MathHelper.PiOver2 * Player.direction) * 10;
             directionToMouse = Projectile.Center.DirectionTo(Main.MouseWorld);
+
+            Projectile.netUpdate = true;
         }
 
         Vector2 directionToMouse;
@@ -148,15 +165,37 @@ namespace CCMod.Content.Items.Weapons.Ranged
 
             Player.heldProj = Projectile.whoAmI;
 
-            if (recoil < 0)
-                recoil += 10;
+            if (Player.whoAmI == Main.myPlayer)
+                UpdateCenterRot();
 
-            UpdateCenterRot();
+            if (recoil < 0)
+            {
+                Vector2 muzzlePos = Projectile.Center + directionToMouse * 40;
+
+                CCModUtils.NewDustCircular(muzzlePos, 0.2f, d => Main.rand.NextFromList(DustID.TreasureSparkle, DustID.Smoke, DustID.YellowTorch), Main.rand.Next(7, 14), 0, (5, 8), d =>
+                {
+                    d.noGravity = true;
+                    d.scale = Main.rand.NextFloat(0.2f, 1.4f);
+                    d.velocity = directionToMouse.RotatedByRandom(MathHelper.PiOver4 * 0.125f) * Main.rand.NextFloat(8, 25);
+                });
+
+                recoil += 10;
+            }
 
             Projectile.rotation = directionToMouse.ToRotation() - recoil * 0.04f * Player.direction;
             Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
 
             recoil *= 0.85f;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.WriteVector2(directionToMouse);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            directionToMouse = reader.ReadVector2();
         }
 
         public override bool ShouldUpdatePosition() => false;
@@ -196,6 +235,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
             Projectile.hostile = false;
             Projectile.timeLeft = 2;
             Projectile.extraUpdates = 10;
+            Projectile.netImportant = true;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -205,11 +245,24 @@ namespace CCMod.Content.Items.Weapons.Ranged
 
         Player Player => Main.player[Projectile.owner];
         ref float Dir => ref Projectile.ai[0];
-        float alphaHit;
+        ref float alphaHit => ref Projectile.ai[1];
+        bool spawnImpactDust;
         public override void AI()
         {
             if (Player.HeldItem.type == ModContent.ItemType<Triggernometry>())
                 Projectile.timeLeft = 2;
+
+            if (spawnImpactDust)
+            {
+                CCModUtils.NewDustCircular(Projectile.Center, 4, DustID.Pixie, Main.rand.Next(4, 7), 0, (2, 5), d =>
+                {
+                    d.noGravity = true;
+                    d.scale = Main.rand.NextFloat(0.6f, 1.2f);
+                    d.velocity = -Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4 * Dir).RotatedByRandom(MathHelper.Pi * 0.3) * Main.rand.NextFloat(3, 13);
+                });
+
+                spawnImpactDust = false;
+            }
 
             if (Main.myPlayer == Player.whoAmI)
             {
@@ -224,10 +277,11 @@ namespace CCMod.Content.Items.Weapons.Ranged
                     Dir *= -1;
                 }
 
+                alphaHit *= 0.997f;
+
                 Projectile.netUpdate = true;
             }
 
-            
             float len = 55;
             float thicc = 350;
             Vector2 dirRot = (Projectile.rotation + MathHelper.PiOver2).ToRotationVector2();
@@ -237,30 +291,38 @@ namespace CCMod.Content.Items.Weapons.Ranged
             float sqToRuler = Projectile.Center.DistanceSQ(Player.Center);
             foreach (Projectile proj in Main.projectile)
             {
-                if (proj.active && 
-                    proj.owner == Projectile.owner && 
-                    proj.TryGetGlobalProjectile(out RulerKingBullet rulerKingBullet) && 
-                    rulerKingBullet.RulerShot && 
+                if (proj.active &&
+                    proj.owner == Projectile.owner &&
+                    proj.TryGetGlobalProjectile(out RulerKingBullet rulerKingBullet) &&
+                    rulerKingBullet.RulerShot &&
                     Collision.CheckAABBvLineCollision(proj.TopLeft + proj.velocity * proj.extraUpdates, proj.Size, start, end, thicc, ref x) /*(proj.Center + proj.velocity * (1 + proj.extraUpdates)).DistanceSQ(Player.Center) >= sqToRuler*/)
                 {
                     alphaHit = 5f;
 
-                    proj.velocity = proj.velocity.RotatedBy(Dir * -MathHelper.PiOver2);
+                    proj.velocity = (Projectile.rotation + -Dir * MathHelper.PiOver2).ToRotationVector2() * proj.velocity.Length();
                     proj.Center = Projectile.Center;
-                    proj.damage *= 2;
+                    proj.damage = (int)(proj.damage * 1.75f);
+                    proj.netUpdate = true;
+                    proj.netUpdate2 = true;
 
-                    CCModUtils.NewDustCircular(Projectile.Center, 4, DustID.Pixie, Main.rand.Next(4, 7), 0, (2, 5), d => 
-                    { 
-                        d.noGravity = true; 
-                        d.scale = Main.rand.NextFloat(0.6f, 1.2f); 
-                        d.velocity = -Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4 * Dir).RotatedByRandom(MathHelper.Pi * 0.3) * Main.rand.NextFloat(3, 13); 
-                    });
+                    spawnImpactDust = true;
+                    Projectile.netUpdate2 = true;
 
                     rulerKingBullet.RulerShot = false;
                 }
             }
+        }
 
-            alphaHit *= 0.997f;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Projectile.rotation);
+            writer.Write(spawnImpactDust);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Projectile.rotation = reader.ReadSingle();
+            spawnImpactDust = reader.ReadBoolean();
         }
 
         public override bool PreDraw(ref Color lightColor)

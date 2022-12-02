@@ -24,7 +24,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 
         public override void SetStaticDefaults()
         {
-			
+			Tooltip.SetDefault($"[c/{Color.LightSteelBlue.Hex3()}:Spits out 5 grenades that blow up after a while]\n[c/{(Color.LightSteelBlue * 0.9f).Hex3()}:Use Right Click to shoot and detonate the explosives for higher damage]");
         }
 
         public override void SetDefaults()
@@ -38,7 +38,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 			Item.noMelee = true;
 			Item.autoReuse = true;
 			Item.value = Item.buyPrice(gold: 1);
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Blue;
 			Item.shoot = ModContent.ProjectileType<ExperimentalExplosiveLauncherHeldProj>();
 			Item.shootSpeed = 0;
 			Item.channel = true;
@@ -76,6 +76,18 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 
 			return false;
         }
+
+        public override void AddRecipes()
+        {
+			CreateRecipe()
+			.AddIngredient(ItemID.SoulofFright, 5)
+			.AddIngredient(ItemID.HallowedBar, 12)
+			.AddIngredient(ItemID.Wire, 25)
+			.AddIngredient(ItemID.Grenade, 4)
+			.AddIngredient(ItemID.IllegalGunParts)
+			.AddTile(TileID.MythrilAnvil)
+			.Register();
+		}
     }
 
 	public class ExperimentalExplosiveLauncherHeldProj : ModProjectile, IDrawAdditive
