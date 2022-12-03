@@ -7,5 +7,6 @@ namespace CCMod.Common
     {
         public string CodedBy { get; }
         public string SpritedBy { get; }
+        public string ConceptBy => CodedBy;
     }
 }

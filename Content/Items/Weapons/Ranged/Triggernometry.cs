@@ -16,8 +16,8 @@ namespace CCMod.Content.Items.Weapons.Ranged
     public class Triggernometry : ModItem, IMadeBy
     {
         public string CodedBy => "sucss";
-
         public string SpritedBy => "Pick";
+        public string ConceptBy => "Pick, sucss";
 
         public override void SetStaticDefaults()
         {

@@ -14,6 +14,7 @@ namespace CCMod.Common.GlobalItems
 
         Color spriterColor;
         Color coderColor;
+        Color conceptColor;
         public override void SetDefaults(Item item)
         {
             if (item.ModItem is not null && item.ModItem.Mod is CCMod)
@@ -23,6 +24,7 @@ namespace CCMod.Common.GlobalItems
 
                 spriterColor = RandomColorWithBrightness(0.95f);
                 coderColor = RandomColorWithBrightness(0.95f);
+                conceptColor = RandomColorWithBrightness(0.95f);
             }
         }
 
@@ -48,11 +50,13 @@ namespace CCMod.Common.GlobalItems
 
                 string spriterName = "?";
                 string coderName = "?";
+                string conceptName = "?";
 
                 if (item.ModItem is IMadeBy madeByItem)
                 {
                     spriterName = madeByItem.SpritedBy == string.Empty ? "?" : madeByItem.SpritedBy;
                     coderName = madeByItem.CodedBy == string.Empty ? "?" : madeByItem.CodedBy;
+                    conceptName = madeByItem.ConceptBy == string.Empty ? "?" : madeByItem.ConceptBy;
                 }
 
                 string spriterHex = spriterColor.Hex3();
@@ -61,12 +65,16 @@ namespace CCMod.Common.GlobalItems
                 string coderHex = coderColor.Hex3();
                 string coderHexDarker = (coderColor * 0.75f).Hex3();
 
+                string conceptHex = conceptColor.Hex3();
+                string conceptHexDarker = (conceptColor * 0.75f).Hex3();
+
                 tooltips.Add(
                         new TooltipLine(
                             Mod,
                             "CreditLine",
                             $"∘ [c/{spriterHexDarker}:Sprited by:] [c/{spriterHex}:{spriterName}]\n" +
-                            $"∘ [c/{coderHexDarker}:Coded by:] [c/{coderHex}:{coderName}]"
+                            $"∘ [c/{coderHexDarker}:Coded by:] [c/{coderHex}:{coderName}]\n" +
+                            $"∘ [c/{conceptHexDarker}:Concept by:] [c/{conceptHex}:{conceptName}]"
                         )
                         );
             }

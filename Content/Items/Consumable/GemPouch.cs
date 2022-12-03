@@ -16,6 +16,8 @@ namespace CCMod.Content.Items.Consumable
 
         public string SpritedBy => "RockyStan";
 
+        public string ConceptBy => "RockyStan";
+
         public int ChestTypeChestItem => 21;
 
         public int ChestStyleChestItem => 1;
