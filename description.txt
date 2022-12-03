@@ -3,9 +3,10 @@ https://discord.gg/K9Azrm69Qz
 Community Content Mod otherwise known as CC MOD is a Terraria mod created from community submitted sprites and code.
 
 How to submit your content:
-To submit sprites that are going to be used by programmers to create Items, NPCs etc. head over to our discord ( linked above )
+To submit sprites and code that are going to be used to create Items, NPCs etc. head over to our discord ( linked above )
 
 
-currently there is : 
+currently there is :
 
-- 4 weapons
+- 6 weapons
+- 1 item
