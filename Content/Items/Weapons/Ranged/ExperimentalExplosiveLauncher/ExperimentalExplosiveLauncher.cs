@@ -250,7 +250,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 			return false;
         }
 
-        public void DrawAdditive()
+        public void DrawAdditive(Color lightColor)
         {
 			Texture2D bloomTex = ModContent.Request<Texture2D>("CCMod/Assets/FX/Glow2").Value;
 			Main.spriteBatch.Draw(
@@ -337,7 +337,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 
 		public override bool PreDraw(ref Color lightColor) => false;
 
-        public void DrawAdditive()
+        public void DrawAdditive(Color lightColor)
         {
 			float alpha = 0.85f;
 			Projectile.EasyDrawAfterImage(Color.MediumPurple * alpha);
@@ -422,13 +422,13 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 			});
 			CCModUtils.NewDustCircular(Projectile.Center, 50, d => Main.rand.NextFromList(DustID.Shadowflame, DustID.Smoke, DustID.Electric), Main.rand.Next(5, 9), Main.rand.NextFloat(), (6, 9), d => d.noGravity = true);
 
-			Main.LocalPlayer.GetModPlayer<CCModPlayer>().ShakeScreen(7, 0.75f);
+			Main.LocalPlayer.GetModPlayer<CCScreenShakePlayer>().ShakeScreen(7, 0.75f);
         }
 
 		float blinkProg = 0f;
 		float blinkDiff = 30;
 		float blinkTimer = 30;
-		public void DrawAdditive()
+		public void DrawAdditive(Color lightColor)
         {
 			Texture2D bloomTex = ModContent.Request<Texture2D>("CCMod/Assets/FX/Glow2").Value;
 			Main.spriteBatch.Draw(

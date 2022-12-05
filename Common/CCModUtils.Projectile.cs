@@ -10,8 +10,13 @@ using Terraria.ModLoader;
 
 namespace CCMod.Common
 {
-    public static partial class CCModUtils
+    partial class CCModUtils
     {
+        /// <summary>
+        /// Array segment skipping the last projectile in <see cref="Main.projectile"/>.<br/>
+        /// Can be used in <see langword="foreach"/> statements.
+        /// </summary>
+        public static ArraySegment<Projectile> ProjectileForeach => new ArraySegment<Projectile>(Main.projectile, 0, Main.projectile.Length - 1);
         public static void EasyDraw(this Projectile projectile, Color color, Vector2? position = null, float? rotation = null, Vector2? origin = null, float? scale = null, SpriteEffects? spriteEffects = null, Texture2D altTex = null)
         {
             Texture2D tex = altTex ?? TextureAssets.Projectile[projectile.type].Value;

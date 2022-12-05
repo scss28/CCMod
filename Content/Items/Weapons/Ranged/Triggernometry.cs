@@ -335,7 +335,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
             return false;
         }
 
-        public void DrawAdditive()
+        public void DrawAdditive(Color lightColor)
         {
             
         }

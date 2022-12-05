@@ -9,6 +9,7 @@ using Terraria.ObjectData;
 
 namespace CCMod.Common.ModSystems
 {
+    /// <summary>After worldgen, it fills chests with items that implement <see cref="IChestItem"/></summary>
     public class ChestItemSystem : ModSystem
     {
         public override void PostWorldGen()
@@ -33,10 +34,10 @@ namespace CCMod.Common.ModSystems
             }
         }
 
-        static void SpawnItemInChest(Chest chest, int itemType, int stack)
+        static bool SpawnItemInChest(Chest chest, int itemType, int stack)
         {
             int itemStack = stack;
-            int chestIndex = Array.FindIndex(chest.item, item => item.type == ItemID.None);
+            int chestIndex = Array.FindIndex(chest.item, item => item.IsAir);
 
             if (chestIndex >= 0)
             {
@@ -44,12 +45,18 @@ namespace CCMod.Common.ModSystems
 
                 item.SetDefaults(itemType);
                 item.stack = Math.Clamp(itemStack, 1, item.maxStack);
+                return true;
             }
+            return false;
         }
     }
 
+    /// <summary>Represents an item that can spawn in chests after worldgen.<br />
+    /// <see cref="ModItem"/>s can implement this interface.
+    /// </summary>
     public interface IChestItem
     {
+        /// <summary>The item's type</summary>
         public int ChestTypeChestItem { get; }
         public int ChestStyleChestItem { get; }
         public int StackChestItem { get; }

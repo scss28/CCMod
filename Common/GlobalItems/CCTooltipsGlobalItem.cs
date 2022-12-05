@@ -8,7 +8,8 @@ using Terraria.ModLoader;
 
 namespace CCMod.Common.GlobalItems
 {
-    public class CCModItem : GlobalItem
+    /// <summary>Adds tooltips to <see cref="ModItem"/>s that implement <see cref="IMadeBy"/>.</summary>
+    public class CCTooltipsGlobalItem : GlobalItem
     {
         public override bool InstancePerEntity => true;
 
@@ -76,7 +77,7 @@ namespace CCMod.Common.GlobalItems
                             $"∘ [c/{coderHexDarker}:Coded by:] [c/{coderHex}:{coderName}]\n" +
                             $"∘ [c/{conceptHexDarker}:Concept by:] [c/{conceptHex}:{conceptName}]"
                         )
-                        );
+                );
             }
         }
     }

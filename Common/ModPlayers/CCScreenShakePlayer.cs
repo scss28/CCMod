@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace CCMod.Common.ModPlayers
 {
-    public class CCModPlayer : ModPlayer
+    public class CCScreenShakePlayer : ModPlayer
     {
         float screenShakeStrenght;
         float screenShakeDesolve;
