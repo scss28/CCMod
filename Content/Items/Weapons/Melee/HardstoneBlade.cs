@@ -11,11 +11,11 @@ namespace CCMod.Content.Items.Weapons.Melee
     public class HardstoneBlade : ModItem, IMadeBy
     {
         public string CodedBy => "sucss";
-        public string SpritedBy => "_person, AnUncreativeName";
+        public string SpritedBy => "person_, AnUncreativeName";
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("[c/4bad5e:Shoots stone projectiles that have a tiny chance to drop emeralds on hit.]");
+            Tooltip.SetDefault("[c/4bad5e:Shoots stone chunks that have a tiny chance to drop emeralds on hit.]");
         }
 
         public override void SetDefaults()

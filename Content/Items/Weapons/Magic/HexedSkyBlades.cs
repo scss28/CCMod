@@ -3,7 +3,7 @@ using CCMod.Common.ModSystems;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-
+using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -14,8 +14,7 @@ namespace CCMod.Content.Items.Weapons.Magic
     public class HexedSkyBlades : ModItem, IMadeBy, IChestItem
     {
         public string CodedBy => "sucss";
-        public string SpritedBy => "_person";
-
+        public string SpritedBy => "person_";
         public int ChestTypeChestItem => 21; // 21 is one of the chest types
         public int ChestStyleChestItem => 13; // 13 is the skyware chest style
         public int StackChestItem => 1;
@@ -24,7 +23,7 @@ namespace CCMod.Content.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hexed Skyblades");
-            Tooltip.SetDefault("[c/6dc7d1:The blades deal heavy damage] [c/e84343:but can also hurt the player...]\n[c/f3fa4f:Do you believe in \'gravity\'?]");
+            Tooltip.SetDefault("[c/6dc7d1:The blades deal heavy damage] [c/e84343:but can also hurt the player...]\n[c/f3fa4f:\"Do you believe in \'gravity\'?\"]");
         }
 
         public override void SetDefaults()
@@ -33,7 +32,7 @@ namespace CCMod.Content.Items.Weapons.Magic
             Item.height = 46;
 
             Item.crit = 7;
-            Item.damage = 17;
+            Item.damage = 18;
             Item.knockBack = 4f;
             Item.DamageType = DamageClass.Magic;
 
@@ -46,7 +45,7 @@ namespace CCMod.Content.Items.Weapons.Magic
 
             Item.noMelee = true;
 
-            Item.value = Item.sellPrice(0, 0, 60, 0);
+            Item.value = Item.sellPrice(0, 0, 65, 0);
             Item.rare = ItemRarityID.Blue;
 
             Item.shoot = ModContent.ProjectileType<HexedSkyBladesProjectile>();
@@ -64,10 +63,6 @@ namespace CCMod.Content.Items.Weapons.Magic
             velocity = position.DirectionTo(Main.MouseWorld) * Item.shootSpeed;
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            CCModUtils.NewDustCircular(position, 10, DustID.SilverFlame, 16, minMaxSpeedFromCenter: (6, 6), dustAction: d => d.noGravity = true);
-            return true;
-        }
+        
     }
 }

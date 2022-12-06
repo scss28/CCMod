@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-
+using System.IO;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -33,7 +33,6 @@ namespace CCMod.Content.Items.Weapons.Melee
 
             Projectile.timeLeft = 9999;
 
-            Projectile.netImportant = true;
             Projectile.extraUpdates = 2;
 
             Projectile.usesLocalNPCImmunity = true;
@@ -47,7 +46,6 @@ namespace CCMod.Content.Items.Weapons.Melee
         {
             if (Player.ItemAnimationEndingOrEnded || Player.HeldItem.type != ModContent.ItemType<HardstoneBlade>())
             {
-                swingDirection = -swingDirection;
                 Projectile.Kill();
                 return;
             }
@@ -59,7 +57,10 @@ namespace CCMod.Content.Items.Weapons.Melee
 
             // Now we want to get the rotation of direction to mouse but we only want this to happen for the Player holding this projectile.
             if (Main.myPlayer == Player.whoAmI)
+            {
                 RotationToMouse = Player.Center.DirectionTo(Main.MouseWorld).ToRotation();
+                Projectile.netUpdate = true;
+            }
 
             // Here using some math we calculate the current rotation of the projectile depending on the progress of the item animation (you can use desmos.com or any other graphing calculator to visualise how this is gonna behave).
             // ps. Player.itemAnimation goes down from Player.itemAnimationMax to 0 during item use.
@@ -74,7 +75,7 @@ namespace CCMod.Content.Items.Weapons.Melee
                 Projectile.NewProjectile(
                     Projectile.GetSource_FromAI(), 
                     Projectile.Center + Projectile.rotation.ToRotationVector2() * (6 + swordLength * Main.rand.NextFloat()),
-                    Player.Center.DirectionTo(Main.MouseWorld) * 13,
+                    Player.Center.DirectionTo(Main.MouseWorld) * 9 * Main.rand.NextFloat(0.85f, 1f),
                     ModContent.ProjectileType<HardstoneBladeProjectile>(),
                     (int)(Projectile.damage * 0.3f),
                     0.5f,
@@ -82,8 +83,13 @@ namespace CCMod.Content.Items.Weapons.Melee
                     );
         }
 
+        public override void Kill(int timeLeft)
+        {
+            swingDirection = -swingDirection;
+        }
+
         // Sword length in this case is around the lenght of the diagonal of the texture.
-        const float swordLength = 78f;
+        const float swordLength = 82f;
         const float swordWidth = 12f;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
