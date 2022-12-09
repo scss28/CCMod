@@ -40,6 +40,8 @@ namespace CCMod.Content.Items.Weapons.Melee
             Item.autoReuse = true;
             Item.scale = 1.5f;
             Item.shoot = ModContent.ProjectileType<GenericBlackSwordSlash>();
+
+            Item.UseSound = SoundID.Item1;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -438,7 +440,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
         {
-            if (HowDIDyouFigureThatOut >= 1 || Player.name == "LowQualityTrashXinim") { damage *= 10; }
+            if ((HowDIDyouFigureThatOut >= 1 || Player.name == "LowQualityTrashXinim")&& item.type == ModContent.ItemType<GenericBlackSword>()) { damage *= 10; }
         }
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
@@ -514,7 +516,7 @@ namespace CCMod.Content.Items.Weapons.Melee
         public override void OnKill(NPC npc)
         {
             Player player = Main.LocalPlayer;
-            if (player.poisoned && player.ZoneOldOneArmy && player.ZoneGraveyard && player.ZoneUnderworldHeight && npc.type == NPCID.KingSlime && Main.masterMode)
+            if (player.ZoneGraveyard && player.ZoneUnderworldHeight && npc.type == NPCID.KingSlime && Main.masterMode)
             {
                 player.GetModPlayer<GenericBlackSwordPlayer>().HowDIDyouFigureThatOut++;//Don't ask me why this is set to int, bool didn't work
             }
@@ -527,9 +529,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             if (!info.IsInSimulation)
             {
                 return 
-                    info.player.poisoned 
-                    && info.player.ZoneOldOneArmy 
-                    && info.player.ZoneGraveyard 
+                    info.player.ZoneGraveyard 
                     && info.player.ZoneUnderworldHeight 
                     && info.IsMasterMode;
             }
