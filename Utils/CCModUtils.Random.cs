@@ -9,7 +9,7 @@ using Terraria.Utilities;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace CCMod.Common
+namespace CCMod.Utils
 {
     partial class CCModUtils
     {

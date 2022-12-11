@@ -4,9 +4,10 @@ using Terraria.ModLoader;
 
 using CCMod.Common;
 using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
+using CCMod.Content.Projectiles;
+using CCMod.Utils;
 
 namespace CCMod.Content.Items.Weapons.Ranged
 {
@@ -52,7 +53,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            position = position.PositionOFFSET(velocity, 75);   
+            position = position.OffsetPosition(velocity, 75);   
         }
     }
 

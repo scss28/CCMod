@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 #nullable enable
-namespace CCMod.Common
+namespace CCMod.Utils
 {
     public static partial class CCModUtils
     {
@@ -32,7 +32,7 @@ namespace CCMod.Common
             return Vector2.Lerp(q1, q2, ammount);
         }
 
-        #region Normalization and finite checks
+        #region Normalization and Finite Checks
 
         /// <summary>Normalizes the given <paramref name="vector"/> with fast inverse square root.</summary>
         /// <param name="vector">The vector to normalize</param>
@@ -118,7 +118,6 @@ namespace CCMod.Common
             => float.IsFinite(vector.X) && float.IsFinite(vector.Y) ? vector : Vector2.One;
 
         #endregion // Normalization and finite checks
-
 
         public static Vector2[] GenerateCircularPositions(this Vector2 center, float radius, int amount = 8, float rotation = 0)
         {
