@@ -10,6 +10,7 @@ using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CCMod.Utils;
 
 namespace CCMod.Content.Items.Weapons.Ranged
 {

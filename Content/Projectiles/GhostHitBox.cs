@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace CCMod.Content.Items.Weapons.Ranged
+namespace CCMod.Content.Projectiles
 {
     internal class GhostHitBox : ModProjectile
     {

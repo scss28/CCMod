@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CCMod.Common
+namespace CCMod.Utils
 {
     partial class CCModUtils
     {

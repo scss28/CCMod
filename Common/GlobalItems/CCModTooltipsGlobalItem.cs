@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 namespace CCMod.Common.GlobalItems
 {
     /// <summary>Adds tooltips to <see cref="ModItem"/>s that implement <see cref="IMadeBy"/>.</summary>
-    public class CCTooltipsGlobalItem : GlobalItem
+    public class CCModTooltipsGlobalItem : GlobalItem
     {
         public override bool InstancePerEntity => true;
 
@@ -73,9 +73,9 @@ namespace CCMod.Common.GlobalItems
                         new TooltipLine(
                             Mod,
                             "CreditLine",
-                            $"∘ [c/{spriterHexDarker}:Sprited by:] [c/{spriterHex}:{spriterName}]\n" +
-                            $"∘ [c/{coderHexDarker}:Coded by:] [c/{coderHex}:{coderName}]\n" +
-                            $"∘ [c/{conceptHexDarker}:Concept by:] [c/{conceptHex}:{conceptName}]"
+                            $"[i:{ItemID.Paintbrush}] [c/{spriterHexDarker}:Sprited by:] [c/{spriterHex}:{spriterName}]\n" +
+                            $"[i:{ItemID.Wrench}] [c/{coderHexDarker}:Coded by:] [c/{coderHex}:{coderName}]\n" +
+                            $"[i:{ItemID.Cog}] [c/{conceptHexDarker}:Concept by:] [c/{conceptHex}:{conceptName}]"
                         )
                 );
             }
