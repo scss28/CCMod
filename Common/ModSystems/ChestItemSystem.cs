@@ -28,8 +28,8 @@ namespace CCMod.Common.ModSystems
                 {
                     IChestItem chestItem = modItem as IChestItem;
                     Tile chestTile = Main.tile[chest.x, chest.y];
-                    if (chestItem.ShouldSpawnChestItem && chestTile.TileType == chestItem.ChestTypeChestItem && TileObjectData.GetTileStyle(chestTile) == chestItem.ChestStyleChestItem)
-                        SpawnItemInChest(chest, modItem.Type, chestItem.StackChestItem);
+                    if (chestItem.SpawnChance && chestTile.TileType == chestItem.ChestType && TileObjectData.GetTileStyle(chestTile) == chestItem.ChestStyle)
+                        SpawnItemInChest(chest, modItem.Type, chestItem.Stack);
                 }
             }
         }
@@ -57,9 +57,9 @@ namespace CCMod.Common.ModSystems
     public interface IChestItem
     {
         /// <summary>The item's type</summary>
-        public int ChestTypeChestItem { get; }
-        public int ChestStyleChestItem { get; }
-        public int StackChestItem { get; }
-        public bool ShouldSpawnChestItem { get; }
+        public int ChestType { get; }
+        public int ChestStyle { get; }
+        public int Stack { get; }
+        public bool SpawnChance { get; }
     }
 }

@@ -18,13 +18,13 @@ namespace CCMod.Content.Items.Consumable
 
         public string ConceptBy => "RockyStan";
 
-        public int ChestTypeChestItem => 21;
+        public int ChestType => 21;
 
-        public int ChestStyleChestItem => 1;
+        public int ChestStyle => 1;
 
-        public int StackChestItem => 1;
+        public int Stack => 1;
 
-        public bool ShouldSpawnChestItem => Main.rand.NextBool(4);
+        public bool SpawnChance => Main.rand.NextBool(4);
 
         public override void SetStaticDefaults()
         {

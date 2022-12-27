@@ -93,7 +93,6 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 
 	public class ExperimentalExplosiveLauncherHeldProj : ModProjectile, IDrawAdditive
     {
-        public override string Texture => base.Texture.Replace("HeldProj", string.Empty);
         Player Player => Main.player[Projectile.owner];
 		
         public override void SetDefaults()
@@ -206,7 +205,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 		public override bool PreDraw(ref Color lightColor)
         {
 			Texture2D texture = TextureAssets.Projectile[Type].Value;
-			Rectangle rect = new Rectangle(0, 22 * (int)AttackType, 46, 20 + 6 * (int)AttackType);
+			Rectangle rect = new Rectangle(0, 22 * (int)AttackType, 46, 22 + 4 * (int)AttackType);
 			Vector2 normOrigin = (AttackType == 0 ? new Vector2(6, 11) : new Vector2(13, 6)) - Vector2.UnitX * (15 + recoil.X * Player.direction);
 
 			Main.spriteBatch.Draw(
@@ -423,7 +422,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 			});
 			CCModUtils.NewDustCircular(Projectile.Center, 50, d => Main.rand.NextFromList(DustID.Shadowflame, DustID.Smoke, DustID.Electric), Main.rand.Next(5, 9), Main.rand.NextFloat(), (6, 9), d => d.noGravity = true);
 
-			Main.LocalPlayer.GetModPlayer<CCScreenShakePlayer>().ShakeScreen(7, 0.75f);
+			Main.LocalPlayer.GetModPlayer<ScreenShakePlayer>().ShakeScreen(7, 0.75f);
         }
 
 		float blinkProg = 0f;
