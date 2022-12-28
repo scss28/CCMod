@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.ItemDropRules;
 using System.Collections.Generic;
+using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
@@ -22,6 +23,7 @@ namespace CCMod.Content.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("it is just a generic sword");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
         {

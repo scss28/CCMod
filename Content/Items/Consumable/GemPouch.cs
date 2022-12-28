@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,6 +30,7 @@ namespace CCMod.Content.Items.Consumable
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Right click to open");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 4;
         }
 
         public override void SetDefaults()

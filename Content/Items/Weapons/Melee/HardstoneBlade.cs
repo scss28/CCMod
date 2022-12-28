@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.DataStructures;
 using Terraria.Audio;
+using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
@@ -21,6 +22,7 @@ namespace CCMod.Content.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("[c/4bad5e:Shoots stone chunks that have a tiny chance to drop emeralds on hit.]");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

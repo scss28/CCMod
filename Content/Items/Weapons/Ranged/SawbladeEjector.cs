@@ -11,6 +11,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Creative;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,6 +35,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
         {
             Tooltip.SetDefault($"[c/{Color.Lerp(Color.Red, Color.Gray, 0.6f).Hex3()}:Hold LMB to charge up a sawblade]\n" +
                 $"[c/{Color.Lerp(Color.Red, Color.LightSteelBlue, 0.6f).Hex3()}:Charge speed scales with attack speed]");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
