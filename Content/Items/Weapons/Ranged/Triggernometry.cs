@@ -11,6 +11,7 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using CCMod.Utils;
+using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Ranged
 {
@@ -23,6 +24,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault($"[c/{Color.YellowGreen.Hex3()}:Redirects bullets with a ruler for bonus damage]");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

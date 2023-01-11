@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.ItemDropRules;
 using System.Collections.Generic;
+using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
@@ -22,6 +23,7 @@ namespace CCMod.Content.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("it is just a generic sword");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
         {
@@ -492,23 +494,27 @@ namespace CCMod.Content.Items.Weapons.Melee
             VoidCount = 0;
             YouGotHitLMAO = true;
         }
+
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
             ModPacket packet = Mod.GetPacket();
-            packet.Write((byte)GenericBlackSwordNetCodeHandle.MessageType.ItIsMEXinim);
+            packet.Write((byte)CCMod.MessageType.GenericBlackSwordPlayer);
             packet.Write((byte)Player.whoAmI);
             packet.Write(HowDIDyouFigureThatOut);
             packet.Send(toWho, fromWho);
         }
+
         public void ReceivePlayerSync(BinaryReader reader)
         {
             HowDIDyouFigureThatOut = reader.ReadByte();
         }
+
         public override void clientClone(ModPlayer clientClone)
         {
             GenericBlackSwordPlayer clone = clientClone as GenericBlackSwordPlayer;
             clone.HowDIDyouFigureThatOut = HowDIDyouFigureThatOut;
         }
+
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             GenericBlackSwordPlayer clone = clientPlayer as GenericBlackSwordPlayer;
@@ -516,6 +522,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             if (HowDIDyouFigureThatOut != clone.HowDIDyouFigureThatOut)
                 SyncPlayer(toWho: -1, fromWho: Main.myPlayer, newPlayer: false);
         }
+
         public override void SaveData(TagCompound tag)
         {
             tag["HowDIDyouFigureThatOut"] = HowDIDyouFigureThatOut;
@@ -526,27 +533,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             HowDIDyouFigureThatOut = (int)tag["HowDIDyouFigureThatOut"];
         }
     }
-    partial class GenericBlackSwordNetCodeHandle
-    {
-        internal enum MessageType : byte
-        {
-            ItIsMEXinim
-        }
-        public void HandlePacket(BinaryReader reader, int whoAmI)
-        {
-            MessageType msgType = (MessageType)reader.ReadByte();
-            if (msgType == MessageType.ItIsMEXinim)
-            {
-                byte playernumber = reader.ReadByte();
-                GenericBlackSwordPlayer HowDIDyouTho = Main.player[playernumber].GetModPlayer<GenericBlackSwordPlayer>();
-                HowDIDyouTho.HowDIDyouFigureThatOut = reader.ReadInt32();
-                if (Main.netMode == NetmodeID.Server)
-                {
-                    HowDIDyouTho.SyncPlayer(-1, whoAmI, false);
-                }
-            }
-        }
-    }
+
     public class DropGenericBlackSword : GlobalNPC
     {
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
@@ -566,6 +553,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             }
         }
     }
+
     public class GenericBlackSwordConditionRule : IItemDropRuleCondition
     {
         public bool CanDrop(DropAttemptInfo info)
@@ -579,6 +567,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             }
             return false;
         }
+
         public bool CanShowItemDropInUI() => true;
         public string GetConditionDescription() => "Beat Eye of Cthulhu in master mode and with some other conditions";
     }

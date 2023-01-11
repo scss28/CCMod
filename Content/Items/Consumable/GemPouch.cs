@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,17 +19,18 @@ namespace CCMod.Content.Items.Consumable
 
         public string ConceptBy => "RockyStan";
 
-        public int ChestTypeChestItem => 21;
+        public int ChestType => 21;
 
-        public int ChestStyleChestItem => 1;
+        public int ChestStyle => 1;
 
-        public int StackChestItem => 1;
+        public int Stack => 1;
 
-        public bool ShouldSpawnChestItem => Main.rand.NextBool(4);
+        public bool SpawnChance => Main.rand.NextBool(4);
 
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Right click to open");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 4;
         }
 
         public override void SetDefaults()

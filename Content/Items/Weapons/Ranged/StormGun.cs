@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using CCMod.Content.Projectiles;
 using CCMod.Utils;
+using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Ranged
 {
@@ -21,6 +22,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
         {
             Tooltip.SetDefault("Doesn't require mana to operate, but would be a lot more powerful" +
                 "\nDamage only scale up whenever you have more than 150 max mana");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,15 +17,16 @@ namespace CCMod.Content.Items.Weapons.Magic
     {
         public string CodedBy => "sucss";
         public string SpritedBy => "person_";
-        public int ChestTypeChestItem => 21; // 21 is one of the chest types
-        public int ChestStyleChestItem => 13; // 13 is the skyware chest style
-        public int StackChestItem => 1;
-        public bool ShouldSpawnChestItem => Main.rand.NextBool(3); // 1/3 chance to spawn in the chest
+        public int ChestType => 21; // 21 is one of the chest types
+        public int ChestStyle => 13; // 13 is the skyware chest style
+        public int Stack => 1;
+        public bool SpawnChance => Main.rand.NextBool(3); // 1/3 chance to spawn in the chest
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hexed Skyblades");
             Tooltip.SetDefault("[c/6dc7d1:The blades deal heavy damage] [c/e84343:but can also hurt the player...]\n[c/f3fa4f:\"Do you believe in \'gravity\'?\"]");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
