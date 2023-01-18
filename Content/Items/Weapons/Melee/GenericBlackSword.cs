@@ -84,7 +84,6 @@ namespace CCMod.Content.Items.Weapons.Melee
 
             int dust = Dust.NewDust(hitboxCenter, hitbox.Width, hitbox.Height, DustID.t_Granite, 0, 0, 0, Color.Black, Main.rand.NextFloat(1.25f, 1.75f));
             Main.dust[dust].noGravity = true;
-
         }
     }
 

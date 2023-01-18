@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace CCMod.Utils
 {
@@ -36,7 +37,6 @@ namespace CCMod.Utils
                 0
                 );
         }
-
         public static void EasyDrawAfterImage(this Projectile projectile, Color? color = null, Vector2[] oldPos = null, Vector2? origin = null, SpriteEffects? spriteEffects = null, Texture2D altTex = null)
         {
             Texture2D tex = altTex ?? TextureAssets.Projectile[projectile.type].Value;
@@ -62,5 +62,124 @@ namespace CCMod.Utils
                 );
             }
         }
+
+        public static Vector2 LimitingVelocity(this Vector2 velocity, float limited)
+        {
+            velocity.X = Math.Clamp(velocity.X, -limited, limited);
+            velocity.Y = Math.Clamp(velocity.Y, -limited, limited);
+            return velocity;
+        }
+
+        public static bool IsVelocityLimitReached(this Vector2 velocity, float limited)
+        {
+            if (Math.Abs(Math.Clamp(velocity.X, -limited, limited)) >= limited) return true;
+            if (Math.Abs(Math.Clamp(velocity.Y, -limited, limited)) >= limited) return true;
+            return false;
+        }
+
+        public static Vector2 Vector2EvenlyDistribute(this Vector2 Vec2ToRotate, float ProjectileAmount, float rotation, int i)
+        {
+            if (ProjectileAmount > 1)
+            {
+                rotation = MathHelper.ToRadians(rotation);
+                return Vec2ToRotate.RotatedBy(MathHelper.Lerp(rotation * .5f, rotation * -.5f, i / (ProjectileAmount - 1f)));
+            }
+            return Vec2ToRotate;
+        }
+
+        /// <summary>
+        /// This method will go through and look for active enemy, recommend to not over use this
+        /// </summary>
+        /// <param name="position">current position of a object</param>
+        /// <param name="distance">the search distance</param>
+        /// <returns>True or False</returns>
+        public static bool LookforHostileNPC(Vector2 position, float distance)
+        {
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                if (Main.npc[i] != null && Main.npc[i].active)
+                {
+                    if (CompareSquareFloatValue(position, Main.npc[i].Center,distance))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// This method will go through and look for active enemy, recommend to not over use this
+        /// </summary>
+        /// <param name="position">current position of a object</param>
+        /// <param name="distance">the search distance</param>
+        /// <param name="enemyPos">enemy position, if no enemy is found then return Vector2(0,0)</param>
+        /// <returns>True or false and enemy position</returns>
+        public static bool LookforHostileNPC(Vector2 position, float distance, out Vector2 enemyPos)
+        {
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                if (Main.npc[i] != null && Main.npc[i].active)
+                {
+                    if (CompareSquareFloatValue(position, Main.npc[i].Center, distance))
+                    {
+                        enemyPos = Main.npc[i].Center;
+                        return true;
+                    }
+                }
+            }
+            enemyPos = Vector2.Zero;
+            return false;
+        }
+
+        /// <summary>
+        /// Go through all projectiles in Main.projectile[] <br/>
+        /// Check if the projectile is the type that you looking for<br/>
+        /// and if it's position to parameter position is smaller than parameter distance
+        /// </summary>
+        /// <param name="position">position want to check</param>
+        /// <param name="type">type of projectile</param>
+        /// <param name="distance">distance to check</param>
+        /// <returns>Return true if it's type equal type you look for and its distance to the position is smaller than distance<br/>
+        /// otherwise return false</returns>
+        public static bool LookForProjectile(Vector2 position, int type, float distance)
+        {
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                if (Main.projectile[i] != null
+                    && Main.projectile[i].active
+                    && Main.projectile[i].type == type)
+                {
+                    if (CompareSquareFloatValue(Main.projectile[i].Center,position,distance)) return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Go through all projectiles in Main.projectile[] <br/>
+        /// Look for itself and check if there are 2 of its that the distance between 2 of its is smaller than parameter distance
+        /// </summary>
+        /// <param name="projectile"></param>
+        /// <param name="distance">distance to check</param>
+        /// <param name="amountofItself">amount require</param>
+        /// <returns>Return true if there are more than 2 and its distance to the other it is smaller than distance<br/>
+        /// otherwise return false</returns>
+        public static bool LookForProjectile(this Projectile projectile, float distance, int amountofItself = 0)
+        {
+            int count = 0;
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                if (Main.projectile[i] != null
+                    && Main.projectile[i].active
+                    && Main.projectile[i].type == projectile.type)
+                {
+                    if (CompareSquareFloatValue(projectile.Center, Main.projectile[i].Center, distance)) count++;
+                    if (count >= 2 + amountofItself) return true;
+                }
+            }
+            return false;
+        }
+        private static bool CompareSquareFloatValue(Vector2 pos1, Vector2 pos2, float Distance) => Vector2.DistanceSquared(pos1, pos2) <= Distance*Distance;
     }
 }
