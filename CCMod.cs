@@ -1,5 +1,6 @@
 using CCMod.Common;
 using CCMod.Content.Items.Weapons.Melee;
+using System;
 using System.IO;
 using Terraria;
 using Terraria.ID;
@@ -48,5 +49,6 @@ namespace CCMod
 
             }
         }
+
     }
 }
