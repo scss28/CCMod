@@ -17,8 +17,8 @@ namespace CCMod.Content.Items.Weapons.Melee
     internal class GenericBlackSword : ModItem,IMadeBy
     {
         public string CodedBy => "LowQualityTrash-Xinim";
-
         public string SpritedBy => "LowQualityTrash-Xinim";
+        public string ConceptBy => "LowQualityTrash-Xinim";
 
         public override void SetStaticDefaults()
         {

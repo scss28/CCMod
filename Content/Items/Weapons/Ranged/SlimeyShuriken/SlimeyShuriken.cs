@@ -6,9 +6,9 @@ using CCMod.Common;
 using System.Collections.Generic;
 using CCMod.Common.ProjectileAI;
 
-namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
+namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
 {
-    internal class SlimeyThrowingKnife : ModItem, IMadeBy
+    internal class SlimeyShuriken : ModItem, IMadeBy
     {
         public string CodedBy => "LowQualityTrash-Xinim";
         public string SpritedBy => "PixelGaming";
@@ -20,19 +20,19 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
         }
         public override void SetDefaults()
         {
-            Item.width = 10;
+            Item.width = 24;
             Item.height = 24;
 
-            Item.useTime = 25;
-            Item.useAnimation = 25;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
 
-            Item.damage = 21;
-            Item.knockBack = 2f;
+            Item.damage = 19;
+            Item.knockBack = .5f;
 
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemRarityID.Green;
 
-            Item.shoot = ModContent.ProjectileType<SlimeyThrowingKnifeP>();
-            Item.shootSpeed = 19;
+            Item.shoot = ModContent.ProjectileType<SlimeyShurikenP>();
+            Item.shootSpeed = 17;
 
             Item.useStyle = ItemUseStyleID.Swing;
             Item.DamageType = DamageClass.Ranged;
@@ -51,24 +51,22 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
         }
     }
 
-    class SlimeyThrowingKnifeP : ModProjectile
+    class SlimeyShurikenP : ModProjectile
     {
-        public override string Texture => "CCMod/Content/Items/Weapons/Ranged/SlimeyThrowingknife/SlimeyThrowingKnife";
+        public override string Texture => "CCMod/Content/Items/Weapons/Ranged/SlimeyShuriken/SlimeyShuriken";
 
         public override void SetDefaults()
         {
-            Projectile.width = 10;
-            Projectile.height = 10;
+            Projectile.width = 12;
+            Projectile.height = 12;
             Projectile.penetrate = 3;
-            Projectile.timeLeft = 150;
+            Projectile.timeLeft = 175;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
-            DrawOffsetX = -2;
-            DrawOriginOffsetY = -10;
             Projectile.DamageType = DamageClass.Ranged;
         }
 
-        int timerBeforeRotate = 0;
+        int TimerBeforeGravity = 0;
         bool hittile = false;
         public override void AI()
         {
@@ -81,10 +79,10 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
                 TargetWhoAmI++;
                 if (!hittile)
                 {
-                    Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-                    Projectile.velocity.Y += timerBeforeRotate >= 10 && Projectile.velocity.Y <= 18 ? .75f : 0;
+                    Projectile.rotation = MathHelper.ToRadians(TimerBeforeGravity * TimerBeforeGravity * .3f);
+                    Projectile.velocity.Y += TimerBeforeGravity >= 10 && Projectile.velocity.Y <= 18 ? .75f : 0;
                 }
-                timerBeforeRotate++;
+                TimerBeforeGravity++;
             }
         }
 
@@ -103,15 +101,6 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
         }
         public override void Kill(int timeLeft)
         {
-            Vector2 KnifeTip = (Projectile.rotation + MathHelper.PiOver2).ToRotationVector2() * 7;
-            Vector2 KnifeHandle = -KnifeTip;
-            for (int i = 0; i < 15; i++)
-            {
-                int dust = Dust.NewDust(Projectile.Center + KnifeTip * Main.rand.NextFloat(), 0, 0, DustID.t_Slime, 0, 0, 125, new Color(0, 153, 255, 125), Main.rand.NextFloat(.75f, 1));
-                int dust2 = Dust.NewDust(Projectile.Center + KnifeHandle * Main.rand.NextFloat(), 0, 0, DustID.t_Slime, 0, 0, 125, new Color(0, 153, 255, 125), Main.rand.NextFloat(.75f, 1));
-                Main.dust[dust].noGravity = true; Main.dust[dust2].noGravity = true;
-                Main.dust[dust].velocity = new Vector2(Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(1.5f)); Main.dust[dust2].velocity = new Vector2(Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(1.5f));
-            }
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {

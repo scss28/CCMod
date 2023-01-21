@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
+using log4net.Core;
 
 namespace CCMod.Common.ProjectileAI
 {
@@ -36,11 +37,11 @@ namespace CCMod.Common.ProjectileAI
         /// <param name="behindNPCsAndTiles"></param>
         /// <param name="behindNPCs"></param>
         /// <param name="behindProjectiles"></param>
-        public static void DrawBehindNPCandOtherProj(this Projectile projectile, bool isStickingToTarget, int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles)
+        public static void DrawBehindNPCandOtherProj(this Projectile projectile, bool isStickingToTarget, int TargetWhoAmI, int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles)
         {
-            if (isStickingToTarget) // or if(isStickingToTarget) since we made that helper method.
+            if (isStickingToTarget)
             {
-                int npcIndex = (int)projectile.ai[1];
+                int npcIndex = TargetWhoAmI;
                 if (npcIndex >= 0 && npcIndex < 200 && Main.npc[npcIndex].active)
                 {
                     if (Main.npc[npcIndex].behindTiles)
@@ -51,7 +52,6 @@ namespace CCMod.Common.ProjectileAI
                     {
                         behindNPCs.Add(index);
                     }
-
                     return;
                 }
             }
@@ -75,8 +75,8 @@ namespace CCMod.Common.ProjectileAI
             return projHitbox.Intersects(targetHitbox);
         }
 
-        private const int MAX_STICKY_JAVELINS = 6; // This is the max. amount of javelins being able to attach
-        private static readonly Point[] _stickingJavelins = new Point[MAX_STICKY_JAVELINS]; // The point array holding for sticking javelins
+        private const int MAXPROJSTICK = 50; // This is the max. amount of proj being able to attach
+        public static readonly Point[] StickyProjectile = new Point[MAXPROJSTICK]; // The point array holding for sticking proj
         /// <summary>
         /// add this to ModifyHitNPC
         /// </summary>
@@ -90,7 +90,8 @@ namespace CCMod.Common.ProjectileAI
             TargetWhoAmI = target.whoAmI; // Set the target whoAmI
             projectile.velocity = (target.Center - projectile.Center) * 0.75f; // Change velocity based on delta center of targets (difference between entity centers)
             projectile.netUpdate = true; // netUpdate this javelin
-            projectile.damage = 0; 
+            projectile.damage = 0;
+            projectile.timeLeft = 300;
             // It is recommended to split your code into separate methods to keep code clean and clear
             projectile.UpdateStickyJavelins(IsStickingToTarget, TargetWhoAmI ,target);
         }
@@ -108,27 +109,28 @@ namespace CCMod.Common.ProjectileAI
                     && IsStickingToTarget // the previous pattern match allows us to use our properties
                     && TargetWhoAmI == target.whoAmI)
                 {
-                    _stickingJavelins[currentJavelinIndex++] = new Point(i, currentProjectile.timeLeft); // Add the current projectile's index and timeleft to the point array
-                    if (currentJavelinIndex >= _stickingJavelins.Length)  // If the javelin's index is bigger than or equal to the point array's length, break
+                    StickyProjectile[currentJavelinIndex++] = new Point(i, currentProjectile.timeLeft); // Add the current projectile's index and timeleft to the point array
+                    if (currentJavelinIndex >= StickyProjectile.Length)  // If the javelin's index is bigger than or equal to the point array's length, break
                         break;
                 }
             }
-
-            // Remove the oldest sticky javelin if we exceeded the maximum
-            if (currentJavelinIndex >= MAX_STICKY_JAVELINS)
+            CleanUpStickyProjectile(currentJavelinIndex);
+        }
+        public static void CleanUpStickyProjectile(int index = 0)
+        {
+            if(index >= MAXPROJSTICK)
             {
                 int oldJavelinIndex = 0;
                 // Loop our point array
-                for (int i = 1; i < MAX_STICKY_JAVELINS; i++)
+                for (int i = 1; i < MAXPROJSTICK; i++)
                 {
                     // Remove the already existing javelin if it's timeLeft value (which is the Y value in our point array) is smaller than the new javelin's timeLeft
-                    if (_stickingJavelins[i].Y < _stickingJavelins[oldJavelinIndex].Y)
+                    if (StickyProjectile[i].Y < StickyProjectile[oldJavelinIndex].Y)
                     {
                         oldJavelinIndex = i; // Remember the index of the removed javelin
                     }
                 }
-                // Remember that the X value in our point array was equal to the index of that javelin, so it's used here to kill it.
-                Main.projectile[_stickingJavelins[oldJavelinIndex].X].Kill();
+                Main.projectile[StickyProjectile[oldJavelinIndex].X].Kill();
             }
         }
         /// <summary>

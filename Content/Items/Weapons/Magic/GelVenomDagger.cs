@@ -17,6 +17,7 @@ namespace CCMod.Content.Items.Weapons.Magic
     {
         public string CodedBy => "LowQualityTrash-Xinim";
         public string SpritedBy => "PixelGaming";
+        public string ConceptBy => "LowQualityTrash-Xinim & PixelGaming";
 
         public override void SetStaticDefaults()
         {
@@ -144,7 +145,7 @@ namespace CCMod.Content.Items.Weapons.Magic
         {
             if (Projectile.ai[0] == 1)
             {
-                Projectile.DrawBehindNPCandOtherProj(IsStickingToTarget, index, behindNPCsAndTiles, behindNPCs, behindProjectiles);
+                Projectile.DrawBehindNPCandOtherProj(IsStickingToTarget, TargetWhoAmI, index, behindNPCsAndTiles, behindNPCs, behindProjectiles);
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
