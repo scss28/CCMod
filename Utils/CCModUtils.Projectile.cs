@@ -63,6 +63,19 @@ namespace CCMod.Utils
             }
         }
 
+        //LowQualityTrash-Xinim Code start
+        public static void EvenEasierDrawAfterImage(this Projectile projectile, Color lightColor, float ScaleAccordinglyToLength = 0)
+        {
+            Main.instance.LoadProjectile(projectile.type);
+            Texture2D texture = TextureAssets.Projectile[projectile.type].Value;
+            Vector2 origin = new Vector2(texture.Width * 0.5f, projectile.height * 0.5f);
+            for (int k = 0; k < projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + origin + new Vector2(0f, projectile.gfxOffY);
+                Color color = projectile.GetAlpha(lightColor) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, projectile.rotation, origin, projectile.scale - k * ScaleAccordinglyToLength, SpriteEffects.None, 0);
+            }
+        }
         public static Vector2 LimitingVelocity(this Vector2 velocity, float limited)
         {
             velocity.X = Math.Clamp(velocity.X, -limited, limited);
@@ -181,5 +194,6 @@ namespace CCMod.Utils
             return false;
         }
         private static bool CompareSquareFloatValue(Vector2 pos1, Vector2 pos2, float Distance) => Vector2.DistanceSquared(pos1, pos2) <= Distance*Distance;
+        //LowQualityTrash-Xinim Code end
     }
 }
