@@ -26,13 +26,13 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
             Item.useTime = 25;
             Item.useAnimation = 25;
 
-            Item.damage = 21;
+            Item.damage = 23;
             Item.knockBack = 2f;
 
             Item.rare = ItemRarityID.Pink;
 
             Item.shoot = ModContent.ProjectileType<SlimeyThrowingKnifeP>();
-            Item.shootSpeed = 19;
+            Item.shootSpeed = 23;
 
             Item.useStyle = ItemUseStyleID.Swing;
             Item.DamageType = DamageClass.Ranged;
@@ -82,7 +82,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
                 if (!hittile)
                 {
                     Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-                    Projectile.velocity.Y += timerBeforeRotate >= 10 && Projectile.velocity.Y <= 18 ? .75f : 0;
+                    Projectile.velocity.Y += timerBeforeRotate >= 10 && Projectile.velocity.Y <= 18 ? .65f : 0;
                 }
                 timerBeforeRotate++;
             }

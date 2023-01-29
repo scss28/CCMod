@@ -3,12 +3,9 @@ using Terraria.ID;
 using CCMod.Utils;
 using CCMod.Common;
 using Terraria.ModLoader;
-using Terraria.GameContent;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
@@ -18,7 +15,7 @@ namespace CCMod.Content.Items.Weapons.Melee
         public string SpritedBy => "razorxt";
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Sword made out of pure agony");
+            Tooltip.SetDefault("Sword made out of pure agony ... from the one who code it !");
         }
         public override void SetDefaults()
         {
@@ -28,13 +25,25 @@ namespace CCMod.Content.Items.Weapons.Melee
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ProjectileID.Ale;
         }
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 direction = new Vector2(70 * player.direction,0);
+            Vector2 direction = new Vector2(70 * player.direction, 0);
             for (int i = 0; i < 5; i++)
             {
-                Projectile.NewProjectile(Item.GetSource_FromThis(), position + direction * (i + 1) - new Vector2(0,20)
-                    , Vector2.Zero, ModContent.ProjectileType<SawboneSwordSpawnSpikeP>(), damage, knockback, player.whoAmI, i, player.direction);
+                if (player.altFunctionUse == 2)
+                {
+                    Projectile.NewProjectile(Item.GetSource_FromThis(), position + direction * (i + 1) - new Vector2(0, 20)
+                        , Vector2.Zero, ModContent.ProjectileType<SawboneSwordSpawnSpikeP>(), damage, knockback, player.whoAmI, i, 2);
+                }
+                else
+                {
+                    Projectile.NewProjectile(Item.GetSource_FromThis(), position + direction * (i + 1) - new Vector2(0, 20)
+                        , Vector2.Zero, ModContent.ProjectileType<SawboneSwordSpawnSpikeP>(), damage, knockback, player.whoAmI, i, player.direction);
+                }
             }
             return false;
         }
@@ -59,8 +68,8 @@ namespace CCMod.Content.Items.Weapons.Melee
         public override string Texture => "CCMod/Content/Items/Weapons/Melee/SawboneSword";
         public override void SetDefaults()
         {
-            Projectile.width = 30;
-            Projectile.height = 30;
+            Projectile.width = 10;
+            Projectile.height = 10;
             Projectile.penetrate = -1;
             Projectile.hide = true;
             Projectile.ignoreWater = true;
@@ -68,6 +77,15 @@ namespace CCMod.Content.Items.Weapons.Melee
         }
         int timer = 0;
         bool isAlreadyInTile = false;
+        public override bool PreAI()
+        {
+            if (timer == 0 && Projectile.ai[1] == 2)
+            {
+                Projectile.Kill();
+                return false;
+            }
+            return true;
+        }
         public override void AI()
         {
             if (timer >= 20 + 10 * Projectile.ai[0])
@@ -77,7 +95,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             }
             else
             {
-                if(Collision.SolidTiles(Projectile.position,Projectile.width,Projectile.height))
+                if (Collision.SolidTiles(Projectile.position, Projectile.width, Projectile.height))
                 {
                     isAlreadyInTile = true;
                 }
@@ -86,7 +104,23 @@ namespace CCMod.Content.Items.Weapons.Melee
         }
         public override void Kill(int timeLeft)
         {
-            if(isAlreadyInTile)
+            if (timer < 20)
+            {
+                float rotation = MathHelper.ToRadians(60);
+                Player player = Main.player[Projectile.owner];
+                for (int i = 0; i < 40; i++)
+                {
+                    int dust = Dust.NewDust(player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).RotatedBy(MathHelper.Lerp(rotation, -rotation, (Projectile.ai[0] + 1) / 5)), 0, 0, DustID.Blood, 0, 0, 0, default, Main.rand.NextFloat(1.3f, 2.35f));
+                    Main.dust[dust].velocity = Main.rand.NextVector2Circular(5, 5);
+                    Main.dust[dust].noGravity = true;
+                }
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(),
+                    player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).RotatedBy(MathHelper.Lerp(rotation, -rotation, (Projectile.ai[0]+1)/5)),
+                    Vector2.Zero, ModContent.ProjectileType<SawboneSwordP>(),
+                    Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]);
+                return;
+            }
+            if (isAlreadyInTile)
             {
                 return;
             }
@@ -124,26 +158,59 @@ namespace CCMod.Content.Items.Weapons.Melee
             Projectile.DamageType = DamageClass.Melee;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
-            Projectile.hide = true;
+            Projectile.hide = Projectile.ai[1] == 2 ? false : true;
             DrawOffsetX = -10;
         }
+        int timer = 0;
+        Vector2 DirectionTo;
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            behindNPCsAndTiles.Add(index);
+            if (Projectile.ai[1] != 2)
+            {
+                behindNPCsAndTiles.Add(index);
+            }
         }
         public override void AI()
         {
-            Projectile.velocity -= Projectile.velocity * .097f;
-            Projectile.spriteDirection = directionTo;
             int dust = Dust.NewDust(Projectile.Center + new Vector2(0, 20) + Main.rand.NextVector2Circular(20, 10), 0, 0, DustID.Blood, 0, 0, 0, default, Main.rand.NextFloat(1.25f, 2.1f));
             Main.dust[dust].noGravity = true;
-            Main.dust[dust].fadeIn = 1.5f;
+            if (Projectile.ai[1] == 2)
+            {
+                float AdditionalRotationValue = DirectionTo.X > 0 ? MathHelper.PiOver4 : MathHelper.PiOver2 + MathHelper.PiOver4;
+                Projectile.rotation = DirectionTo.ToRotation() + AdditionalRotationValue;
+                Projectile.spriteDirection = DirectionTo.X > 0 ? 1 : -1;
+                if (timer == (Projectile.ai[0] + 10) * 2)
+                {
+                    Projectile.tileCollide = true;
+                    Projectile.timeLeft = 50;
+                    Projectile.width = Projectile.height = 30;
+                    //Projectile.Hitbox = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, (int)(Projectile.position.X + 30), (int)(Projectile.position.Y + 30));
+                    Projectile.velocity = DirectionTo * 15f;
+                }
+                timer++;
+            }
+            else
+            {
+                Main.dust[dust].fadeIn = 1.5f;
+                Projectile.velocity -= Projectile.velocity * .097f;
+                Projectile.spriteDirection = directionTo;
+            }
 
         }
         int firstframe = 0;
         int directionTo = 1;
         public override bool PreAI()
         {
+            if (Projectile.ai[1] == 2)
+            {
+                if (firstframe == 0)
+                {
+                    DirectionTo = (Main.MouseWorld - Projectile.Center).SafeNormalize(Vector2.UnitX);
+                    Projectile.hide = false;
+                    firstframe++;
+                }
+                return true;
+            }
             if (firstframe == 0)
             {
                 directionTo = (int)Projectile.ai[1];
@@ -163,10 +230,21 @@ namespace CCMod.Content.Items.Weapons.Melee
         }
         public override void Kill(int timeLeft)
         {
+            Vector2 pos = new Vector2(0, 60);
+            if (Projectile.ai[1] == 2)
+            {
+                for (int i = 0; i < 15; i++)
+                {
+                    pos = Main.rand.NextVector2Circular(20, 20);
+                    Dust.NewDust(Projectile.Center + pos, 30, 60, DustID.Blood, 0, .5f, 0, Color.Red, Main.rand.NextFloat(1.25f, 1.75f));
+                    Dust.NewDust(Projectile.Center + pos, 30, 60, DustID.Bone, 0, .5f, 0, default, Main.rand.NextFloat(1f, 1.25f));
+                }
+                return;
+            }
             for (int i = 0; i < 15; i++)
             {
-                Dust.NewDust(Projectile.Center - new Vector2(0, 60), 30, 60, DustID.Blood, 0, .5f, 0, Color.Red, Main.rand.NextFloat(1.25f, 1.75f));
-                Dust.NewDust(Projectile.Center - new Vector2(0, 60), 30, 60, DustID.Bone, 0, .5f, 0, default, Main.rand.NextFloat(1f, 1.25f));
+                Dust.NewDust(Projectile.Center - pos, 30, 60, DustID.Blood, 0, .5f, 0, Color.Red, Main.rand.NextFloat(1.25f, 1.75f));
+                Dust.NewDust(Projectile.Center - pos, 30, 60, DustID.Bone, 0, .5f, 0, default, Main.rand.NextFloat(1f, 1.25f));
             }
         }
     }

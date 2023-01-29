@@ -21,7 +21,7 @@ namespace CCMod.Content.Items.Weapons.Magic
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("W.I.P");
+            Tooltip.SetDefault("Covered in gel and venom, making it somehow bouncier !");
         }
         public override void SetDefaults()
         {
@@ -31,7 +31,7 @@ namespace CCMod.Content.Items.Weapons.Magic
             Item.useTime = 14;
             Item.useAnimation = 14;
 
-            Item.damage = 57;
+            Item.damage = 59;
             Item.knockBack = 3f;
             Item.crit = 8;
 
@@ -192,6 +192,7 @@ namespace CCMod.Content.Items.Weapons.Magic
             Projectile.alpha = 255;
             Projectile.width = 20;
             Projectile.height = 20;
+            Projectile.light = .2f;
             Projectile.timeLeft = 300;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
@@ -237,14 +238,14 @@ namespace CCMod.Content.Items.Weapons.Magic
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity = Main.rand.NextVector2Circular(5, 5);
             }
-            float num = 15;
+            float num = 10;
             if (Projectile.ai[0] == 1)
             {
                 num *= 2;
             }
             for (int i = 0; i < num; i++)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Main.rand.NextVector2Circular(3, 3), ModContent.ProjectileType<ToxicDrop>(), (int)(Projectile.damage * .25f), 0, Projectile.owner, Projectile.ai[0]);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Main.rand.NextVector2Circular(3, 3), ModContent.ProjectileType<ToxicDrop>(), (int)(Projectile.damage * .5f), 0, Projectile.owner, Projectile.ai[0]);
             }
         }
     }
@@ -285,16 +286,7 @@ namespace CCMod.Content.Items.Weapons.Magic
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.instance.LoadProjectile(Projectile.type);
-            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-
-            Vector2 origin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
-            for (int k = 1; k < Projectile.oldPos.Length + 1; k++)
-            {
-                Vector2 drawPos = Projectile.oldPos[k - 1] - Main.screenPosition + origin + new Vector2(Projectile.gfxOffY);
-                Color color = new Color(170, 20, 200, Projectile.alpha);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0);
-            }
+            Projectile.EvenEasierDrawAfterImage(new Color(170, 20, 200, Projectile.alpha));
             return true;
         }
     }

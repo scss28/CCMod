@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using CCMod.Common;
 using System.Collections.Generic;
 using CCMod.Common.ProjectileAI;
+using Terraria.DataStructures;
 
 namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
 {
@@ -41,6 +42,11 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
             Item.noMelee = true;
             Item.autoReuse = true;
         }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,default, player.direction);
+            return false;
+        }
         public override void AddRecipes()
         {
             CreateRecipe(50)
@@ -57,8 +63,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
 
         public override void SetDefaults()
         {
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 24;
+            Projectile.height = 24;
             Projectile.penetrate = 3;
             Projectile.timeLeft = 175;
             Projectile.friendly = true;
@@ -79,8 +85,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
                 TargetWhoAmI++;
                 if (!hittile)
                 {
-                    Projectile.rotation = MathHelper.ToRadians(TimerBeforeGravity * TimerBeforeGravity * .3f);
-                    Projectile.velocity.Y += TimerBeforeGravity >= 10 && Projectile.velocity.Y <= 18 ? .75f : 0;
+                    Projectile.rotation = MathHelper.ToRadians(TimerBeforeGravity * TimerBeforeGravity * .3f * Projectile.ai[1]);
+                    Projectile.velocity.Y += TimerBeforeGravity >= 10 && Projectile.velocity.Y <= 18 ? 1f : 0;
                 }
                 TimerBeforeGravity++;
             }
@@ -98,9 +104,6 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
         {
             get => (int)ai2;
             set => ai2 = value;
-        }
-        public override void Kill(int timeLeft)
-        {
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
