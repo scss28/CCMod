@@ -21,7 +21,7 @@ namespace CCMod.Content.Items.Weapons.Melee
         {
             Item.width = 54;
             Item.height = 66;
-            Item.DefaultToSword(30, 15, 5, true);
+            Item.DefaultToSword(50, 15, 5, true);
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ProjectileID.Ale;
         }
@@ -34,15 +34,15 @@ namespace CCMod.Content.Items.Weapons.Melee
             Vector2 direction = new Vector2(70 * player.direction, 0);
             for (int i = 0; i < 5; i++)
             {
-                if (player.altFunctionUse == 2)
+                if (player.altFunctionUse == 2 && player.ownedProjectileCounts[ModContent.ProjectileType<SawboneSwordP>()] < 1)
                 {
                     Projectile.NewProjectile(Item.GetSource_FromThis(), position + direction * (i + 1) - new Vector2(0, 20)
                         , Vector2.Zero, ModContent.ProjectileType<SawboneSwordSpawnSpikeP>(), damage, knockback, player.whoAmI, i, 2);
                 }
-                else
+                else if(player.altFunctionUse != 2)
                 {
-                    Projectile.NewProjectile(Item.GetSource_FromThis(), position + direction * (i + 1) - new Vector2(0, 20)
-                        , Vector2.Zero, ModContent.ProjectileType<SawboneSwordSpawnSpikeP>(), damage, knockback, player.whoAmI, i, player.direction);
+                Projectile.NewProjectile(Item.GetSource_FromThis(), position + direction * (i + 1) - new Vector2(0, 20)
+                    , Vector2.Zero, ModContent.ProjectileType<SawboneSwordSpawnSpikeP>(), damage, knockback, player.whoAmI, i, player.direction);
                 }
             }
             return false;
@@ -115,7 +115,7 @@ namespace CCMod.Content.Items.Weapons.Melee
                     Main.dust[dust].noGravity = true;
                 }
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(),
-                    player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).RotatedBy(MathHelper.Lerp(rotation, -rotation, (Projectile.ai[0]+1)/5)),
+                    player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).RotatedBy(MathHelper.Lerp(rotation, -rotation, (Projectile.ai[0] + 1) / 5)),
                     Vector2.Zero, ModContent.ProjectileType<SawboneSwordP>(),
                     Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]);
                 return;
@@ -176,16 +176,25 @@ namespace CCMod.Content.Items.Weapons.Melee
             Main.dust[dust].noGravity = true;
             if (Projectile.ai[1] == 2)
             {
+                Player player = Main.player[Projectile.owner];
                 float AdditionalRotationValue = DirectionTo.X > 0 ? MathHelper.PiOver4 : MathHelper.PiOver2 + MathHelper.PiOver4;
                 Projectile.rotation = DirectionTo.ToRotation() + AdditionalRotationValue;
                 Projectile.spriteDirection = DirectionTo.X > 0 ? 1 : -1;
-                if (timer == (Projectile.ai[0] + 10) * 2)
+                if (timer >= (Projectile.ai[0] + 5) * 5)
                 {
-                    Projectile.tileCollide = true;
-                    Projectile.timeLeft = 50;
-                    Projectile.width = Projectile.height = 30;
+                    if (firstframe == 1)
+                    {
+                        Projectile.tileCollide = true;
+                        Projectile.penetrate = 3;
+                        Projectile.timeLeft = 50;
+                        firstframe++;
+                    }
                     //Projectile.Hitbox = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, (int)(Projectile.position.X + 30), (int)(Projectile.position.Y + 30));
-                    Projectile.velocity = DirectionTo * 15f;
+                    Projectile.velocity += DirectionTo;
+                }
+                else
+                {
+                    Projectile.position += player.velocity;
                 }
                 timer++;
             }
@@ -205,6 +214,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             {
                 if (firstframe == 0)
                 {
+                    Projectile.width = Projectile.height = 30;
                     DirectionTo = (Main.MouseWorld - Projectile.Center).SafeNormalize(Vector2.UnitX);
                     Projectile.hide = false;
                     firstframe++;
