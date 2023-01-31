@@ -64,6 +64,13 @@ namespace CCMod.Utils
         }
 
         //LowQualityTrash-Xinim Code start
+        /// <summary>
+        /// Super easy draw trail method, use accordingly with ProjectileID.Sets.TrailCacheLength[Projectile.type] = "amount of trail"<br/>
+        /// The code is taken from example code and then redone to be use more easily
+        /// </summary>
+        /// <param name="projectile"></param>
+        /// <param name="lightColor">light color</param>
+        /// <param name="ScaleAccordinglyToLength">set this to 0 if you don't want the length to decrease at all, otherwise set it accordingly to TrailCacheLength</param>
         public static void EvenEasierDrawAfterImage(this Projectile projectile, Color lightColor, float ScaleAccordinglyToLength = 0)
         {
             Main.instance.LoadProjectile(projectile.type);
@@ -75,29 +82,6 @@ namespace CCMod.Utils
                 Color color = projectile.GetAlpha(lightColor) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, projectile.rotation, origin, projectile.scale - k * ScaleAccordinglyToLength, SpriteEffects.None, 0);
             }
-        }
-        public static Vector2 LimitingVelocity(this Vector2 velocity, float limited)
-        {
-            velocity.X = Math.Clamp(velocity.X, -limited, limited);
-            velocity.Y = Math.Clamp(velocity.Y, -limited, limited);
-            return velocity;
-        }
-
-        public static bool IsVelocityLimitReached(this Vector2 velocity, float limited)
-        {
-            if (Math.Abs(Math.Clamp(velocity.X, -limited, limited)) >= limited) return true;
-            if (Math.Abs(Math.Clamp(velocity.Y, -limited, limited)) >= limited) return true;
-            return false;
-        }
-
-        public static Vector2 Vector2EvenlyDistribute(this Vector2 Vec2ToRotate, float ProjectileAmount, float rotation, int i)
-        {
-            if (ProjectileAmount > 1)
-            {
-                rotation = MathHelper.ToRadians(rotation);
-                return Vec2ToRotate.RotatedBy(MathHelper.Lerp(rotation * .5f, rotation * -.5f, i / (ProjectileAmount - 1f)));
-            }
-            return Vec2ToRotate;
         }
 
         /// <summary>

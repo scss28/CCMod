@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using CCMod.Common;
 using System.Collections.Generic;
 using CCMod.Common.ProjectileAI;
+using System.IO;
 
 namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
 {
@@ -12,7 +13,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
     {
         public string CodedBy => "LowQualityTrash-Xinim";
         public string SpritedBy => "PixelGaming";
-        public string ConceptBy => "Cohozuna Jr.";
+        public string ConceptBy => "Cohozuna Jr. & LowQualityTrash-Xinim";
 
         public override void SetStaticDefaults()
         {
@@ -40,6 +41,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
             Item.noUseGraphic = true;
             Item.noMelee = true;
             Item.autoReuse = true;
+            Item.consumable = true;
+            Item.maxStack = 999;
         }
         public override void AddRecipes()
         {
@@ -59,13 +62,15 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
         {
             Projectile.width = 10;
             Projectile.height = 10;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 10;
             Projectile.timeLeft = 150;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             DrawOffsetX = -2;
             DrawOriginOffsetY = -10;
             Projectile.DamageType = DamageClass.Ranged;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 30;
         }
 
         int timerBeforeRotate = 0;
@@ -139,8 +144,14 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
+            if(this.IsStickingToTarget)
+            {
+                knockback = 0;
+                Projectile.damage -= damage > 10 ? 5 : 0;
+                crit = false;
+            }
             target.AddBuff(BuffID.Oiled, 120);
-            Projectile.OnHitNPCwithProjectile(target, out bool IsStickingToTarget, out int TargetWhoAmI);
+            Projectile.OnHitNPCwithProjectile(target, out bool IsStickingToTarget, out int TargetWhoAmI, false);
             this.IsStickingToTarget = IsStickingToTarget;
             this.TargetWhoAmI = TargetWhoAmI;
         }

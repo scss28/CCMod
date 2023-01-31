@@ -39,10 +39,10 @@ namespace CCMod.Content.Items.Weapons.Melee
                     Projectile.NewProjectile(Item.GetSource_FromThis(), position + direction * (i + 1) - new Vector2(0, 20)
                         , Vector2.Zero, ModContent.ProjectileType<SawboneSwordSpawnSpikeP>(), damage, knockback, player.whoAmI, i, 2);
                 }
-                else if(player.altFunctionUse != 2)
+                else if (player.altFunctionUse != 2)
                 {
-                Projectile.NewProjectile(Item.GetSource_FromThis(), position + direction * (i + 1) - new Vector2(0, 20)
-                    , Vector2.Zero, ModContent.ProjectileType<SawboneSwordSpawnSpikeP>(), damage, knockback, player.whoAmI, i, player.direction);
+                    Projectile.NewProjectile(Item.GetSource_FromThis(), position + direction * (i + 1) - new Vector2(0, 20)
+                        , Vector2.Zero, ModContent.ProjectileType<SawboneSwordSpawnSpikeP>(), damage, knockback, player.whoAmI, i, player.direction);
                 }
             }
             return false;
@@ -63,6 +63,7 @@ namespace CCMod.Content.Items.Weapons.Melee
                 .Register();
         }
     }
+    //TODO: DO CODE REFACTOR HERE IN THE FUTURE
     public class SawboneSwordSpawnSpikeP : ModProjectile
     {
         public override string Texture => "CCMod/Content/Items/Weapons/Melee/SawboneSword";
@@ -106,16 +107,15 @@ namespace CCMod.Content.Items.Weapons.Melee
         {
             if (timer < 20)
             {
-                float rotation = MathHelper.ToRadians(60);
                 Player player = Main.player[Projectile.owner];
                 for (int i = 0; i < 40; i++)
                 {
-                    int dust = Dust.NewDust(player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).RotatedBy(MathHelper.Lerp(rotation, -rotation, (Projectile.ai[0] + 1) / 5)), 0, 0, DustID.Blood, 0, 0, 0, default, Main.rand.NextFloat(1.3f, 2.35f));
+                    int dust = Dust.NewDust(player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).Vector2EvenlyDistribute(5, 120, Projectile.ai[0] + 1), 0, 0, DustID.Blood, 0, 0, 0, default, Main.rand.NextFloat(1.3f, 2.35f));
                     Main.dust[dust].velocity = Main.rand.NextVector2Circular(5, 5);
                     Main.dust[dust].noGravity = true;
                 }
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(),
-                    player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).RotatedBy(MathHelper.Lerp(rotation, -rotation, (Projectile.ai[0] + 1) / 5)),
+                    player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).Vector2EvenlyDistribute(5, 120, Projectile.ai[0] + 1),
                     Vector2.Zero, ModContent.ProjectileType<SawboneSwordP>(),
                     Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]);
                 return;
@@ -161,7 +161,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             Projectile.hide = Projectile.ai[1] == 2 ? false : true;
             DrawOffsetX = -10;
         }
-        int timer = 0;
+        int timer = -1;
         Vector2 DirectionTo;
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
@@ -176,27 +176,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             Main.dust[dust].noGravity = true;
             if (Projectile.ai[1] == 2)
             {
-                Player player = Main.player[Projectile.owner];
-                float AdditionalRotationValue = DirectionTo.X > 0 ? MathHelper.PiOver4 : MathHelper.PiOver2 + MathHelper.PiOver4;
-                Projectile.rotation = DirectionTo.ToRotation() + AdditionalRotationValue;
-                Projectile.spriteDirection = DirectionTo.X > 0 ? 1 : -1;
-                if (timer >= (Projectile.ai[0] + 5) * 5)
-                {
-                    if (firstframe == 1)
-                    {
-                        Projectile.tileCollide = true;
-                        Projectile.penetrate = 3;
-                        Projectile.timeLeft = 50;
-                        firstframe++;
-                    }
-                    //Projectile.Hitbox = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, (int)(Projectile.position.X + 30), (int)(Projectile.position.Y + 30));
-                    Projectile.velocity += DirectionTo;
-                }
-                else
-                {
-                    Projectile.position += player.velocity;
-                }
-                timer++;
+                FlyingSwordAttackAI();
             }
             else
             {
@@ -224,7 +204,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             if (firstframe == 0)
             {
                 directionTo = (int)Projectile.ai[1];
-                //This is scaling projectile size, but it is so stupid that it somehow fuck the projectile position, i probably know why, but too lazy to fix it
+                //This is scaling projectile size base on Projectile.ai[0], but it is so stupid that it somehow fuck the projectile position, i probably know why, but too lazy to fix it
                 //Projectile.scale += Projectile.ai[0] * .25f;
                 //Projectile.Hitbox = new Rectangle(
                 //    (int)(Projectile.position.X + (Projectile.width - Projectile.scale * Projectile.width)),
@@ -237,6 +217,28 @@ namespace CCMod.Content.Items.Weapons.Melee
             float pi = directionTo == 1 ? MathHelper.PiOver4 : MathHelper.PiOver2 + MathHelper.PiOver4;
             Projectile.rotation = Projectile.velocity.ToRotation() + pi;
             return base.PreAI();
+        }
+        private void FlyingSwordAttackAI()
+        {
+            Player player = Main.player[Projectile.owner];
+            float AdditionalRotationValue = DirectionTo.X > 0 ? MathHelper.PiOver4 : MathHelper.PiOver2 + MathHelper.PiOver4;
+            Projectile.rotation = DirectionTo.ToRotation() + AdditionalRotationValue;
+            Projectile.spriteDirection = DirectionTo.X > 0 ? 1 : -1;
+            timer++;
+            if (timer < (Projectile.ai[0] + 5) * 5)
+            {
+                Projectile.position += player.velocity;
+                return;
+            }
+            if (firstframe == 1)
+            {
+                Projectile.tileCollide = true;
+                Projectile.penetrate = 3;
+                Projectile.timeLeft = 50;
+                firstframe++;
+            }
+            //Projectile.Hitbox = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, (int)(Projectile.position.X + 30), (int)(Projectile.position.Y + 30));
+            Projectile.velocity += DirectionTo;
         }
         public override void Kill(int timeLeft)
         {

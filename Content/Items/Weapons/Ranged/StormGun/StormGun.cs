@@ -33,8 +33,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.StormGun
             Item.damage = 75;
             Item.knockBack = 10;
             Item.crit = 30;
-            Item.useTime = 60;
-            Item.useAnimation = 60;
+            Item.useTime = 40;
+            Item.useAnimation = 40;
 
             Item.shoot = ModContent.ProjectileType<StormGunProjectile>();
             Item.shootSpeed = 20;
@@ -50,7 +50,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.StormGun
         }
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-12, 5);
+            return new Vector2(-8, 2);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -77,8 +77,9 @@ namespace CCMod.Content.Items.Weapons.Ranged.StormGun
             for (int i = 0; i < 10; i++)
             {
                 Vector2 randPos = Main.rand.NextVector2Circular(4, 4);
-                int dust = Dust.NewDust(Projectile.Center, 0, 0, Main.rand.Next(new int[] { DustID.GemRuby, DustID.GemDiamond }), randPos.X, randPos.Y, 0, default, 2f);
+                int dust = Dust.NewDust(Projectile.Center, 0, 0, Main.rand.Next(new int[] { DustID.GemRuby, DustID.GemDiamond }), 0, 0, 0, default, 2f);
                 Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity = randPos;
             }
         }
 
@@ -99,6 +100,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.StormGun
                 int dust = Dust.NewDust(Projectile.Center, 0, 0, count != 4 ? DustID.GemRuby : DustID.GemDiamond, rotate.X, rotate.Y, 0, default, 3f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity = rotate;
+                Main.dust[dust].fadeIn = 2;
             }
         }
     }

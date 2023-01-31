@@ -13,7 +13,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
     {
         public string CodedBy => "LowQualityTrash-Xinim";
         public string SpritedBy => "PixelGaming";
-        public string ConceptBy => "Cohozuna Jr.";
+        public string ConceptBy => "Cohozuna Jr. & LowQualityTrash-Xinim";
 
         public override void SetStaticDefaults()
         {
@@ -41,6 +41,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
             Item.noUseGraphic = true;
             Item.noMelee = true;
             Item.autoReuse = true;
+            Item.consumable = true;
+            Item.maxStack = 999;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -70,6 +72,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.DamageType = DamageClass.Ranged;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 175;
         }
 
         int TimerBeforeGravity = 0;
@@ -132,7 +136,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             target.AddBuff(BuffID.Oiled, 120);
-            Projectile.OnHitNPCwithProjectile(target, out bool IsStickingToTarget, out int TargetWhoAmI);
+            Projectile.OnHitNPCwithProjectile(target, out bool IsStickingToTarget, out int TargetWhoAmI,false,false);
             this.IsStickingToTarget = IsStickingToTarget;
             this.TargetWhoAmI = TargetWhoAmI;
         }

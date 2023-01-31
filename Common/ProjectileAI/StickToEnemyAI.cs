@@ -84,19 +84,25 @@ namespace CCMod.Common.ProjectileAI
         /// <param name="target"></param>
         /// <param name="IsStickingToTarget"></param>
         /// <param name="TargetWhoAmI"></param>
-        public static void OnHitNPCwithProjectile(this Projectile projectile, NPC target, out bool IsStickingToTarget, out int TargetWhoAmI)
+        public static void OnHitNPCwithProjectile(this Projectile projectile, NPC target, out bool IsStickingToTarget, out int TargetWhoAmI, bool DealNoDamage = true, bool ResetProjectileTimeLife = true)
         {
             IsStickingToTarget = true; // we are sticking to a target
             TargetWhoAmI = target.whoAmI; // Set the target whoAmI
             projectile.velocity = (target.Center - projectile.Center) * 0.75f; // Change velocity based on delta center of targets (difference between entity centers)
             projectile.netUpdate = true; // netUpdate this javelin
-            projectile.damage = 0;
-            projectile.timeLeft = 300;
+            if (DealNoDamage)
+            {
+                projectile.damage = 0;
+            }
+            if (ResetProjectileTimeLife)
+            {
+                projectile.timeLeft = 300;
+            }
             // It is recommended to split your code into separate methods to keep code clean and clear
-            projectile.UpdateStickyJavelins(IsStickingToTarget, TargetWhoAmI ,target);
+            projectile.UpdateStickyJavelins(IsStickingToTarget, TargetWhoAmI, target);
         }
 
-        private static void UpdateStickyJavelins(this Projectile projectile,bool IsStickingToTarget, int TargetWhoAmI , NPC target)
+        private static void UpdateStickyJavelins(this Projectile projectile, bool IsStickingToTarget, int TargetWhoAmI, NPC target)
         {
             int currentJavelinIndex = 0; // The javelin index
             for (int i = 0; i < Main.maxProjectiles; i++) // Loop all projectiles
@@ -118,7 +124,7 @@ namespace CCMod.Common.ProjectileAI
         }
         public static void CleanUpStickyProjectile(int index = 0)
         {
-            if(index >= MAXPROJSTICK)
+            if (index >= MAXPROJSTICK)
             {
                 int oldJavelinIndex = 0;
                 // Loop our point array
