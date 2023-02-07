@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-
+﻿
 namespace CCMod.Common
 {
     // Use when you want to credit artists or coders
@@ -8,6 +7,6 @@ namespace CCMod.Common
     {
         public string CodedBy { get; }
         public string SpritedBy { get; }
-        public string ConceptBy => CodedBy;
+        public virtual string ConceptBy => CodedBy;
     }
 }

@@ -17,6 +17,7 @@ namespace CCMod.Content.Items.Weapons.Magic
     {
         public string CodedBy => "sucss";
         public string SpritedBy => "person_";
+        public string ConceptBy => "person_";
         public int ChestType => 21; // 21 is one of the chest types
         public int ChestStyle => 13; // 13 is the skyware chest style
         public int Stack => 1;

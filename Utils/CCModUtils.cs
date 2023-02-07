@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
+using Steamworks;
 
 #nullable enable
 namespace CCMod.Utils
@@ -147,6 +148,42 @@ namespace CCMod.Utils
             }
             return postitions;
 
+        }
+
+        //lowqualitytrash-xinim blizzard vector2 code
+        /// <summary>
+        /// use with combination of <see cref="IsVelocityLimitReached(Vector2, float)"/>
+        /// </summary>
+        /// <param name="velocity"></param>
+        /// <param name="limited"></param>
+        /// <returns></returns>
+        public static Vector2 LimitingVelocity(this Vector2 velocity, float limited)
+        {
+            velocity.X = Math.Clamp(velocity.X, -limited, limited);
+            velocity.Y = Math.Clamp(velocity.Y, -limited, limited);
+            return velocity;
+        }
+        /// <summary>
+        /// Check if the velocity of object reach a certain limited 
+        /// </summary>
+        /// <param name="velocity"></param>
+        /// <param name="limited"></param>
+        /// <returns></returns>
+        public static bool IsVelocityLimitReached(this Vector2 velocity, float limited)
+        {
+            if (Math.Abs(Math.Clamp(velocity.X, -limited, limited)) >= limited) return true;
+            if (Math.Abs(Math.Clamp(velocity.Y, -limited, limited)) >= limited) return true;
+            return false;
+        }
+
+        public static Vector2 Vector2EvenlyDistribute(this Vector2 Vec2ToRotate, float ProjectileAmount, float rotation, float i)
+        {
+            if (ProjectileAmount > 1)
+            {
+                rotation = MathHelper.ToRadians(rotation);
+                return Vec2ToRotate.RotatedBy(MathHelper.Lerp(rotation * .5f, rotation * -.5f, i / (ProjectileAmount - 1f)));
+            }
+            return Vec2ToRotate;
         }
     }
 }

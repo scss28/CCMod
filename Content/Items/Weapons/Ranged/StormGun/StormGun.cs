@@ -10,7 +10,7 @@ using CCMod.Content.Projectiles;
 using CCMod.Utils;
 using Terraria.GameContent.Creative;
 
-namespace CCMod.Content.Items.Weapons.Ranged
+namespace CCMod.Content.Items.Weapons.Ranged.StormGun
 {
     internal class StormGun : ModItem, IMadeBy
     {
@@ -33,8 +33,8 @@ namespace CCMod.Content.Items.Weapons.Ranged
             Item.damage = 75;
             Item.knockBack = 10;
             Item.crit = 30;
-            Item.useTime = 60;
-            Item.useAnimation = 60;
+            Item.useTime = 40;
+            Item.useAnimation = 40;
 
             Item.shoot = ModContent.ProjectileType<StormGunProjectile>();
             Item.shootSpeed = 20;
@@ -50,12 +50,12 @@ namespace CCMod.Content.Items.Weapons.Ranged
         }
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-12,5);
+            return new Vector2(-8, 2);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            position = position.OffsetPosition(velocity, 75);   
+            position = position.OffsetPosition(velocity, 75);
         }
     }
 
@@ -77,8 +77,9 @@ namespace CCMod.Content.Items.Weapons.Ranged
             for (int i = 0; i < 10; i++)
             {
                 Vector2 randPos = Main.rand.NextVector2Circular(4, 4);
-                int dust = Dust.NewDust(Projectile.Center, 0, 0, Main.rand.Next(new int[] { DustID.GemRuby, DustID.GemDiamond }), randPos.X, randPos.Y, 0, default, 2f);
+                int dust = Dust.NewDust(Projectile.Center, 0, 0, Main.rand.Next(new int[] { DustID.GemRuby, DustID.GemDiamond }), 0, 0, 0, default, 2f);
                 Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity = randPos;
             }
         }
 
@@ -89,36 +90,35 @@ namespace CCMod.Content.Items.Weapons.Ranged
             SoundEngine.PlaySound(SoundID.Item88);
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GhostHitBox>(), Projectile.damage, 0, Projectile.owner);
             float rotation = MathHelper.ToRadians(180);
-            float multiplier = 1f + player.statMana <= 150 ? 0 : player.statMana >= 400 ? 250 * .05f : (player.statMana-150) * .05f;
+            float multiplier = 1f + player.statMana <= 150 ? 0 : player.statMana >= 400 ? 250 * .05f : (player.statMana - 150) * .05f;
             float dustNum = 200f;
             for (int i = 0; i < dustNum; i++)
             {
                 multiplier += i % 50 == 0 ? 1.5f : 0;
-                count+= i % 50 == 0 ? 1 : 0;
+                count += i % 50 == 0 ? 1 : 0;
                 Vector2 rotate = Vector2.One.RotatedBy(MathHelper.Lerp(rotation, -rotation, i % 50 / (50f - 1))) * multiplier;
                 int dust = Dust.NewDust(Projectile.Center, 0, 0, count != 4 ? DustID.GemRuby : DustID.GemDiamond, rotate.X, rotate.Y, 0, default, 3f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity = rotate;
+                Main.dust[dust].fadeIn = 2;
             }
         }
     }
 
     public class StormGunPlayer : ModPlayer
     {
-        public int chargeUp;
-
         public override void OnMissingMana(Item item, int neededMana)
         {
-            if(item.type == ModContent.ItemType<StormGun>())
+            if (item.type == ModContent.ItemType<StormGun>())
             {
                 Player.statMana += neededMana;
             }
         }
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
         {
-            if(item.type == ModContent.ItemType<StormGun>() && Player.statMana >= 150)
+            if (item.type == ModContent.ItemType<StormGun>() && Player.statMana >= 150)
             {
-                damage += (Player.statMana - 150)*.0175f;
+                damage += (Player.statMana - 150) * .0175f;
             }
         }
     }
