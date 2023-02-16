@@ -1,12 +1,14 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 using System;
-using log4net.Core;
+using System.Collections.Generic;
 
-namespace CCMod.Common.ProjectileAI
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CCMod.Utils
 {
+    /// MOVED FROM PROJECTILEAI IN COMMON DUE TO IT BEING UTILS BUT IT WAS IN COMMON FOR SOME REASON
     /// <summary>
     /// for those who want to use this spagetti code i took from example javaline code and try to make it easy to use
     /// add this<br/>
@@ -26,7 +28,7 @@ namespace CCMod.Common.ProjectileAI
     ///I have near to 0 idea what happen here, I will update this time to time to make it easier to use or to understand<br/>
     ///For now, deal with messy code
     /// </summary>
-    static class StickToEnemyAI
+    public partial class CCModUtils
     {
         /// <summary>
         /// add this to draw behind hook
@@ -37,7 +39,7 @@ namespace CCMod.Common.ProjectileAI
         /// <param name="behindNPCsAndTiles"></param>
         /// <param name="behindNPCs"></param>
         /// <param name="behindProjectiles"></param>
-        public static void DrawBehindNPCandOtherProj(this Projectile projectile, bool isStickingToTarget, int TargetWhoAmI, int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles)
+        public static void DrawBehindNPCandOtherProj(bool isStickingToTarget, int TargetWhoAmI, int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles)
         {
             if (isStickingToTarget)
             {

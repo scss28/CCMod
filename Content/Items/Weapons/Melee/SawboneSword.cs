@@ -17,6 +17,7 @@ namespace CCMod.Content.Items.Weapons.Melee
         {
             Tooltip.SetDefault("Sword made out of pure agony ... from the one who code it !");
         }
+
         public override void SetDefaults()
         {
             Item.width = 54;
@@ -25,10 +26,12 @@ namespace CCMod.Content.Items.Weapons.Melee
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ProjectileID.Ale;
         }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 direction = new Vector2(70 * player.direction, 0);
@@ -47,6 +50,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             }
             return false;
         }
+
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             Vector2 hitboxCenter = new Vector2(hitbox.X, hitbox.Y);
@@ -54,6 +58,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             int dust = Dust.NewDust(hitboxCenter, hitbox.Width, hitbox.Height, DustID.Blood, 0, 0, 0, Color.Red, Main.rand.NextFloat(1.25f, 1.75f));
             Main.dust[dust].noGravity = true;
         }
+
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -76,6 +81,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
         }
+
         int timer = 0;
         bool isAlreadyInTile = false;
         public override bool PreAI()
@@ -87,6 +93,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             }
             return true;
         }
+
         public override void AI()
         {
             if (timer >= 20 + 10 * Projectile.ai[0])
@@ -103,6 +110,7 @@ namespace CCMod.Content.Items.Weapons.Melee
                 timer++;
             }
         }
+
         public override void Kill(int timeLeft)
         {
             if (timer < 20)
@@ -120,10 +128,12 @@ namespace CCMod.Content.Items.Weapons.Melee
                     Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]);
                 return;
             }
+
             if (isAlreadyInTile)
             {
                 return;
             }
+
             for (int i = 0; i < 40; i++)
             {
                 int dust = Dust.NewDust(Projectile.Center + new Vector2(-2, 20), 0, 0, DustID.Blood, 0, 0, 0, default, Main.rand.NextFloat(1.3f, 2.35f));
@@ -132,13 +142,17 @@ namespace CCMod.Content.Items.Weapons.Melee
                 dustVelocity.X *= Projectile.ai[1];
                 Main.dust[dust].velocity = dustVelocity;
             }
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(),
+
+            Projectile.NewProjectile(
+                Projectile.GetSource_FromThis(),
                 Projectile.Center + new Vector2(0, 20 /*+ (25 * Projectile.ai[0])*/),
                 new Vector2(0, -2f /*+ (-2 * .25f * Projectile.ai[0])*/ ),
                 ModContent.ProjectileType<SawboneSwordP>(),
-                Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]);
+                Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]
+                );
         }
     }
+
     public class SawboneSwordP : ModProjectile
     {
         public override string Texture => "CCMod/Content/Items/Weapons/Melee/SawboneSword";
@@ -146,6 +160,7 @@ namespace CCMod.Content.Items.Weapons.Melee
         {
             ProjectileID.Sets.DontAttachHideToAlpha[Projectile.type] = true;
         }
+
         public override void SetDefaults()
         {
             Projectile.width = 30;
@@ -161,6 +176,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             Projectile.hide = Projectile.ai[1] == 2 ? false : true;
             DrawOffsetX = -10;
         }
+
         int timer = -1;
         Vector2 DirectionTo;
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -170,6 +186,7 @@ namespace CCMod.Content.Items.Weapons.Melee
                 behindNPCsAndTiles.Add(index);
             }
         }
+
         public override void AI()
         {
             int dust = Dust.NewDust(Projectile.Center + new Vector2(0, 20) + Main.rand.NextVector2Circular(20, 10), 0, 0, DustID.Blood, 0, 0, 0, default, Main.rand.NextFloat(1.25f, 2.1f));
@@ -186,6 +203,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             }
 
         }
+
         int firstframe = 0;
         int directionTo = 1;
         public override bool PreAI()
@@ -218,6 +236,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             Projectile.rotation = Projectile.velocity.ToRotation() + pi;
             return base.PreAI();
         }
+
         private void FlyingSwordAttackAI()
         {
             Player player = Main.player[Projectile.owner];
@@ -240,6 +259,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             //Projectile.Hitbox = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, (int)(Projectile.position.X + 30), (int)(Projectile.position.Y + 30));
             Projectile.velocity += DirectionTo;
         }
+
         public override void Kill(int timeLeft)
         {
             Vector2 pos = new Vector2(0, 60);

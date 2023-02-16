@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CCMod.Content.Items.Weapons.Magic
+namespace CCMod.Content.Items.Weapons.Magic.DrenchedTome
 {
     internal class DrenchedTome : ModItem, IMadeBy
     {
@@ -53,7 +53,7 @@ namespace CCMod.Content.Items.Weapons.Magic
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Gel, 250)
-                .AddRecipeGroup("4thPHMBar", 10)
+                // .AddRecipeGroup("4thPHMBar", 10) Not sure what this is but the recipe group doesn't exist
                 .AddIngredient(ItemID.Book)
                 .AddTile(TileID.Solidifier)
                 .Register();

@@ -7,22 +7,22 @@ using Terraria.GameContent;
 using System.Collections.Generic;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
-using CCMod.Common.ProjectileAI;
-using CCMod.Content.Items.Weapons.Ranged.SlimeyThrowingknife;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
-namespace CCMod.Content.Items.Weapons.Magic
+namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
 {
     internal class GelVenomDagger : ModItem, IMadeBy
     {
         public string CodedBy => "LowQualityTrash-Xinim";
         public string SpritedBy => "PixelGaming";
-        public string ConceptBy => "LowQualityTrash-Xinim & PixelGaming";
+        public string ConceptBy => "LowQualityTrash-Xinim, PixelGaming";
 
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Covered in gel and venom, making it somehow bouncier !");
         }
+
         public override void SetDefaults()
         {
             Item.width = 12;
@@ -37,7 +37,7 @@ namespace CCMod.Content.Items.Weapons.Magic
 
             Item.rare = ItemRarityID.Pink;
 
-            Item.shoot = ModContent.ProjectileType<GelVenomDaggerP>();
+            Item.shoot = ModContent.ProjectileType<GelVenomDaggerProjectile>();
             Item.shootSpeed = 23;
 
             Item.mana = 7;
@@ -48,6 +48,7 @@ namespace CCMod.Content.Items.Weapons.Magic
             Item.noMelee = true;
             Item.autoReuse = true;
         }
+
         int ThrownCounter = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -64,6 +65,7 @@ namespace CCMod.Content.Items.Weapons.Magic
             }
             return false;
         }
+
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -72,22 +74,22 @@ namespace CCMod.Content.Items.Weapons.Magic
                 .AddIngredient(ItemID.Gel, 200)
                 .AddIngredient(ItemID.VialofVenom, 3)
                 .AddIngredient(ItemID.MagicDagger)
-                .AddIngredient(ModContent.ItemType<SlimeyThrowingKnife>(), 100)
+                .AddIngredient(ItemID.ThrowingKnife, 100)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
     }
 
-    class GelVenomDaggerP : ModProjectile
+    class GelVenomDaggerProjectile : ModProjectile
     {
-        public override string Texture => "CCMod/Content/Items/Weapons/Magic/GelVenomDagger";
+        public override string Texture => "CCMod/Content/Items/Weapons/Magic/GelVenomDagger/GelVenomDagger";
 
         public override void SetDefaults()
         {
             Projectile.width = 20;
             Projectile.height = 20;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 100;
+            Projectile.timeLeft = 300;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.DamageType = DamageClass.Magic;
@@ -96,6 +98,7 @@ namespace CCMod.Content.Items.Weapons.Magic
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
         }
+
         float ai1 = 0, ai2 = 0;
         // Are we sticking to a target?
         public bool IsStickingToTarget
@@ -110,6 +113,7 @@ namespace CCMod.Content.Items.Weapons.Magic
             get => (int)ai2;
             set => ai2 = value;
         }
+
         int timerBeforeRotate = 0;
         public override void AI()
         {
@@ -128,6 +132,7 @@ namespace CCMod.Content.Items.Weapons.Magic
             Projectile.velocity.Y += timerBeforeRotate >= 10 && Projectile.velocity.Y <= 18 ? .75f : 0;
             timerBeforeRotate++;
         }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (Projectile.ai[0] == 1)
@@ -137,17 +142,20 @@ namespace CCMod.Content.Items.Weapons.Magic
                 this.TargetWhoAmI = TargetWhoAmI;
             }
         }
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return StickToEnemyAI.CollisionBetweenEnemyAndProjectile(projHitbox, targetHitbox);
+            return CCModUtils.CollisionBetweenEnemyAndProjectile(projHitbox, targetHitbox);
         }
+
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             if (Projectile.ai[0] == 1)
             {
-                Projectile.DrawBehindNPCandOtherProj(IsStickingToTarget, TargetWhoAmI, index, behindNPCsAndTiles, behindNPCs, behindProjectiles);
+                CCModUtils.DrawBehindNPCandOtherProj(IsStickingToTarget, TargetWhoAmI, index, behindNPCsAndTiles, behindNPCs, behindProjectiles);
             }
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Collision.TileCollision(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
@@ -166,7 +174,7 @@ namespace CCMod.Content.Items.Weapons.Magic
         {
             if (Main.rand.NextBool(7))
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Main.rand.NextVector2CircularEdge(-MathHelper.PiOver4, MathHelper.PiOver2) * 2, ModContent.ProjectileType<ToxicBubbleP>(), Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Main.rand.NextVector2CircularEdge(-MathHelper.PiOver4, MathHelper.PiOver2) * 2, ModContent.ProjectileType<ToxicBubbleProjectile>(), Projectile.damage, 0, Projectile.owner);
             }
         }
 
@@ -180,77 +188,126 @@ namespace CCMod.Content.Items.Weapons.Magic
             }
             if (Main.rand.NextBool(7))
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Main.rand.NextVector2CircularEdge(-MathHelper.PiOver4, MathHelper.PiOver2) * 2, ModContent.ProjectileType<ToxicBubbleP>(), Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Main.rand.NextVector2CircularEdge(-MathHelper.PiOver4, MathHelper.PiOver2) * 2, ModContent.ProjectileType<ToxicBubbleProjectile>(), Projectile.damage, 0, Projectile.owner);
             }
         }
     }
 
-    public class ToxicBubbleP : ModProjectile
+    public class ToxicBubbleProjectile : ModProjectile
     {
+        const int MAX_TIME_LEFT = 300;
         public override void SetDefaults()
         {
             Projectile.alpha = 255;
-            Projectile.width = 20;
-            Projectile.height = 20;
+            Projectile.scale = 0;
+
+            Projectile.width = 32;
+            Projectile.height = 32;
             Projectile.light = .2f;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = MAX_TIME_LEFT;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.DamageType = DamageClass.Magic;
         }
-        public override bool? CanDamage()
+
+        public override void OnSpawn(IEntitySource source)
         {
-            return false;
+            Projectile.velocity.Y = -3f;
+            Projectile.velocity.X = Main.rand.NextFloat(-3f, 3f);
         }
-        int counter = 0;
-        public void FadeIn()
-        {
-            if (Projectile.alpha > 55)
-            {
-                Projectile.alpha -= 5;
-            }
-        }
+
+        public override bool? CanDamage() => false;
+
+        const int EXPLODING_TIME = 30;
+        bool BonusProjectiles => Projectile.ai[0] == 1;
         public override void AI()
         {
+            if (Main.rand.NextBool(24))
+            {
+                CCModUtils.NewDustCircular(
+                    Projectile.Center,
+                    Main.rand.Next(7, 19),
+                    i => Main.rand.NextFromList(DustID.UnholyWater, DustID.Water),
+                    Main.rand.Next(6),
+                    Main.rand.NextFloat(MathHelper.TwoPi),
+                    (4, 6)
+                    );
+            }
+
             for (int i = 0; i < 2; i++)
             {
-                int dust = Dust.NewDust(Projectile.Center, 10, 10, DustID.UnholyWater, 0, 0, 0, default, Main.rand.NextFloat(.8f, 1.2f));
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.UnholyWater, 0, 0, 0, default, Main.rand.NextFloat(.3f, 1f));
                 Main.dust[dust].noGravity = false;
             }
-            FadeIn();
-            if (counter >= 30)
+
+            if (Projectile.timeLeft < MAX_TIME_LEFT - 30)
             {
-                if (CCModUtils.LookForProjectile(Projectile.Center, ModContent.ProjectileType<GelVenomDaggerP>(), 30))
+                if (CCModUtils.LookForProjectile(Projectile.Center, ModContent.ProjectileType<GelVenomDaggerProjectile>(), 20))
                 {
-                    Projectile.ai[0]++;
+                    Projectile.ai[0] = 1;
                     Projectile.Kill();
                 }
             }
-            counter++;
-            Projectile.velocity.X -= Projectile.velocity.X * .1f;
-            Projectile.velocity.Y = -1;
+
+            if (Projectile.alpha > 120)
+            {
+                Projectile.alpha -= 10;
+            }
+
+            Projectile.alpha += (int)(MathF.Sin(Projectile.timeLeft * 0.15f) * 15);
+
+            Projectile.scale = Projectile.timeLeft < EXPLODING_TIME ? 
+                1f + 0.5f * ((float)(EXPLODING_TIME - Projectile.timeLeft) / EXPLODING_TIME)
+                : MathHelper.Lerp(Projectile.scale, 1f, 0.1f);
+
+            Projectile.position.Y += MathF.Sin(Projectile.timeLeft * 0.025f) * 0.55f;
+
+            Projectile.velocity.X *= 0.9f;
+            Projectile.velocity.Y *= 0.98f;
         }
+
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 30; i++)
+            CCModUtils.NewDustCircular(
+                Projectile.Center, 
+                16, 
+                i => Main.rand.NextFromList(DustID.UnholyWater, DustID.Water), 
+                Main.rand.Next(15, 20), 
+                Main.rand.NextFloat(), 
+                (7, 12)
+                );
+
+            float projCount = BonusProjectiles ? 20 : 10;
+            for (int i = 0; i < projCount; i++)
             {
-                int dust = Dust.NewDust(Projectile.Center, 0, 0, DustID.UnholyWater, 0, 0, 0, default, Main.rand.NextFloat(.8f, 1.2f));
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity = Main.rand.NextVector2Circular(5, 5);
+                Vector2 direction = Main.rand.NextVector2Unit();
+                Projectile.NewProjectile(
+                    Projectile.GetSource_FromThis(), 
+                    Projectile.Center + direction * 15,
+                    direction * 3,
+                    ModContent.ProjectileType<ToxicDrop>(), 
+                    (int)(Projectile.damage * .5f), 
+                    0, 
+                    Projectile.owner, 
+                    Projectile.ai[0]
+                    );
             }
-            float num = 10;
-            if (Projectile.ai[0] == 1)
-            {
-                num *= 2;
-            }
-            for (int i = 0; i < num; i++)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Main.rand.NextVector2Circular(3, 3), ModContent.ProjectileType<ToxicDrop>(), (int)(Projectile.damage * .5f), 0, Projectile.owner, Projectile.ai[0]);
-            }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Projectile.EasyDraw(lightColor, Projectile.Center + 4f * MathF.Abs(Projectile.scale - 1f) * Main.rand.NextVector2Unit());
+            return false;
         }
     }
     public class ToxicDrop : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 40;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 2;
@@ -260,11 +317,11 @@ namespace CCMod.Content.Items.Weapons.Magic
             Projectile.DamageType = DamageClass.Magic;
             Projectile.penetrate = 3;
             Projectile.extraUpdates = 6;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 40;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
         }
+
         int counter = 0;
         public override void AI()
         {
@@ -275,13 +332,15 @@ namespace CCMod.Content.Items.Weapons.Magic
             }
             counter++;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Venom, Projectile.ai[0] == 1 ? 900 : 120);
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(170, 20, 200);
+            return new Color(170, 20, 200, 200);
         }
 
         public override bool PreDraw(ref Color lightColor)

@@ -4,8 +4,8 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using CCMod.Common;
 using System.Collections.Generic;
-using CCMod.Common.ProjectileAI;
 using Terraria.DataStructures;
+using CCMod.Utils;
 
 namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
 {
@@ -13,12 +13,13 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
     {
         public string CodedBy => "LowQualityTrash-Xinim";
         public string SpritedBy => "PixelGaming";
-        public string ConceptBy => "Cohozuna Jr. & LowQualityTrash-Xinim";
+        public string ConceptBy => "Cohozuna Jr., LowQualityTrash-Xinim";
 
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("The Blade Feels Like Putty");
         }
+
         public override void SetDefaults()
         {
             Item.width = 24;
@@ -32,7 +33,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
 
             Item.rare = ItemRarityID.Green;
 
-            Item.shoot = ModContent.ProjectileType<SlimeyShurikenP>();
+            Item.shoot = ModContent.ProjectileType<SlimeyShurikenProjectile>();
             Item.shootSpeed = 17;
 
             Item.useStyle = ItemUseStyleID.Swing;
@@ -44,11 +45,13 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
             Item.consumable = true;
             Item.maxStack = 999;
         }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,default, player.direction);
             return false;
         }
+
         public override void AddRecipes()
         {
             CreateRecipe(50)
@@ -59,7 +62,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
         }
     }
 
-    class SlimeyShurikenP : ModProjectile
+    class SlimeyShurikenProjectile : ModProjectile
     {
         public override string Texture => "CCMod/Content/Items/Weapons/Ranged/SlimeyShuriken/SlimeyShuriken";
 
@@ -88,8 +91,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
             {
                 TargetWhoAmI++;
                 if (!hittile)
-                {
-                    Projectile.rotation = MathHelper.ToRadians(TimerBeforeGravity * TimerBeforeGravity * .3f * Projectile.ai[1]);
+                { 
+                    Projectile.rotation = MathHelper.ToRadians(TimerBeforeGravity * TimerBeforeGravity * .6f * Projectile.ai[1]);
                     Projectile.velocity.Y += TimerBeforeGravity >= 10 && Projectile.velocity.Y <= 18 ? 1f : 0;
                 }
                 TimerBeforeGravity++;
@@ -103,16 +106,19 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
             get => ai1 == 1f;
             set => ai1 = value ? 1f : 0f;
         }
+
         // Index of the current target
         public int TargetWhoAmI
         {
             get => (int)ai2;
             set => ai2 = value;
         }
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return StickToEnemyAI.CollisionBetweenEnemyAndProjectile(projHitbox, targetHitbox);
+            return CCModUtils.CollisionBetweenEnemyAndProjectile(projHitbox, targetHitbox);
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (!hittile)
@@ -125,14 +131,17 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
             Projectile.velocity.Y = 0;
             return false;
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(255, 255, 255, 175);
         }
+
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            Projectile.DrawBehindNPCandOtherProj(IsStickingToTarget, TargetWhoAmI, index, behindNPCsAndTiles, behindNPCs, behindProjectiles);
+            CCModUtils.DrawBehindNPCandOtherProj(IsStickingToTarget, TargetWhoAmI, index, behindNPCsAndTiles, behindNPCs, behindProjectiles);
         }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             target.AddBuff(BuffID.Oiled, 120);

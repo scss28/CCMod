@@ -8,11 +8,11 @@ namespace CCMod.Content.Items.Weapons.Ranged
 {
     public class HerbawarpGun : ModItem
     {
-        int timer;
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Shoots bullets from the mouse towards the player");
         }
+
         public override void SetDefaults()
         {
             Item.damage = 70;
@@ -33,6 +33,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Bullet;
         }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int numberProjectiles = 4 + Main.rand.Next(2); // 4 or 5 shots

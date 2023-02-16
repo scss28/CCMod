@@ -37,6 +37,7 @@ namespace CCMod.Utils
                 0
                 );
         }
+
         public static void EasyDrawAfterImage(this Projectile projectile, Color? color = null, Vector2[] oldPos = null, Vector2? origin = null, SpriteEffects? spriteEffects = null, Texture2D altTex = null)
         {
             Texture2D tex = altTex ?? TextureAssets.Projectile[projectile.type].Value;
@@ -177,7 +178,7 @@ namespace CCMod.Utils
             }
             return false;
         }
-        private static bool CompareSquareFloatValue(Vector2 pos1, Vector2 pos2, float Distance) => Vector2.DistanceSquared(pos1, pos2) <= Distance*Distance;
+        private static bool CompareSquareFloatValue(Vector2 pos1, Vector2 pos2, float Distance) => Vector2.DistanceSquared(pos1, pos2) <= Distance * Distance;
         //LowQualityTrash-Xinim Code end
     }
 }

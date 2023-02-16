@@ -13,7 +13,7 @@ namespace CCMod.Content.Items.Accessories
         public string SpritedBy => "RockyStan";
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Make weapons that use any arrow or bullet after 4 shots making the next shot deal extra 15% damage");
+            Tooltip.SetDefault("Every 5th bullet/arrow shot deal extra 15% damage");
         }
         public override void SetDefaults()
         {
@@ -39,21 +39,30 @@ namespace CCMod.Content.Items.Accessories
     public class EnergizedAcceleratorAttachmentPlayer : ModPlayer
     {
         public bool EnergizedAcceleratorAttachment = false;
-        int counter = 0;
+        int counter;
+
         public override void ResetEffects()
         {
             EnergizedAcceleratorAttachment = false;
         }
+
         public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (!EnergizedAcceleratorAttachment) return;
             if (item.useAmmo == AmmoID.Bullet || item.useAmmo == AmmoID.Arrow)
             {
-                counter++;
-                if (counter > 4)
+                if (++counter == 5)
                 {
                     damage = (int)(damage * 1.15f);
                     counter = 0;
+                }
+                else if (counter == 4)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Vector2 resize = Vector2.One * 30;
+                        Dust.NewDust(Player.position - resize / 2, Player.width + (int)resize.X, Player.height + (int)resize.Y, DustID.Electric);
+                    }
                 }
             }
         }
