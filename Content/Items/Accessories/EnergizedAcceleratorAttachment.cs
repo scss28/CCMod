@@ -1,8 +1,17 @@
-﻿using Terraria;
+﻿using CCMod.Common;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using CCMod.Common;
+using CCMod.Utils;
+using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Accessories
 {
@@ -14,6 +23,7 @@ namespace CCMod.Content.Items.Accessories
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Every 5th bullet/arrow shot deal extra 15% damage");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
         {

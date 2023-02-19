@@ -1,11 +1,17 @@
-﻿using Terraria;
-using Terraria.ID;
-using CCMod.Utils;
-using CCMod.Common;
-using Terraria.ModLoader;
+﻿using CCMod.Common;
 using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameInput;
+using Terraria.ID;
+using Terraria.ModLoader;
+using CCMod.Utils;
+using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
@@ -16,6 +22,7 @@ namespace CCMod.Content.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Sword made out of pure agony ... from the one who code it !");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

@@ -8,7 +8,12 @@ To submit sprites and code that are going to be used to create Items, NPCs etc. 
 
 currently there is :
 
-- 8 weapons
-- 1 item
+- 13 weapons
+- 1 Consumable
+- 1 Accessory
 
-my main mods discord ( pellucid mod ) : https://discord.gg/z3pANB63Jq
+UNRELATED LINKS:
+
+Pellucid mod ( my main mod ) : https://discord.gg/5GtTyU46Mw
+
+My Youtube: https://www.youtube.com/channel/UCdg9xrGbOg4LedXzQtEMv3A

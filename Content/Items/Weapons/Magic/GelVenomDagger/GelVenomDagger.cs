@@ -1,14 +1,17 @@
-﻿using Terraria;
-using Terraria.ID;
-using CCMod.Utils;
-using CCMod.Common;
-using Terraria.ModLoader;
-using Terraria.GameContent;
-using System.Collections.Generic;
-using Terraria.DataStructures;
+﻿using CCMod.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameInput;
+using Terraria.ID;
+using Terraria.ModLoader;
+using CCMod.Utils;
+using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
 {
@@ -21,6 +24,8 @@ namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Covered in gel and venom, making it somehow bouncier !");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
         }
 
         public override void SetDefaults()

@@ -1,11 +1,17 @@
-﻿using Terraria;
+﻿using CCMod.Common;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using CCMod.Common;
-using System.Collections.Generic;
-using Terraria.DataStructures;
 using CCMod.Utils;
+using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
 {
@@ -18,6 +24,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("The Blade Feels Like Putty");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
+
         }
 
         public override void SetDefaults()

@@ -1,21 +1,33 @@
+using CCMod.Common;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
-using System;
 using CCMod.Utils;
+using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 {
-    public class DemonicShuriken : ModItem
+    public class DemonicShuriken : ModItem, IMadeBy
     {
+
+        public string CodedBy => "LowQualityTrash-Xinim";
+        public string SpritedBy => "LowQualityTrash-Xinim";
+        public string ConceptBy => "LowQualityTrash-Xinim";
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Ashes Away" +
                 "\nShoot out a shuriken that spawn out 3 to 7 Shadow Spirit to attack many enemies" +
                 "\nAlt click to throw out a faster Shuriken that spawn out 4 scythes that home in to enemy for a moment" +
                 "\nafter that will be affect by gravity and will spawn out 4 shards");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
