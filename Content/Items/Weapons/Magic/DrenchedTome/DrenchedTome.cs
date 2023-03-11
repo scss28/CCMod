@@ -42,7 +42,7 @@ namespace CCMod.Content.Items.Weapons.Magic.DrenchedTome
             Item.mana = 4;
 
             Item.DamageType = DamageClass.Magic;
-            Item.value = Item.sellPrice(silver: 30);
+            Item.value = Item.sellPrice(silver: 3);
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.rare = ItemRarityID.Green;
             Item.autoReuse = true;

@@ -43,7 +43,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
             Item.useTime = 40;
             Item.useAnimation = 40;
             Item.knockBack = 2.5f;
-            Item.value = 10;
+            Item.value = 6000;
             Item.rare = ItemRarityID.Blue;
             Item.shoot = ModContent.ProjectileType<DemonicShurikenProjectile>();
             Item.shootSpeed = 10f;

@@ -39,6 +39,7 @@ namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
             Item.damage = 59;
             Item.knockBack = 3f;
             Item.crit = 8;
+            Item.value = 4000;
 
             Item.rare = ItemRarityID.Pink;
 

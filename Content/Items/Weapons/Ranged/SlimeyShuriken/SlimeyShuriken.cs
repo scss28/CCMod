@@ -38,6 +38,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
 
             Item.damage = 19;
             Item.knockBack = .5f;
+            Item.value = 15;
 
             Item.rare = ItemRarityID.Green;
 

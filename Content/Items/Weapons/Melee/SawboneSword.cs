@@ -32,6 +32,7 @@ namespace CCMod.Content.Items.Weapons.Melee
             Item.DefaultToSword(50, 15, 5, true);
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ProjectileID.Ale;
+            Item.value = 5000;
         }
 
         public override bool AltFunctionUse(Player player)

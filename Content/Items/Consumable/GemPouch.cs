@@ -39,6 +39,7 @@ namespace CCMod.Content.Items.Consumable
             Item.height = 25;
             Item.rare = ItemRarityID.Green;
             Item.maxStack = 99;
+            Item.value = 3000;
         }
 
         public override bool CanRightClick()
