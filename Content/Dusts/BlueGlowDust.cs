@@ -6,7 +6,10 @@ namespace CCMod.Content.Dusts
 {
 	public class BlueGlowDust : ModDust
 	{
-		public override Color? GetAlpha(Dust dust, Color lightColor) => Color.White with { A = 0 };
+		public override Color? GetAlpha(Dust dust, Color lightColor)
+		{
+			return Color.White with { A = 0 };
+		}
 
 		public override void OnSpawn(Dust dust)
 		{
