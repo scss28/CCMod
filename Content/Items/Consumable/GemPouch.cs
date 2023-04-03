@@ -29,7 +29,7 @@ namespace CCMod.Content.Items.Consumable
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Right click to open");
+			// Tooltip.SetDefault("Right click to open");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 4;
 		}
 

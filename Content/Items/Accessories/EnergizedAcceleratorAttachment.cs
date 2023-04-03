@@ -22,7 +22,7 @@ namespace CCMod.Content.Items.Accessories
 		public string SpritedBy => "RockyStan";
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Every 5th bullet/arrow shot deal extra 15% damage");
+			// Tooltip.SetDefault("Every 5th bullet/arrow shot deal extra 15% damage");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 		public override void SetDefaults()

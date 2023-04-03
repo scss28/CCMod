@@ -23,7 +23,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("The Blade Feels Like Putty");
+			// Tooltip.SetDefault("The Blade Feels Like Putty");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
 		}

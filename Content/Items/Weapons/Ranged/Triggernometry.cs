@@ -23,7 +23,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault($"[c/{Color.YellowGreen.Hex3()}:Redirects bullets with a ruler for bonus damage]");
+			// Tooltip.SetDefault($"[c/{Color.YellowGreen.Hex3()}:Redirects bullets with a ruler for bonus damage]");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

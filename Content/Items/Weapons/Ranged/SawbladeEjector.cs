@@ -31,8 +31,8 @@ namespace CCMod.Content.Items.Weapons.Ranged
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault($"[c/{Color.Lerp(Color.Red, Color.Gray, 0.6f).Hex3()}:Hold LMB to charge up a sawblade]\n" +
-				$"[c/{Color.Lerp(Color.Red, Color.LightSteelBlue, 0.6f).Hex3()}:Charge speed scales with attack speed]");
+			/* Tooltip.SetDefault($"[c/{Color.Lerp(Color.Red, Color.Gray, 0.6f).Hex3()}:Hold LMB to charge up a sawblade]\n" +
+				$"[c/{Color.Lerp(Color.Red, Color.LightSteelBlue, 0.6f).Hex3()}:Charge speed scales with attack speed]"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

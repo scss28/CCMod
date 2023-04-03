@@ -27,8 +27,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Experimental Plasmacaster");
-			Tooltip.SetDefault("Fires unstable orbs of plasma\nProjectile behaviour varies based on time spent charging\n'What's the worst that could happen?'");
+			// DisplayName.SetDefault("Experimental Plasmacaster");
+			// Tooltip.SetDefault("Fires unstable orbs of plasma\nProjectile behaviour varies based on time spent charging\n'What's the worst that could happen?'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Item.type] = 1;
 		}
 
@@ -337,7 +337,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Plasma Orb");
+			// DisplayName.SetDefault("Plasma Orb");
 
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 18;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 0;

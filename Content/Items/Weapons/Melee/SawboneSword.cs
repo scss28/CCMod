@@ -21,7 +21,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 		public string SpritedBy => "razorxt";
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Sword made out of pure agony ... from the one who code it !");
+			// Tooltip.SetDefault("Sword made out of pure agony ... from the one who code it !");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

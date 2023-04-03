@@ -23,10 +23,10 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 		public string ConceptBy => "LowQualityTrash-Xinim";
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Ashes Away" +
+			/* Tooltip.SetDefault("Ashes Away" +
 				"\nShoot out a shuriken that spawn out 3 to 7 Shadow Spirit to attack many enemies" +
 				"\nAlt click to throw out a faster Shuriken that spawn out 4 scythes that home in to enemy for a moment" +
-				"\nafter that will be affect by gravity and will spawn out 4 shards");
+				"\nafter that will be affect by gravity and will spawn out 4 shards"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

@@ -1,0 +1,61 @@
+
+Mods: {
+	CCMod: {
+		Items: {
+			EnergizedAcceleratorAttachment.Tooltip: Every 5th bullet/arrow shot deal extra 15% damage
+			GemPouch.Tooltip: Right click to open
+			DrenchedTome.Tooltip: The Pages Are Hard To Turn
+			GelVenomDagger.Tooltip: Covered in gel and venom, making it somehow bouncier !
+
+			HexedSkyBlades: {
+				DisplayName: Hexed Skyblades
+				Tooltip:
+					'''
+					[c/6dc7d1:The blades deal heavy damage] [c/e84343:but can also hurt the player...]
+					[c/f3fa4f:"Do you believe in 'gravity'?"]
+					'''
+			}
+
+			GenericBlackSword.Tooltip: it is just a generic sword
+			HardstoneBlade.Tooltip: "[c/4bad5e:Shoots stone chunks that have a tiny chance to drop emeralds on hit.]"
+			SawboneSword.Tooltip: Sword made out of pure agony ... from the one who code it !
+			DemonicShuriken.Tooltip:
+				'''
+				Ashes Away
+				Shoot out a shuriken that spawn out 3 to 7 Shadow Spirit to attack many enemies
+				Alt click to throw out a faster Shuriken that spawn out 4 scythes that home in to enemy for a moment
+				after that will be affect by gravity and will spawn out 4 shards
+				'''
+			ExperimentalExplosiveLauncher.Tooltip:
+				'''
+				[c/b0c4de:Spits out 5 grenades that blow up after a while]
+				[c/9eb0c7:Use Right Click to shoot and detonate the explosives for higher damage]
+				'''
+
+			ExperimentalPlasmacaster: {
+				DisplayName: Experimental Plasmacaster
+				Tooltip:
+					'''
+					Fires unstable orbs of plasma
+					Projectile behaviour varies based on time spent charging
+					'What's the worst that could happen?'
+					'''
+			}
+
+			SawbladeEjector.Tooltip:
+				'''
+				[c/b24c4c:Hold LMB to charge up a sawblade]
+				[c/cf7585:Charge speed scales with attack speed]
+				'''
+			SlimeyShuriken.Tooltip: The Blade Feels Like Putty
+			StormGun.Tooltip:
+				'''
+				Doesn't require mana to operate, but would be a lot more powerful
+				Damage only scale up whenever you have more than 150 max mana
+				'''
+			Triggernometry.Tooltip: "[c/9acd32:Redirects bullets with a ruler for bonus damage]"
+		}
+
+		Projectiles.PlasmaOrb.DisplayName: Plasma Orb
+	}
+}

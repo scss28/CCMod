@@ -23,7 +23,7 @@ namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Covered in gel and venom, making it somehow bouncier !");
+			// Tooltip.SetDefault("Covered in gel and venom, making it somehow bouncier !");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 		}

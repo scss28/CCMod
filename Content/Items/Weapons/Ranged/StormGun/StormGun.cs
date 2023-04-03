@@ -19,8 +19,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.StormGun
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Doesn't require mana to operate, but would be a lot more powerful" +
-				"\nDamage only scale up whenever you have more than 150 max mana");
+			/* Tooltip.SetDefault("Doesn't require mana to operate, but would be a lot more powerful" +
+				"\nDamage only scale up whenever you have more than 150 max mana"); */
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

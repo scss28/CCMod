@@ -22,7 +22,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("it is just a generic sword");
+			// Tooltip.SetDefault("it is just a generic sword");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 		public override void SetDefaults()

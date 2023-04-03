@@ -26,7 +26,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault($"[c/{Color.LightSteelBlue.Hex3()}:Spits out 5 grenades that blow up after a while]\n[c/{(Color.LightSteelBlue * 0.9f).Hex3()}:Use Right Click to shoot and detonate the explosives for higher damage]");
+			// Tooltip.SetDefault($"[c/{Color.LightSteelBlue.Hex3()}:Spits out 5 grenades that blow up after a while]\n[c/{(Color.LightSteelBlue * 0.9f).Hex3()}:Use Right Click to shoot and detonate the explosives for higher damage]");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

@@ -23,7 +23,7 @@ namespace CCMod.Content.Items.Weapons.Magic.DrenchedTome
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("The Pages Are Hard To Turn");
+			// Tooltip.SetDefault("The Pages Are Hard To Turn");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 		}
