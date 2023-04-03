@@ -2,10 +2,25 @@
 Mods: {
 	CCMod: {
 		Items: {
-			EnergizedAcceleratorAttachment.Tooltip: Every 5th bullet/arrow shot deal extra 15% damage
-			GemPouch.Tooltip: Right click to open
-			DrenchedTome.Tooltip: The Pages Are Hard To Turn
-			GelVenomDagger.Tooltip: Covered in gel and venom, making it somehow bouncier !
+			EnergizedAcceleratorAttachment: {
+				Tooltip: Every 5th bullet/arrow shot deal extra 15% damage
+				DisplayName: Energized Accelerator Attachment
+			}
+
+			GemPouch: {
+				Tooltip: Right click to open
+				DisplayName: Gem Pouch
+			}
+
+			DrenchedTome: {
+				Tooltip: The Pages Are Hard To Turn
+				DisplayName: Drenched Tome
+			}
+
+			GelVenomDagger: {
+				Tooltip: Covered in gel and venom, making it somehow bouncier !
+				DisplayName: Gel Venom Dagger
+			}
 
 			HexedSkyBlades: {
 				DisplayName: Hexed Skyblades
@@ -16,21 +31,40 @@ Mods: {
 					'''
 			}
 
-			GenericBlackSword.Tooltip: it is just a generic sword
-			HardstoneBlade.Tooltip: "[c/4bad5e:Shoots stone chunks that have a tiny chance to drop emeralds on hit.]"
-			SawboneSword.Tooltip: Sword made out of pure agony ... from the one who code it !
-			DemonicShuriken.Tooltip:
-				'''
-				Ashes Away
-				Shoot out a shuriken that spawn out 3 to 7 Shadow Spirit to attack many enemies
-				Alt click to throw out a faster Shuriken that spawn out 4 scythes that home in to enemy for a moment
-				after that will be affect by gravity and will spawn out 4 shards
-				'''
-			ExperimentalExplosiveLauncher.Tooltip:
-				'''
-				[c/b0c4de:Spits out 5 grenades that blow up after a while]
-				[c/9eb0c7:Use Right Click to shoot and detonate the explosives for higher damage]
-				'''
+			GenericBlackSword: {
+				Tooltip: it is just a generic sword
+				DisplayName: Generic Black Sword
+			}
+
+			HardstoneBlade: {
+				Tooltip: "[c/4bad5e:Shoots stone chunks that have a tiny chance to drop emeralds on hit.]"
+				DisplayName: Hardstone Blade
+			}
+
+			SawboneSword: {
+				Tooltip: Sword made out of pure agony ... from the one who code it !
+				DisplayName: Sawbone Sword
+			}
+
+			DemonicShuriken: {
+				Tooltip:
+					'''
+					Ashes Away
+					Shoot out a shuriken that spawn out 3 to 7 Shadow Spirit to attack many enemies
+					Alt click to throw out a faster Shuriken that spawn out 4 scythes that home in to enemy for a moment
+					after that will be affect by gravity and will spawn out 4 shards
+					'''
+				DisplayName: Demonic Shuriken
+			}
+
+			ExperimentalExplosiveLauncher: {
+				Tooltip:
+					'''
+					[c/b0c4de:Spits out 5 grenades that blow up after a while]
+					[c/9eb0c7:Use Right Click to shoot and detonate the explosives for higher damage]
+					'''
+				DisplayName: Experimental Explosive Launcher
+			}
 
 			ExperimentalPlasmacaster: {
 				DisplayName: Experimental Plasmacaster
@@ -42,20 +76,74 @@ Mods: {
 					'''
 			}
 
-			SawbladeEjector.Tooltip:
-				'''
-				[c/b24c4c:Hold LMB to charge up a sawblade]
-				[c/cf7585:Charge speed scales with attack speed]
-				'''
-			SlimeyShuriken.Tooltip: The Blade Feels Like Putty
-			StormGun.Tooltip:
-				'''
-				Doesn't require mana to operate, but would be a lot more powerful
-				Damage only scale up whenever you have more than 150 max mana
-				'''
-			Triggernometry.Tooltip: "[c/9acd32:Redirects bullets with a ruler for bonus damage]"
+			SawbladeEjector: {
+				Tooltip:
+					'''
+					[c/b24c4c:Hold LMB to charge up a sawblade]
+					[c/cf7585:Charge speed scales with attack speed]
+					'''
+				DisplayName: Sawblade Ejector
+			}
+
+			SlimeyShuriken: {
+				Tooltip: The Blade Feels Like Putty
+				DisplayName: Slimey Shuriken
+			}
+
+			StormGun: {
+				Tooltip:
+					'''
+					Doesn't require mana to operate, but would be a lot more powerful
+					Damage only scale up whenever you have more than 150 max mana
+					'''
+				DisplayName: Storm Gun
+			}
+
+			Triggernometry: {
+				Tooltip: "[c/9acd32:Redirects bullets with a ruler for bonus damage]"
+				DisplayName: Triggernometry
+			}
+
+			HotRoller: {
+				DisplayName: Hot Roller
+				Tooltip: ""
+			}
 		}
 
-		Projectiles.PlasmaOrb.DisplayName: Plasma Orb
+		Projectiles: {
+			PlasmaOrb.DisplayName: Plasma Orb
+			SlimeSpike.DisplayName: Slime Spike
+			GelVenomDaggerProjectile.DisplayName: Gel Venom Dagger Projectile
+			ToxicBubbleProjectile.DisplayName: Toxic Bubble Projectile
+			ToxicDrop.DisplayName: Toxic Drop
+			HexedSkyBladesProjectile.DisplayName: Hexed Sky Blades Projectile
+			GenericBlackSwordProjectile.DisplayName: Generic Black Sword Projectile
+			GenericBlackSwordProjectileBlade.DisplayName: Generic Black Sword Projectile Blade
+			GenericBlackSwordSlash.DisplayName: Generic Black Sword Slash
+			HardstoneBladeHeldProj.DisplayName: Hardstone Blade Held Proj
+			HardstoneBladeProjectile.DisplayName: Hardstone Blade Projectile
+			HotRollerProjectile.DisplayName: Hot Roller Projectile
+			HotRollerSpike.DisplayName: Hot Roller Spike
+			SawboneSwordP.DisplayName: Sawbone Sword P
+			SawboneSwordSpawnSpikeP.DisplayName: Sawbone Sword Spawn Spike P
+			DemonicShardProjectile.DisplayName: Demonic Shard Projectile
+			DemonicShurikenLeftOverProjectile.DisplayName: Demonic Shuriken Left Over Projectile
+			DemonicShurikenProjectile.DisplayName: Demonic Shuriken Projectile
+			DemonicShurikenSecondProjectile.DisplayName: Demonic Shuriken Second Projectile
+			ShadowExplosion.DisplayName: Shadow Explosion
+			ShadowSpirit.DisplayName: Shadow Spirit
+			EELBullet.DisplayName: E E L Bullet
+			ExperimentalExplosiveLauncherHeldProj.DisplayName: Experimental Explosive Launcher Held Proj
+			Guhnade.DisplayName: Guhnade
+			ExperimentalPlasmachargerHeld.DisplayName: Experimental Plasmacharger Held
+			FlyingNightmare.DisplayName: Flying Nightmare
+			SawbladeEjectorHeldProj.DisplayName: Sawblade Ejector Held Proj
+			SawbladeEjectorProjectile.DisplayName: Sawblade Ejector Projectile
+			SlimeyShurikenProjectile.DisplayName: Slimey Shuriken Projectile
+			StormGunProjectile.DisplayName: Storm Gun Projectile
+			TriggernometryHeldProj.DisplayName: Triggernometry Held Proj
+			TriggernometryRuler.DisplayName: Triggernometry Ruler
+			GhostHitBox.DisplayName: Ghost Hit Box
+		}
 	}
 }
