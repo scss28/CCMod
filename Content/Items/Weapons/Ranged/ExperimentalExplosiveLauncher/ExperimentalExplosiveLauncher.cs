@@ -1,6 +1,7 @@
 ﻿using CCMod.Common;
 using CCMod.Common.ModPlayers;
 using CCMod.Content.Dusts;
+using CCMod.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -12,26 +13,25 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CCMod.Utils;
-using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 {
-    public class ExperimentalExplosiveLauncher : ModItem, IMadeBy
-    {
-        public string CodedBy => "sucss";
-        public string SpritedBy => "mayhemm";
+	public class ExperimentalExplosiveLauncher : ModItem, IMadeBy
+	{
+		public string CodedBy => "sucss";
+		public string SpritedBy => "mayhemm";
 
-        public override void SetStaticDefaults()
-        {
-			Tooltip.SetDefault($"[c/{Color.LightSteelBlue.Hex3()}:Spits out 5 grenades that blow up after a while]\n[c/{(Color.LightSteelBlue * 0.9f).Hex3()}:Use Right Click to shoot and detonate the explosives for higher damage]");
+		public override void SetStaticDefaults()
+		{
+			// Tooltip.SetDefault($"[c/{Color.LightSteelBlue.Hex3()}:Spits out 5 grenades that blow up after a while]\n[c/{(Color.LightSteelBlue * 0.9f).Hex3()}:Use Right Click to shoot and detonate the explosives for higher damage]");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
-        public override void SetDefaults()
-        {
+		public override void SetDefaults()
+		{
 			Item.width = 38;
 			Item.height = 30;
 			Item.damage = 54;
@@ -48,24 +48,27 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 			Item.noUseGraphic = true;
 		}
 
-		public override bool AltFunctionUse(Player player) => true;
+		public override bool AltFunctionUse(Player player)
+		{
+			return true;
+		}
 
-        public override bool CanUseItem(Player player)
-        {
+		public override bool CanUseItem(Player player)
+		{
 			if (player.altFunctionUse == 2)
-            {
+			{
 				Item.useTime = Item.useAnimation = 25;
-            }
-            else
-            {
+			}
+			else
+			{
 				Item.useTime = Item.useAnimation = 60;
 			}
 
-            return base.CanUseItem(player);
-        }
+			return base.CanUseItem(player);
+		}
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
 			Projectile.NewProjectile(
 				source,
 				position,
@@ -78,10 +81,10 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 				);
 
 			return false;
-        }
+		}
 
-        public override void AddRecipes()
-        {
+		public override void AddRecipes()
+		{
 			CreateRecipe()
 			.AddIngredient(ItemID.SoulofFright, 5)
 			.AddIngredient(ItemID.HallowedBar, 12)
@@ -91,14 +94,14 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 			.AddTile(TileID.MythrilAnvil)
 			.Register();
 		}
-    }
+	}
 
 	public class ExperimentalExplosiveLauncherHeldProj : ModProjectile, IDrawAdditive
-    {
-        Player Player => Main.player[Projectile.owner];
-		
-        public override void SetDefaults()
-        {
+	{
+		Player Player => Main.player[Projectile.owner];
+
+		public override void SetDefaults()
+		{
 			Projectile.width = 8;
 			Projectile.height = 8;
 			Projectile.aiStyle = -1;
@@ -117,14 +120,14 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 
 			directionToMouse = Projectile.Center.DirectionTo(Main.MouseWorld);
 
-			Projectile.Center += directionToMouse.RotatedBy(-MathHelper.PiOver2 * Player.direction) *  (AttackType == 0 ? -4 : 7);
+			Projectile.Center += directionToMouse.RotatedBy(-MathHelper.PiOver2 * Player.direction) * (AttackType == 0 ? -4 : 7);
 			directionToMouse = Projectile.Center.DirectionTo(Main.MouseWorld);
 		}
 
-        public override void OnSpawn(IEntitySource source)
-        {
+		public override void OnSpawn(IEntitySource source)
+		{
 			if (AttackType == 1)
-            {
+			{
 				recoil += new Vector2(-8, -0.35f) * Player.direction;
 				UpdateCenterRot();
 
@@ -141,7 +144,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 				if (!Main.dedServ)
 					Lighting.AddLight(MuzzlePosition, TorchID.White);
 			}
-        }
+		}
 
 		Vector2 MuzzlePosition => Projectile.Center + directionToMouse * (AttackType == 0 ? 52 : 42);
 
@@ -151,8 +154,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 		Vector2 directionToMouse;
 
 		int projectileTimer;
-        public override void AI()
-        {
+		public override void AI()
+		{
 			if (Player.ItemAnimationEndingOrEnded || Player.HeldItem.type != ModContent.ItemType<ExperimentalExplosiveLauncher>())
 			{
 				Projectile.Kill();
@@ -162,21 +165,21 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 			Player.heldProj = Projectile.whoAmI;
 
 			if (Main.myPlayer == Player.whoAmI)
-            {
+			{
 				UpdateCenterRot();
 
 				if (AttackType == 0)
-                {
+				{
 					if (projectileTimer++ > Player.itemAnimationMax * 0.15f)
-                    {
+					{
 						projectileTimer = 0;
 
 						recoil.X += -Player.direction * 7f;
 						Projectile.NewProjectile(Projectile.GetSource_FromAI(), MuzzlePosition, directionToMouse.RotatedByRandom(0.25f) * Main.rand.NextFloat(10, 16), ModContent.ProjectileType<Guhnade>(), Projectile.damage, 5, Projectile.owner);
 
 						SoundEngine.PlaySound(SoundManager.Sounds["EEL_Guh"], Projectile.Center);
-                    }
-                }
+					}
+				}
 
 				Projectile.netUpdate = true;
 			}
@@ -188,24 +191,27 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 			recoil *= 0.85f;
 		}
 
-        public override void SendExtraAI(BinaryWriter writer)
-        {
+		public override void SendExtraAI(BinaryWriter writer)
+		{
 			writer.WriteVector2(directionToMouse);
 			writer.WriteVector2(recoil);
-        }
+		}
 
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
 			directionToMouse = reader.ReadVector2();
 			recoil = reader.ReadVector2();
-        }
+		}
 
-        public override bool ShouldUpdatePosition() => false;
+		public override bool ShouldUpdatePosition()
+		{
+			return false;
+		}
 
 		float whiteAlpha;
 
 		public override bool PreDraw(ref Color lightColor)
-        {
+		{
 			Texture2D texture = TextureAssets.Projectile[Type].Value;
 			Rectangle rect = new Rectangle(0, 22 * (int)AttackType, 46, 22 + 4 * (int)AttackType);
 			Vector2 normOrigin = (AttackType == 0 ? new Vector2(6, 11) : new Vector2(13, 6)) - Vector2.UnitX * (15 + recoil.X * Player.direction);
@@ -250,10 +256,10 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 				);
 
 			return false;
-        }
+		}
 
-        public void DrawAdditive(Color lightColor)
-        {
+		public void DrawAdditive(Color lightColor)
+		{
 			Texture2D bloomTex = ModContent.Request<Texture2D>("CCMod/Assets/FX/Glow2").Value;
 			Main.spriteBatch.Draw(
 				bloomTex,
@@ -267,18 +273,18 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 				0
 				);
 		}
-    }
+	}
 
 	public class EELBullet : ModProjectile, IDrawAdditive
-    {
-        public override void SetStaticDefaults()
-        {
+	{
+		public override void SetStaticDefaults()
+		{
 			ProjectileID.Sets.TrailCacheLength[Type] = 90;
 			ProjectileID.Sets.TrailingMode[Type] = 2;
 		}
 
-        public override void SetDefaults()
-        {
+		public override void SetDefaults()
+		{
 			Projectile.width = 7;
 			Projectile.height = 7;
 			Projectile.aiStyle = -1;
@@ -291,8 +297,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 			Projectile.DamageType = DamageClass.Ranged;
 		}
 
-        public override void AI()
-        {
+		public override void AI()
+		{
 			if (!Main.dedServ)
 				Lighting.AddLight(Projectile.Center, 0.5f, 0.5f, 0.5f);
 
@@ -302,11 +308,11 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 			Projectile.rotation = Projectile.velocity.ToRotation();
 
 			int guhnadeType = ModContent.ProjectileType<Guhnade>();
-            Projectile[] guhnadeProj = Main.projectile.Where(p => p.type == guhnadeType).ToArray();
+			Projectile[] guhnadeProj = Main.projectile.Where(p => p.type == guhnadeType).ToArray();
 
 			int setTimeLeft = 25;
-            foreach (Projectile proj in guhnadeProj)
-            {
+			foreach (Projectile proj in guhnadeProj)
+			{
 				if (Projectile.Hitbox.Intersects(proj.Hitbox) && proj.timeLeft > setTimeLeft)
 				{
 					proj.timeLeft = setTimeLeft;
@@ -315,50 +321,53 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 					Projectile closest = null;
 					float closestDist = float.MaxValue;
 					foreach (Projectile proj2 in guhnadeProj)
-                    {
+					{
 						float dist = proj2.DistanceSQ(Projectile.Center);
 						if (proj2.timeLeft > setTimeLeft && dist < closestDist)
-                        {
+						{
 							closest = proj2;
 							closestDist = dist;
 						}
-                    }
-					
+					}
+
 					if (closest is not null)
-                    {
+					{
 						float projSpeed = Projectile.velocity.Length();
 						Projectile.velocity = Projectile.Center.DirectionTo(closest.Center) * projSpeed;
-                    }
+					}
 
 					SoundEngine.PlaySound(SoundManager.Sounds["EEL_Bounce"] with { Pitch = Main.rand.NextFloat(0, 0.4f) });
 
 					break;
-                }
-            }
-        }
+				}
+			}
+		}
 
-		public override bool PreDraw(ref Color lightColor) => false;
+		public override bool PreDraw(ref Color lightColor)
+		{
+			return false;
+		}
 
-        public void DrawAdditive(Color lightColor)
-        {
+		public void DrawAdditive(Color lightColor)
+		{
 			float alpha = 0.85f;
 			Projectile.EasyDrawAfterImage(Color.MediumPurple * alpha);
 			Projectile.EasyDraw(Color.Purple * alpha);
 		}
-    }
+	}
 
 	public class Guhnade : ModProjectile, IDrawAdditive
-    {
-        public override void SetStaticDefaults()
-        {
+	{
+		public override void SetStaticDefaults()
+		{
 			Main.projFrames[Type] = 2;
 
 			ProjectileID.Sets.TrailCacheLength[Type] = 5;
 			ProjectileID.Sets.TrailingMode[Type] = 2;
 		}
 
-        public override void SetDefaults()
-        {
+		public override void SetDefaults()
+		{
 			Projectile.width = 22;
 			Projectile.height = 22;
 			Projectile.aiStyle = -1;
@@ -373,8 +382,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 		}
 
 		int dir;
-        public override void AI()
-        {
+		public override void AI()
+		{
 			if (dir == 0)
 				dir = MathF.Sign(Projectile.velocity.X);
 
@@ -393,45 +402,48 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 				}*/
 
 				if (++blinkTimer > Projectile.timeLeft / 7f)
-                {
+				{
 					blinkTimer = 0;
 					blinkProg = 1;
-                }
+				}
 
 				Projectile.scale = 1 + 0.2f * (150 - Projectile.timeLeft) / 150f;
 			}
 		}
 
-		public override bool OnTileCollide(Vector2 oldVelocity) => false;
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			return false;
+		}
 
-        public override bool PreDraw(ref Color lightColor)
-        {
+		public override bool PreDraw(ref Color lightColor)
+		{
 			Projectile.EasyDrawAfterImage(Color.Black * 0.25f, altTex: ModContent.Request<Texture2D>(Texture + "_White").Value);
 
 			Projectile.EasyDraw(lightColor);
 			Projectile.EasyDraw(Color.White, altTex: ModContent.Request<Texture2D>(Texture + "_Glow").Value);
 
 			return false;
-        }
+		}
 
-        public override void Kill(int timeLeft)
-        {
+		public override void Kill(int timeLeft)
+		{
 			SoundEngine.PlaySound(SoundManager.Sounds["EEL_GuhEX2"] with { Pitch = Main.rand.NextFloat(0, 0.4f) }, Projectile.Center);
 			CCModUtils.ForeachNPCInRange(Projectile.Center, 130, npc =>
-            {
+			{
 				if (!npc.friendly && npc.active && npc.life > 0)
-                    Main.player[Projectile.owner].ApplyDamageToNPC(npc, Projectile.damage, Projectile.knockBack, MathF.Sign(Projectile.Center.X - npc.Center.X), Main.rand.NextBool(4));
+					Main.player[Projectile.owner].ApplyDamageToNPC(npc, Projectile.damage, Projectile.knockBack, MathF.Sign(Projectile.Center.X - npc.Center.X), Main.rand.NextBool(4));
 			});
 			CCModUtils.NewDustCircular(Projectile.Center, 50, d => Main.rand.NextFromList(DustID.Shadowflame, DustID.Smoke, DustID.Electric), Main.rand.Next(5, 9), Main.rand.NextFloat(), (6, 9), d => d.noGravity = true);
 
 			Main.LocalPlayer.GetModPlayer<ScreenShakePlayer>().ShakeScreen(7, 0.75f);
-        }
+		}
 
 		float blinkProg = 0f;
-		float blinkDiff = 30;
+		readonly float blinkDiff = 30;
 		float blinkTimer = 30;
 		public void DrawAdditive(Color lightColor)
-        {
+		{
 			Texture2D bloomTex = ModContent.Request<Texture2D>("CCMod/Assets/FX/Glow2").Value;
 			Main.spriteBatch.Draw(
 				bloomTex,
@@ -440,12 +452,12 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 				Projectile.timeLeft < 2 ? Color.White * 0.7f : Color.White * blinkProg * 0.25f,
 				0,
 				bloomTex.Size() * 0.5f,
-				(Projectile.timeLeft < 3 ? new Vector2(Main.rand.NextFloat(1, 5), Main.rand.NextFloat(1, 5)) * Main.rand.NextFloat(0.75f, 1f)  : blinkProg * 1.5f * Vector2.One) * Main.rand.NextFloat(0.75f, 1.75f),
+				(Projectile.timeLeft < 3 ? new Vector2(Main.rand.NextFloat(1, 5), Main.rand.NextFloat(1, 5)) * Main.rand.NextFloat(0.75f, 1f) : blinkProg * 1.5f * Vector2.One) * Main.rand.NextFloat(0.75f, 1.75f),
 				SpriteEffects.None,
 				0
 				);
 
 			Projectile.EasyDraw(Color.White * blinkProg, altTex: ModContent.Request<Texture2D>(Texture + "_White").Value);
 		}
-    }
+	}
 }

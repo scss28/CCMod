@@ -1,16 +1,16 @@
 ﻿using CCMod.Common;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.IO;
 
 namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 {
@@ -20,12 +20,15 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 
 		public string SpritedBy => "mayhemm";
 
-		public override Vector2? HoldoutOffset() => new Vector2(-0.5f, 0);
+		public override Vector2? HoldoutOffset()
+		{
+			return new Vector2(-0.5f, 0);
+		}
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Experimental Plasmacaster");
-			Tooltip.SetDefault("Fires unstable orbs of plasma\nProjectile behaviour varies based on time spent charging\n'What's the worst that could happen?'");
+			// DisplayName.SetDefault("Experimental Plasmacaster");
+			// Tooltip.SetDefault("Fires unstable orbs of plasma\nProjectile behaviour varies based on time spent charging\n'What's the worst that could happen?'");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Item.type] = 1;
 		}
 
@@ -41,7 +44,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 			Item.noMelee = true;
 			Item.autoReuse = false;
 			Item.value = Item.buyPrice(gold: 1);
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.shoot = ModContent.ProjectileType<ExperimentalPlasmachargerHeld>();
 			Item.shootSpeed = 0;
 			Item.channel = true;
@@ -67,23 +70,23 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 
 		public override void Load()
 		{
-			On.Terraria.Main.DrawProjectiles += DrawMuzzleEffect;
+			Terraria.On_Main.DrawProjectiles += DrawMuzzleEffect;
 		}
 
 		public override void Unload()
 		{
-			On.Terraria.Main.DrawProjectiles -= DrawMuzzleEffect;
+			Terraria.On_Main.DrawProjectiles -= DrawMuzzleEffect;
 		}
 
-		Player owner { get => Main.player[Projectile.owner]; }
+		Player owner => Main.player[Projectile.owner];
 
 		float ChargeTimer { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
 
-		int aimDir { get => aimNormal.X > 0 ? 1 : -1; }
+		int aimDir => aimNormal.X > 0 ? 1 : -1;
 
 		public bool BeingHeld => Main.player[Projectile.owner].channel && !Main.player[Projectile.owner].noItems && !Main.player[Projectile.owner].CCed;
 
-		private static List<MuzzleEffect> mzFx = new List<MuzzleEffect>();
+		private static readonly List<MuzzleEffect> mzFx = new();
 
 		public Vector2 aimNormal;
 
@@ -138,10 +141,10 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 			//set projectile center to be at the player, slightly offset towards the aim normal, with adjustments for the recoil visual effect
 			Projectile.Center = owner.MountedCenter + new Vector2(owner.direction * -3, -1) + (aimNormal * 20).RotatedBy(-(recoilAmount * 0.2f * aimDir));
 			//set projectile rotation to point towards the aim normal, with adjustments for the recoil visual effect
-			Projectile.rotation = aimNormal.ToRotation() - (recoilAmount * 0.4f * aimDir);
+			Projectile.rotation = aimNormal.ToRotation() - recoilAmount * 0.4f * aimDir;
 
 			//set fancy player arm rotation
-			owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (aimNormal * 20).RotatedBy(-(recoilAmount * 0.2f * aimDir)).ToRotation() - MathHelper.PiOver2 + (0.3f * aimDir));
+			owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (aimNormal * 20).RotatedBy(-(recoilAmount * 0.2f * aimDir)).ToRotation() - MathHelper.PiOver2 + 0.3f * aimDir);
 
 			if (BeingHeld)
 			{
@@ -155,7 +158,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 					{
 						chargeLevel++;
 
-						SoundEngine.PlaySound(new SoundStyle("CCMod/Assets/Audio/SFX/loadingclick") with { Pitch = ((float)chargeLevel / 12) }, Projectile.Center);
+						SoundEngine.PlaySound(new SoundStyle("CCMod/Assets/Audio/SFX/loadingclick") with { Pitch = (float)chargeLevel / 12 }, Projectile.Center);
 						flashAlpha = 1;
 						ChargeTimer = 15;
 
@@ -177,9 +180,9 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 					else if (chargeLevel < 8) //initiate burst fire if gun is charged but not fully
 					{
 						//set timeLeft to a high enough value to allow entire burst fire to happen
-						Projectile.timeLeft = (chargeLevel * 3) + 14;
+						Projectile.timeLeft = chargeLevel * 3 + 14;
 						//ChargeTimer has use changed from delay between charge increments to a timer to control burst fire. this is done solely to use less variables
-						ChargeTimer = (chargeLevel * 3) + 8;
+						ChargeTimer = chargeLevel * 3 + 8;
 					}
 					else //fire slow moving, piercing, Flying Nightmare-esque projectile if gun is fully charged
 					{
@@ -200,6 +203,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 						}
 					}
 				}
+
 				charging = false;
 			}
 		}
@@ -220,8 +224,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 
 			if (Main.myPlayer == Projectile.owner)
 			{
-				float speed = 12 + (instability * 12);
-				int damage = (int)(Projectile.originalDamage + (instability * 48));
+				float speed = 12 + instability * 12;
+				int damage = (int)(Projectile.originalDamage + instability * 48);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), shootOrigin, aimNormal.RotatedByRandom(instability * 0.2f) * speed, ModContent.ProjectileType<PlasmaOrb>(), damage, 2, Projectile.owner);
 			}
 		}
@@ -237,8 +241,10 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 
 			for (int i = 0; i < 3; i++) //spawns 3 glow ring "particles" simultaneously, with 3 different sizes and speeds
 			{
-				var m = new MuzzleEffect(shootOrigin + (aimNormal * 22), aimNormal * 2 * (i + 1));
-				m.scale = 0.3f * (i + 1);
+				var m = new MuzzleEffect(shootOrigin + aimNormal * 22, aimNormal * 2 * (i + 1))
+				{
+					scale = 0.3f * (i + 1)
+				};
 				mzFx.Add(m);
 			}
 
@@ -248,7 +254,10 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 			}
 		}
 
-		public override bool PreDraw(ref Color lightColor) => false;
+		public override bool PreDraw(ref Color lightColor)
+		{
+			return false;
+		}
 
 		public override void PostDraw(Color lightColor)
 		{
@@ -275,7 +284,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 			aimNormal = reader.ReadVector2();
 		}
 
-		private static void DrawMuzzleEffect(On.Terraria.Main.orig_DrawProjectiles orig, Main self) //i'd much rather make a standalone particle system to do this but i dont have time to fit an entire library mod into this mod
+		private static void DrawMuzzleEffect(Terraria.On_Main.orig_DrawProjectiles orig, Main self) //i'd much rather make a standalone particle system to do this but i dont have time to fit an entire library mod into this mod
 		{
 			orig(self);
 
@@ -293,7 +302,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 				mzFxA[i].alpha *= 0.92f;
 				mzFxA[i].scale += 0.05f;
 
-				if (mzFxA[i].alpha < 0.1f) mzFx.Remove(mzFxA[i]);
+				if (mzFxA[i].alpha < 0.1f)
+					mzFx.Remove(mzFxA[i]);
 
 				Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
@@ -327,7 +337,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Plasma Orb");
+			// DisplayName.SetDefault("Plasma Orb");
 
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 18;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -354,9 +364,11 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 
 		public override void AI()
 		{
-			if (Projectile.timeLeft <= 1 && Projectile.localAI[1] == 0) Die();
+			if (Projectile.timeLeft <= 1 && Projectile.localAI[1] == 0)
+				Die();
 
-			if (Projectile.localAI[1] != 0) Projectile.localAI[1]++; //death anim is active when localai is not equal to 0
+			if (Projectile.localAI[1] != 0)
+				Projectile.localAI[1]++; //death anim is active when localai is not equal to 0
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -366,7 +378,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 			return false;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Die();
 		}
@@ -400,7 +412,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 			Vector2 explOrigin = explosion.Size() / 2;
 
 			float sin = (float)Math.Sin((float)(Main.timeForVisualEffects - Projectile.localAI[0]) / 7);
-			Vector2 scale = new Vector2(1 + (sin * 0.15f), 1 - (sin * 0.15f));
+			Vector2 scale = new Vector2(1 + sin * 0.15f, 1 - sin * 0.15f);
 
 			Main.spriteBatch.End(); //This code is bad. Do not do this
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix); //set the spritebatch to additive blending mode, which allows for transparency in sprites to render properly
@@ -413,7 +425,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 				{
 					float factor = (float)(Projectile.oldPos.Length - i) / Projectile.oldPos.Length;
 
-					Vector2 pos = Projectile.oldPos[i] + (Projectile.Size / 2) - Main.screenPosition;
+					Vector2 pos = Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition;
 
 					Main.EntitySpriteDraw(bloom, pos, null, new Color(48, 234, 255, 50) * factor, Projectile.rotation, bloomOrigin, factor * 0.6f, SpriteEffects.None, 0);
 				}
@@ -427,7 +439,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix); //but seriously, it's better to have a separate additive drawing manager and use interfaces to draw additively in entities so the spritebatch only has to stop and start a few times, but again, i dont want to force a whole library mod into this mod
 
 			//disable drawing main projectile if death animation is active
-			if (Projectile.localAI[1] == 0) Main.EntitySpriteDraw(main, position, null, Color.White, Projectile.rotation, mainOrigin, scale, SpriteEffects.None, 0);
+			if (Projectile.localAI[1] == 0)
+				Main.EntitySpriteDraw(main, position, null, Color.White, Projectile.rotation, mainOrigin, scale, SpriteEffects.None, 0);
 		}
 	}
 
@@ -462,13 +475,21 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 			}
 		}
 
-		public override bool PreDraw(ref Color lightColor) => false;
+		public override bool PreDraw(ref Color lightColor)
+		{
+			return false;
+		}
 
 		public override void PostDraw(Color lightColor)
 		{
 			//this code makes the projectile shrink before disappearing at the end of its rather than poofing out of existance
-			if (Projectile.timeLeft > 30) if (Scale < 30) Scale++;
-				else Scale--;
+			if (Projectile.timeLeft > 30)
+			{
+				if (Scale < 30)
+					Scale++;
+				else
+					Scale--;
+			}
 
 			Texture2D main = ModContent.Request<Texture2D>("CCMod/Content/Items/Weapons/Ranged/ExperimentalPlasmacaster/ExperimentalPlasmacaster_proj2").Value;
 			Texture2D outer = ModContent.Request<Texture2D>("CCMod/Content/Items/Weapons/Ranged/ExperimentalPlasmacaster/ExperimentalPlasmacaster_proj_extra1").Value;
@@ -479,9 +500,9 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 			Vector2 outerOrigin = outer.Size() / 2;
 			Vector2 bloomOrigin = bloom.Size() / 2;
 
-			float sin = (float)Math.Sin((float)(Main.timeForVisualEffects) / 7); //sin wave for pulsating outer glow and main orb shape
-			float alpha = 1 + (sin * 0.2f);
-			Vector2 scale = new Vector2(1 + (sin * 0.15f), 1 - (sin * 0.15f));
+			float sin = (float)Math.Sin((float)Main.timeForVisualEffects / 7); //sin wave for pulsating outer glow and main orb shape
+			float alpha = 1 + sin * 0.2f;
+			Vector2 scale = new Vector2(1 + sin * 0.15f, 1 - sin * 0.15f);
 
 			Main.spriteBatch.End(); //again, don't do this
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
