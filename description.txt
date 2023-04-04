@@ -8,7 +8,7 @@ To submit sprites and code that are going to be used to create Items, NPCs etc. 
 
 currently there is :
 
-- 13 weapons
+- 14 weapons
 - 1 Consumable
 - 1 Accessory
 
