@@ -1,17 +1,12 @@
-using CCMod.Common;
-using CCMod.Utils;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.GameContent.Creative;
-using Terraria.GameInput;
+using CCMod.Tool;
+using CCMod.Common;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 {
@@ -96,7 +91,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 
 	public class DemonicShurikenProjectile : ModProjectile
 	{
-		public override string Texture => "CCMod/Content/Items/Weapons/Ranged/DemonicShuriken/DemonicShuriken";
+		public override string Texture => CCModTool.GetTheSameTextureAsEntity<DemonicShuriken>();
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.TrailCacheLength[Type] = 10;
@@ -140,13 +135,13 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			Projectile.EvenEasierDrawAfterImage(lightColor * 0.2f);
+			Projectile.DrawTrail(lightColor * 0.2f);
 			return true;
 		}
 	}
 	public class DemonicShurikenSecondProjectile : ModProjectile
 	{
-		public override string Texture => "CCMod/Content/Items/Weapons/Ranged/DemonicShuriken/DemonicShuriken";
+		public override string Texture => CCModTool.GetTheSameTextureAsEntity<DemonicShuriken>();
 		public override void SetDefaults()
 		{
 			Projectile.width = 42;
@@ -272,7 +267,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 	}
 	public class DemonicShardProjectile : ModProjectile
 	{
-		public override string Texture => "CCMod/Content/Items/Weapons/Ranged/DemonicShuriken/DemonicShurikenLeftOverProjectile";
+		public override string Texture => CCModTool.GetTheSameTextureAsEntity<DemonicShurikenLeftOverProjectile>();
 		public override void SetDefaults()
 		{
 			Projectile.width = 10;

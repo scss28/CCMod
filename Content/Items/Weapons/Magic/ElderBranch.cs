@@ -19,8 +19,8 @@ namespace CCMod.Content.Items.Weapons.Magic
         public string ConceptBy => "Kerm";
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Elder Branch");
-			Tooltip.SetDefault("A tree which appears to be elder");
+			//DisplayName.SetDefault("Elder Branch");
+			//Tooltip.SetDefault("A tree which appears to be elder");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			Item.staff[Item.type] = true;
 		}
