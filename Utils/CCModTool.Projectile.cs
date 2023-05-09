@@ -36,7 +36,7 @@ namespace CCMod.Tool
 		}
 		/// <summary>
 		/// This method will ensure that you will spawn a projectile like how starfury sword do<br/>
-		/// Use <see cref="SpawnProjectileLikeStarFuryItem(Player, Vector2, bool, float, int, int, float)"/> if the projectile going to be spawn from a item
+		/// Use <see cref="SpawnProjectileLikeStarFuryItem(Player, float, int, int, float, Vector2, bool)"/> if the projectile going to be spawn from a item
 		/// </summary>
 		/// <param name="source">Source of the spawn</param>
 		/// <param name="player">The player</param>
@@ -46,7 +46,7 @@ namespace CCMod.Tool
 		/// <param name="knockback">The knockback of that projectile</param>
 		/// <param name="Range">Spawn position on X and Y axis, you only need to set positive if you gonna randomize it, otherwise no need to set it</param>
 		/// <param name="randomizePosition">Make your range position randomize instead of fixed</param>
-		public static void SpawnProjectileLikeStarFury(IEntitySource source, Player player,float speed, int ProjectileType, int damage, float knockback, Vector2 Range, bool randomizePosition = true)
+		public static void SpawnProjectileLikeStarFury(IEntitySource source, Player player, float speed, int ProjectileType, int damage, float knockback, Vector2 Range, bool randomizePosition = true)
 		{
 			float RandomizeX = randomizePosition ? Main.rand.NextFloat(-Range.X, Range.X) : Range.X;
 			float RandomizeY = randomizePosition ? Main.rand.NextFloat(-Range.Y, Range.Y) : Range.Y;
@@ -55,8 +55,8 @@ namespace CCMod.Tool
 			Projectile.NewProjectile(source, spawn, velocity, ProjectileType, damage, knockback, player.whoAmI);
 		}
 		/// <summary>
-		/// This method will ensure that you will spawn a projectile like how starfury sword do
-		/// Use <see cref="SpawnProjectileLikeStarFury(IEntitySource, Player, Vector2, bool, float, int, int, float)"/> if the projectile not spawning from a item
+		/// This method will ensure that you will spawn a projectile like how starfury sword do<br />
+		/// Use <see cref="SpawnProjectileLikeStarFury(IEntitySource, Player, float, int, int, float, Vector2, bool)"/> if the projectile not spawning from a item
 		/// </summary>
 		/// <param name="player">The player</param>
 		/// <param name="speed">The speed of the projectile</param>
@@ -65,7 +65,7 @@ namespace CCMod.Tool
 		/// <param name="knockback">The knockback of that projectile</param>
 		/// <param name="Range">Spawn position on X and Y axis, you only need to set positive if you gonna randomize it, otherwise no need to set it</param>
 		/// <param name="randomizePosition">Make your range position randomize instead of fixed</param>
-		public static void SpawnProjectileLikeStarFuryItem(Player player,float speed, int ProjectileType, int damage, float knockback, Vector2 Range, bool randomizePosition)
+		public static void SpawnProjectileLikeStarFuryItem(Player player, float speed, int ProjectileType, int damage, float knockback, Vector2 Range, bool randomizePosition)
 		{
 			float RandomizeX = randomizePosition ? Main.rand.NextFloat(-Range.X, Range.X) : Range.X;
 			float RandomizeY = randomizePosition ? Main.rand.NextFloat(-Range.Y, Range.Y) : Range.Y;
@@ -87,12 +87,9 @@ namespace CCMod.Tool
 		{
 			for (int i = 0; i < Main.maxProjectiles; i++)
 			{
-				if (Main.projectile[i] != null
-					&& Main.projectile[i].active
-					&& Main.projectile[i].type == type)
+				if (Main.projectile[i] is { active: true } proj && proj.type == type && proj.WithinRange(position, distance))
 				{
-					if (CompareSquareFloatValue(Main.projectile[i].Center, position, distance))
-						return true;
+					return true;
 				}
 			}
 			return false;

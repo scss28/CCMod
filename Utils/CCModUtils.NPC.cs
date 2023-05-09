@@ -15,6 +15,7 @@ namespace CCMod.Utils
 		/// Can be used in <see langword="foreach"/> statements.
 		/// </summary>
 		public static ArraySegment<NPC> NPCForeach => new(Main.npc, 0, Main.npc.Length - 1);
+
 		public static void ForeachNPCInRange(Vector2 center, float range, Action<NPC> npcAction)
 		{
 			foreach (NPC npc in NPCForeach)

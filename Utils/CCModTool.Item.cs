@@ -17,7 +17,13 @@ namespace CCMod.Tool
 			item.useStyle = useStyle;
 			item.autoReuse = autoReuse;
 		}
-		public static void CCModItemSetDefaultToConsume(this Item item, int width, int height)
+		/// <summary>
+		/// Use this to set required value for a consumable item
+		/// </summary>
+		/// <param name="item"></param>
+		/// <param name="width"></param>
+		/// <param name="height"></param>
+		public static void CCModItemSetDefaultToConsumable(this Item item, int width, int height)
 		{
 			item.width = width;
 			item.height = height;
@@ -27,7 +33,13 @@ namespace CCMod.Tool
 			item.autoReuse = false;
 			item.consumable = true;
 		}
-		public static void CCModItemSetSetDefaultSpear(Item item, int spearType, float shootSpeed)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="item">The item to sets the stats for</param>
+		/// <param name="spearType">The type of projectile the spear uses.</param>
+		/// <param name="shootSpeed"></param>
+		public static void CCModItemSetDefaultSpear(Item item, int spearType, float shootSpeed)
 		{
 			item.noUseGraphic = true;
 			item.noMelee = true;
