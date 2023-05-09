@@ -191,16 +191,5 @@ namespace CCMod.Utils
 				return true;
 			return false;
 		}
-
-		public static Vector2 Vector2EvenlyDistribute(this Vector2 Vec2ToRotate, float ProjectileAmount, float rotation, float i)
-		{
-			if (ProjectileAmount > 1)
-			{
-				rotation = MathHelper.ToRadians(rotation);
-				return Vec2ToRotate.RotatedBy(MathHelper.Lerp(rotation * .5f, rotation * -.5f, i / (ProjectileAmount - 1f)));
-			}
-
-			return Vec2ToRotate;
-		}
 	}
 }

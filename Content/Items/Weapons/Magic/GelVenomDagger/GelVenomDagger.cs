@@ -1,15 +1,12 @@
 ﻿using CCMod.Common;
+using CCMod.Tool;
 using CCMod.Utils;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.GameContent.Creative;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -257,7 +254,7 @@ namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
 
 			if (Projectile.timeLeft < MAX_TIME_LEFT - 30)
 			{
-				if (CCModUtils.LookForProjectile(Projectile.Center, ModContent.ProjectileType<GelVenomDaggerProjectile>(), 20))
+				if (CCModTool.LookForProjectile(Projectile.Center, ModContent.ProjectileType<GelVenomDaggerProjectile>(), 20))
 				{
 					Projectile.ai[0] = 1;
 					Projectile.Kill();
@@ -361,7 +358,7 @@ namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			Projectile.EvenEasierDrawAfterImage(new Color(170, 20, 200, Projectile.alpha));
+			Projectile.DrawTrail(new Color(170, 20, 200, Projectile.alpha));
 			return true;
 		}
 	}

@@ -1,4 +1,3 @@
-
 Mods: {
 	CCMod: {
 		Items: {
@@ -106,7 +105,12 @@ Mods: {
 
 			HotRoller: {
 				DisplayName: Hot Roller
-				Tooltip: "Charge into your foes with a whirling slash!"
+				Tooltip: Charge into your foes with a whirling slash!
+			}
+
+			ElderBranch: {
+				DisplayName: Elder Branch
+				Tooltip: ""
 			}
 		}
 
