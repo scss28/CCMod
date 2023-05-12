@@ -35,9 +35,9 @@ namespace CCMod.Tool
 			}
 			return velocity;
 		}
-		public static Vector2 NextVector2RotatedByRandom(this Vector2 Vec2ToRotate, float ToRadians)
+		public static Vector2 NextVector2RotatedByRandom(this Vector2 Vec2ToRotate, float degrees)
 		{
-			float rotation = MathHelper.ToRadians(ToRadians);
+			float rotation = MathHelper.ToRadians(degrees);
 			return Vec2ToRotate.RotatedByRandom(rotation);
 		}
 		public static Vector2 NextVector2Spread(this Vector2 ToRotateAgain, float Spread, float additionalMultiplier = 1)

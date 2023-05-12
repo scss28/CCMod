@@ -76,7 +76,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 	//TODO: DO CODE REFACTOR HERE IN THE FUTURE
 	public class SawboneSwordSpawnSpikeP : ModProjectile
 	{
-		public override string Texture => CCModTool.GetTheSameTextureAsEntity<SawboneSword>();
+		public override string Texture => CCModTool.GetSameTextureAs<SawboneSword>();
 		public override void SetDefaults()
 		{
 			Projectile.width = 10;
@@ -163,7 +163,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 
 	public class SawboneSwordP : ModProjectile
 	{
-		public override string Texture => CCModTool.GetTheSameTextureAsEntity<SawboneSword>();
+		public override string Texture => CCModTool.GetSameTextureAs<SawboneSword>();
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.DontAttachHideToAlpha[Projectile.type] = true;

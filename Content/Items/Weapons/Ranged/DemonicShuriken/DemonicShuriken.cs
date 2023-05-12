@@ -91,7 +91,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 
 	public class DemonicShurikenProjectile : ModProjectile
 	{
-		public override string Texture => CCModTool.GetTheSameTextureAsEntity<DemonicShuriken>();
+		public override string Texture => CCModTool.GetSameTextureAs<DemonicShuriken>();
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.TrailCacheLength[Type] = 10;
@@ -141,7 +141,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 	}
 	public class DemonicShurikenSecondProjectile : ModProjectile
 	{
-		public override string Texture => CCModTool.GetTheSameTextureAsEntity<DemonicShuriken>();
+		public override string Texture => CCModTool.GetSameTextureAs<DemonicShuriken>();
 		public override void SetDefaults()
 		{
 			Projectile.width = 42;
@@ -267,7 +267,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 	}
 	public class DemonicShardProjectile : ModProjectile
 	{
-		public override string Texture => CCModTool.GetTheSameTextureAsEntity<DemonicShurikenLeftOverProjectile>();
+		public override string Texture => CCModTool.GetSameTextureAs<DemonicShurikenLeftOverProjectile>();
 		public override void SetDefaults()
 		{
 			Projectile.width = 10;

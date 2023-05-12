@@ -1,22 +1,28 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 namespace CCMod.Tool
 {
 	static partial class CCModTool
 	{
-		public static string GetTheSameTextureAsEntity<T>() where T : class
+		public static string GetSameTextureAs<T>() where T : class
 		{
-			var type = typeof(T);
-			string NameSpace = type.Namespace;
-			if (NameSpace == null)
+			Type type = typeof(T);
+
+			if (type.IsSubclassOf(typeof(ModTexturedType)) && ModContent.GetInstance<T>() is ModTexturedType instance)
+				return instance.Texture;
+
+			string Namespace = type.Namespace;
+			if (Namespace == null)
 				return GetVanillaTexture<Item>(ItemID.Acorn);
-			return NameSpace.Replace(".", "/") + "/" + type.Name;
+			return Namespace.Replace(".", "/") + "/" + type.Name;
 		}
 		public static string GetTheSameTextureAs<T>(string altName = "") where T : class
 		{
-			var type = typeof(T);
+			Type type = typeof(T);
 			if (string.IsNullOrEmpty(altName))
 				altName = type.Name;
 			string NameSpace = type.Namespace;
@@ -26,7 +32,7 @@ namespace CCMod.Tool
 		}
 		public static string GetVanillaTexture<T>(int EntityType) where T : class
 		{
-			var type = typeof(T);
+			Type type = typeof(T);
 			if (type == typeof(NPC))
 				return "Terraria/Images/NPC_" + EntityType;
 			if (type == typeof(Item))

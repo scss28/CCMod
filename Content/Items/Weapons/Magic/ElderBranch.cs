@@ -8,7 +8,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
-
 namespace CCMod.Content.Items.Weapons.Magic
 {
 	public class ElderBranch : ModItem
@@ -33,11 +32,11 @@ namespace CCMod.Content.Items.Weapons.Magic
 			Item.height = 50;
 			Item.useTime = 9;
 			Item.useAnimation = 9;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
             Item.mana = 1;
             Item.value = 5;
-			Item.rare = 0;
+			Item.rare = ItemRarityID.White;
 			Item.UseSound = SoundID.Grass;
 			Item.autoReuse = true;
 			Item.useTurn = false;

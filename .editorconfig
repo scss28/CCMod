@@ -34,10 +34,10 @@ dotnet_style_predefined_type_for_locals_parameters_members = true:warning
 dotnet_style_predefined_type_for_member_access = true:warning
 
 # Parentheses preferences
-dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:warning
-dotnet_style_parentheses_in_other_binary_operators = never_if_unnecessary:warning
-dotnet_style_parentheses_in_other_operators = never_if_unnecessary:warning
-dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:warning
+dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:suggestion
+dotnet_style_parentheses_in_other_binary_operators = never_if_unnecessary:suggestion
+dotnet_style_parentheses_in_other_operators = never_if_unnecessary:suggestion
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:suggestion
 
 # Modifier preferences
 dotnet_style_require_accessibility_modifiers = for_non_interface_members
@@ -71,7 +71,7 @@ dotnet_remove_unnecessary_suppression_exclusions = none
 
 # New line preferences
 dotnet_style_allow_multiple_blank_lines_experimental = false:warning
-dotnet_style_allow_statement_immediately_after_block_experimental = false:warning
+dotnet_style_allow_statement_immediately_after_block_experimental = false:silent
 
 #### C# Coding Conventions ####
 
@@ -246,3 +246,9 @@ tab_width = 4
 indent_size = 4
 end_of_line = crlf
 dotnet_style_predefined_type_for_member_access = true:warning
+
+# IDE0047: Quitar los paréntesis innecesarios
+dotnet_diagnostic.IDE0047.severity = suggestion
+
+# IDE2003: Se requiere una línea en blanco entre el bloque y la instrucción subsiguiente
+dotnet_diagnostic.IDE2003.severity = silent
