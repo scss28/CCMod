@@ -112,6 +112,11 @@ Mods: {
 				DisplayName: Elder Branch
 				Tooltip: ""
 			}
+
+			GenericPistol: {
+				DisplayName: Generic Pistol
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
