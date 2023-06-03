@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using CCMod.Common;
 
-namespace CCMod.Content.Items.ExampleWeapon.GenericPistol
+namespace CCMod.Content.Items.Weapons.Example.GenericPistol
 {
 	internal class GenericPistol : ModItem, IMadeBy
 	{
