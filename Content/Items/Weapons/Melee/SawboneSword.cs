@@ -1,6 +1,5 @@
 ﻿using CCMod.Common;
 using CCMod.Utils;
-using CCMod.Tool;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;

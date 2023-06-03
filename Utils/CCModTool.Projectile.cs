@@ -4,7 +4,7 @@ using Terraria.GameContent;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
-namespace CCMod.Tool
+namespace CCMod.Utils
 {
 	static partial class CCModTool
 	{

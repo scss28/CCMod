@@ -3,7 +3,7 @@ using Terraria;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace CCMod.Tool
+namespace CCMod.Utils
 {
 	static partial class CCModTool
 	{
