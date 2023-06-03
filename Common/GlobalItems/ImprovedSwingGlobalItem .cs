@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace CCMod.Common.GlobalItems
 {
-	public class CCModGlobalItem : GlobalItem
+	public class ImprovedSwingGlobalItem : GlobalItem
 	{
 		public const float PLAYERARMLENGTH = 12f;
 		public override void UseStyle(Item item, Player player, Rectangle heldItemFrame)
@@ -17,10 +17,10 @@ namespace CCMod.Common.GlobalItems
 			}
 			if (item.useStyle == ItemUseStyleID.Swing)
 			{
-				SwipeAttack(player, player.GetModPlayer<CCModGlobalItemPlayer>(), 1);
+				SwipeAttack(player, player.GetModPlayer<ImprovedSwingGlobalItemPlayer>(), 1);
 			}
 		}
-		private void SwipeAttack(Player player, CCModGlobalItemPlayer modplayer, int direct)
+		private void SwipeAttack(Player player, ImprovedSwingGlobalItemPlayer modplayer, int direct)
 		{
 			float percentDone = player.itemAnimation / (float)player.itemAnimationMax;
 			percentDone = CCModUtils.InExpo(percentDone);
@@ -52,7 +52,7 @@ namespace CCMod.Common.GlobalItems
 		}
 	}
 	interface MeleeWeaponWithImproveSwing { }
-	public class CCModGlobalItemPlayer : ModPlayer
+	public class ImprovedSwingGlobalItemPlayer : ModPlayer
 	{
 		public Vector2 data = Vector2.Zero;
 		public Vector2 mouseLastPosition = Vector2.Zero;

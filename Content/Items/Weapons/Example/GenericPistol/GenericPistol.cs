@@ -4,11 +4,16 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
+using CCMod.Common;
 
 namespace CCMod.Content.Items.ExampleWeapon.GenericPistol
 {
-	internal class GenericPistol : ModItem
+	internal class GenericPistol : ModItem, IMadeBy
 	{
+		public string CodedBy => "Xinim";
+
+		public string SpritedBy => "Xinim";
+
 		public override void SetDefaults()
 		{
 			Item.CCModItemSetDefaultRange(34, 19, 20, 1f, 20, 20, ItemUseStyleID.Shoot, ProjectileID.Bullet, 10, false, AmmoID.Bullet);
