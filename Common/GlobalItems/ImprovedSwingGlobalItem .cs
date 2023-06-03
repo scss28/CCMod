@@ -11,14 +11,11 @@ namespace CCMod.Common.GlobalItems
 		public const float PLAYERARMLENGTH = 12f;
 		public override void UseStyle(Item item, Player player, Rectangle heldItemFrame)
 		{
-			if (item.noMelee)
+			if (item.ModItem is not MeleeWeaponWithImproveSwing || item.noMelee)
 			{
 				return;
 			}
-			if (item.useStyle == ItemUseStyleID.Swing)
-			{
-				SwipeAttack(player, player.GetModPlayer<ImprovedSwingGlobalItemPlayer>(), 1);
-			}
+			SwipeAttack(player, player.GetModPlayer<ImprovedSwingGlobalItemPlayer>(), 1);
 		}
 		private void SwipeAttack(Player player, ImprovedSwingGlobalItemPlayer modplayer, int direct)
 		{
