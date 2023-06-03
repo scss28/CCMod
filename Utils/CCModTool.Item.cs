@@ -1,8 +1,10 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
+using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 
-namespace CCMod.Tool
+namespace CCMod.Utils
 {
 	static partial class CCModTool
 	{

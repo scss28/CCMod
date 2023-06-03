@@ -167,6 +167,7 @@ namespace CCMod.Utils
 		//lowqualitytrash-xinim blizzard vector2 code
 		/// <summary>
 		/// use with combination of <see cref="IsVelocityLimitReached(Vector2, float)"/>
+		/// Not recommend to use as it is very broken
 		/// </summary>
 		/// <param name="velocity"></param>
 		/// <param name="limited"></param>
@@ -191,5 +192,26 @@ namespace CCMod.Utils
 				return true;
 			return false;
 		}
+		public static float InExpo(float t) => (float)Math.Pow(2, 5 * (t - 1));
+		public static float OutExpo(float t) => 1 - InExpo(1 - t);
+		public static float InOutExpo(float t)
+		{
+			if (t < 0.5) return InExpo(t * 2) * .5f;
+			return 1 - InExpo((1 - t) * 2) * .5f;
+		}
+		/// <summary>
+		/// Use to order 2 values from smallest to biggest
+		/// </summary>
+		/// <param name="v1"></param>
+		/// <param name="v2"></param>
+		/// <returns></returns>
+		public static (int, int) Order(float v1, float v2) => v1 < v2 ? ((int)v1, (int)v2) : ((int)v2, (int)v1);
+		/// <summary>
+		/// Use to order 2 values from smallest to biggest
+		/// </summary>
+		/// <param name="v1"></param>
+		/// <param name="v2"></param>
+		/// <returns></returns>
+		public static (float, float) OrderFloat(float v1, float v2) => v1 < v2 ? (v1, v2) : (v2, v1);
 	}
 }

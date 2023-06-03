@@ -1,5 +1,4 @@
 ﻿using CCMod.Common;
-using CCMod.Tool;
 using CCMod.Utils;
 using Microsoft.Xna.Framework;
 using System;
