@@ -1,7 +1,7 @@
 using System;
 using Terraria;
-using CCMod.Tool;
 using CCMod.Common;
+using CCMod.Utils;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;

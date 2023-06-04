@@ -112,6 +112,16 @@ Mods: {
 				DisplayName: Elder Branch
 				Tooltip: ""
 			}
+
+			GenericPistol: {
+				DisplayName: Generic Pistol
+				Tooltip: ""
+			}
+
+			MeleeImproveSwingExample: {
+				DisplayName: Melee Improve Swing Example
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
