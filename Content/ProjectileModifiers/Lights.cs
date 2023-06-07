@@ -14,7 +14,7 @@ using static CCMod.Utils.CCModTool;
 
 namespace CCMod.Content.ProjModifiers
 {
-	internal class PowerOfLight : ProjModifier
+	internal class PowerOfLight : ProjectileModifier
 	{
 		public PowerOfLight(IEntity entity) : base(entity)
 		{
@@ -53,7 +53,7 @@ namespace CCMod.Content.ProjModifiers
 		}
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			var manager = (IEntity)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).GetGlobalProjectile<ProjModifierManager>();
+			var manager = (IEntity)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).GetGlobalProjectile<ProjectileModifierManager>();
 			PowerOfLight pol = new PowerOfLight(manager);
 			pol.R = 2;
 			manager.InstallComponent(pol);

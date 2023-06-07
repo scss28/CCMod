@@ -10,9 +10,9 @@ using Terraria.DataStructures;
 
 namespace CCMod.Common.ECS.Projectiles
 {
-	internal abstract class ProjModifier : Component
+	internal abstract class ProjectileModifier : Component
 	{
-		protected ProjModifier(IEntity entity) : base(entity)
+		protected ProjectileModifier(IEntity entity) : base(entity)
 		{
 		}
 		public enum Hook

@@ -8,8 +8,7 @@ namespace CCMod.Common.ECS
 {
 	internal abstract class Component : IComponent
 	{
-		private IEntity entity;
-		public IEntity Entity { get => entity; set => entity = value; }
+		public IEntity Entity { get; set; }
 		public Component(IEntity entity)
 		{
 			Entity = entity;

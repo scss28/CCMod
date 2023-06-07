@@ -9,19 +9,17 @@ using Terraria;
 using System.Reflection;
 using Mono.Cecil;
 using Microsoft.Xna.Framework;
-using static CCMod.Common.ECS.Projectiles.ProjModifier;
+using static CCMod.Common.ECS.Projectiles.ProjectileModifier;
 
 namespace CCMod.Common.ECS.Projectiles
 {
-	internal class ProjModifierManager : GlobalProjectile, IEntity
+	internal class ProjectileModifierManager : GlobalProjectile, IEntity
 	{
 		public override bool InstancePerEntity => true;
-		private object source;
-		public object Source { get => source; set => source = value; }
-		private Dictionary<string, List<IComponent>> components = new Dictionary<string, List<IComponent>>();
-		public Dictionary<string, List<IComponent>> Components { get => components; set => components = value; }
-		private Dictionary<string, Dictionary<IComponent, Delegate>> delegations = new Dictionary<string, Dictionary<IComponent, Delegate>>();
-		public Dictionary<string, Dictionary<IComponent, Delegate>> Delegations { get => delegations; set => delegations = value; }
+
+		public object Source { get; set; }
+		public Dictionary<string, List<IComponent>> Components { get; set; } = new Dictionary<string, List<IComponent>>();
+		public Dictionary<string, Dictionary<IComponent, Delegate>> Delegations { get; set; } = new Dictionary<string, Dictionary<IComponent, Delegate>>();
 
 		#region Delegations Invoke
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
@@ -29,48 +27,39 @@ namespace CCMod.Common.ECS.Projectiles
 			string hookName = nameof(OnSpawn);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					Delegations[hookName][component].DynamicInvoke(projectile, source);
-				});
+				Components[hookName].ForEach(component => Delegations[hookName][component].DynamicInvoke(projectile, source));
 			}
 		}
+
 		public override bool PreAI(Projectile projectile)
 		{
 			bool result = true;
 			string hookName = nameof(PreAI);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					result = (bool)Delegations[hookName][component].DynamicInvoke(projectile);
-				});
+				Components[hookName].ForEach(component => result = (bool)Delegations[hookName][component].DynamicInvoke(projectile));
 			}
 			return result;
 		}
+
 		public override void AI(Projectile projectile)
 		{
-			base.AI(projectile);
 			string hookName = nameof(AI);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					Delegations[hookName][component].DynamicInvoke(projectile);
-				});
+				Components[hookName].ForEach(component => Delegations[hookName][component].DynamicInvoke(projectile));
 			}
 		}
+
 		public override void PostAI(Projectile projectile)
 		{
 			string hookName = nameof(PostAI);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					Delegations[hookName][component].DynamicInvoke(projectile);
-				});
+				Components[hookName].ForEach(component => Delegations[hookName][component].DynamicInvoke(projectile));
 			}
 		}
+
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
 			Color refColor = lightColor;
@@ -78,99 +67,83 @@ namespace CCMod.Common.ECS.Projectiles
 			string hookName = nameof(PreDraw);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					result = ((PreDrawDelegate)Delegations[hookName][component]).Invoke(projectile, ref refColor);
-				});
+				Components[hookName].ForEach(component => result = ((PreDrawDelegate)Delegations[hookName][component]).Invoke(projectile, ref refColor));
 			}
 			lightColor = refColor;
 			return result;
 		}
+
 		public override void PostDraw(Projectile projectile, Color lightColor)
 		{
 			string hookName = nameof(PostDraw);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					Delegations[hookName][component].DynamicInvoke(projectile, lightColor);
-				});
+				Components[hookName].ForEach(component => Delegations[hookName][component].DynamicInvoke(projectile, lightColor));
 			}
 		}
+
 		public override Color? GetAlpha(Projectile projectile, Color lightColor)
 		{
 			Color? result = null;
 			string hookName = nameof(GetAlpha);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					result = (Color?)Delegations[hookName][component].DynamicInvoke(projectile, lightColor);
-				});
+				Components[hookName].ForEach(component => result = (Color?)Delegations[hookName][component].DynamicInvoke(projectile, lightColor));
 			}
 			return result;
 		}
+
 		public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
 		{
 			bool result = true;
 			string hookName = nameof(OnTileCollide);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					result = (bool)Delegations[hookName][component].DynamicInvoke(projectile, oldVelocity);
-				});
+				Components[hookName].ForEach(component => result = (bool)Delegations[hookName][component].DynamicInvoke(projectile, oldVelocity));
 			}
 			return result;
 		}
+
 		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
 		{
 			NPC.HitModifiers refModifiers = modifiers;
 			string hookName = nameof(ModifyHitNPC);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					((ModifyHitNPCDelegate)Delegations[hookName][component]).Invoke(projectile, target, ref refModifiers);
-				});
+				Components[hookName].ForEach(component => ((ModifyHitNPCDelegate)Delegations[hookName][component]).Invoke(projectile, target, ref refModifiers));
 			}
 			modifiers = refModifiers;
 		}
+
 		public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
 		{
 			Player.HurtModifiers refModifiers = modifiers;
 			string hookName = nameof(ModifyHitPlayer);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					((ModifyHitPlayerDelegate)Delegations[hookName][component]).Invoke(projectile, target, ref refModifiers);
-				});
+				Components[hookName].ForEach(component => ((ModifyHitPlayerDelegate)Delegations[hookName][component]).Invoke(projectile, target, ref refModifiers));
 			}
 			modifiers = refModifiers;
 		}
+
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			string hookName = nameof(OnHitNPC);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					Delegations[hookName][component].DynamicInvoke(projectile, target, hit, damageDone);
-				});
+				Components[hookName].ForEach(component => Delegations[hookName][component].DynamicInvoke(projectile, target, hit, damageDone));
 			}
 		}
+
 		public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
 		{
 			string hookName = nameof(OnHitPlayer);
 			if (Components.ContainsKey(hookName))
 			{
-				Components[hookName].ForEach(component =>
-				{
-					Delegations[hookName][component].DynamicInvoke(projectile, target, info);
-				});
+				Components[hookName].ForEach(component => Delegations[hookName][component].DynamicInvoke(projectile, target, info));
 			}
 		}
+
 		#endregion
 
 		public IEntity Clone()
@@ -185,7 +158,7 @@ namespace CCMod.Common.ECS.Projectiles
 
 		public IEntity PrimitiveClone()
 		{
-			return new ProjModifierManager();
+			return new ProjectileModifierManager();
 		}
 	}
 }

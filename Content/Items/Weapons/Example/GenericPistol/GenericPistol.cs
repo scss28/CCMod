@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using CCMod.Common;
+using CCMod.Common.ProjectileComponentSystem;
+using CCMod.Content.ProjectileComponents;
 
 namespace CCMod.Content.Items.Weapons.Example.GenericPistol
 {
@@ -23,7 +25,8 @@ namespace CCMod.Content.Items.Weapons.Example.GenericPistol
 			for (int i = 0; i < 5; i++)
 			{
 				Vector2 vec = velocity.Vector2EvenArchSpread(5, 30, i);
-				Projectile.NewProjectile(source, position, vec, type, damage, knockback, player.whoAmI);
+				Projectile.NewProjectileDirect(source, position, vec, type, damage, knockback, player.whoAmI)
+					.AddComponent(new HomingProjectileComponent());
 			}
 			return false;
 		}
