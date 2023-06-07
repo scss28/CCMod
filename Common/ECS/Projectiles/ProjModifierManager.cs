@@ -9,7 +9,7 @@ using Terraria;
 using System.Reflection;
 using Mono.Cecil;
 using Microsoft.Xna.Framework;
-using static CCMod.Utils.CCModTool;
+using static CCMod.Common.ECS.Projectiles.ProjModifier;
 
 namespace CCMod.Common.ECS.Projectiles
 {
@@ -73,17 +73,17 @@ namespace CCMod.Common.ECS.Projectiles
 		}
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
-			CColor cLightColor = new CColor(lightColor);
+			Color refColor = lightColor;
 			bool result = true;
 			string hookName = nameof(PreDraw);
 			if (Components.ContainsKey(hookName))
 			{
 				Components[hookName].ForEach(component =>
 				{
-					result = (bool)Delegations[hookName][component].DynamicInvoke(projectile, cLightColor);
+					result = ((PreDrawDelegate)Delegations[hookName][component]).Invoke(projectile, ref refColor);
 				});
 			}
-			lightColor = cLightColor.Value;
+			lightColor = refColor;
 			return result;
 		}
 		public override void PostDraw(Projectile projectile, Color lightColor)
@@ -125,29 +125,29 @@ namespace CCMod.Common.ECS.Projectiles
 		}
 		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			NPCHitModifiers cModifiers = new NPCHitModifiers(modifiers);
+			NPC.HitModifiers refModifiers = modifiers;
 			string hookName = nameof(ModifyHitNPC);
 			if (Components.ContainsKey(hookName))
 			{
 				Components[hookName].ForEach(component =>
 				{
-					Delegations[hookName][component].DynamicInvoke(projectile, target, cModifiers);
+					((ModifyHitNPCDelegate)Delegations[hookName][component]).Invoke(projectile, target, ref refModifiers);
 				});
 			}
-			modifiers = cModifiers.Value;
+			modifiers = refModifiers;
 		}
 		public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
 		{
-			PlayerHurtModifiers cModifiers = new PlayerHurtModifiers(modifiers);
+			Player.HurtModifiers refModifiers = modifiers;
 			string hookName = nameof(ModifyHitPlayer);
 			if (Components.ContainsKey(hookName))
 			{
 				Components[hookName].ForEach(component =>
 				{
-					Delegations[hookName][component].DynamicInvoke(projectile, target, cModifiers);
+					((ModifyHitPlayerDelegate)Delegations[hookName][component]).Invoke(projectile, target, ref refModifiers);
 				});
 			}
-			modifiers = cModifiers.Value;
+			modifiers = refModifiers;
 		}
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
 		{

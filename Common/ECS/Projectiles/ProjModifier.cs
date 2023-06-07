@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
-using static CCMod.Utils.CCModTool;
 
 namespace CCMod.Common.ECS.Projectiles
 {
@@ -39,14 +38,36 @@ namespace CCMod.Common.ECS.Projectiles
 		public virtual bool PreAI(Projectile projectile) { return true; }
 		public virtual void AI(Projectile projectile) { }
 		public virtual void PostAI(Projectile projectile) { }
-		public virtual bool PreDraw(Projectile projectile, CColor cLightColor) { return true; }
+		/// <summary>
+		/// While registering this method, the parameter 'delegation' should be <code>new PreDrawDelegate(PreDraw)</code>
+		/// </summary>
+		/// <param name="projectile"></param>
+		/// <param name="lightColor"></param>
+		/// <returns></returns>
+		public virtual bool PreDraw(Projectile projectile, ref Color lightColor) { return true; }
 		public virtual void PostDraw(Projectile projectile, Color lightColor) { }
 		public virtual Color? GetAlpha(Projectile projectile, Color lightColor) { return null; }
 		public virtual bool OnTileCollide(Projectile projectile, Vector2 oldVelocity) { return true; }
-		public virtual void ModifyHitNPC(Projectile projectile, NPC target, NPCHitModifiers cModifers) { }
-		public virtual void ModifyHitPlayer(Projectile projectile, Player target, PlayerHurtModifiers cModifiers) { }
+		/// <summary>
+		/// While registering this method, the parameter 'delegation' should be <code>new ModifyHitNPCDelegate(ModifyHitNPC)</code>
+		/// </summary>
+		/// <param name="projectile"></param>
+		/// <param name="target"></param>
+		/// <param name="modifiers"></param>
+		public virtual void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers) { }
+		/// <summary>
+		/// While registering this method, the parameter 'delegation' should be <code>new ModifyHitPlayerDelegate(ModifyHitPlayer)</code>
+		/// </summary>
+		/// <param name="projectile"></param>
+		/// <param name="target"></param>
+		/// <param name="modifiers"></param>
+		public virtual void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers) { }
 		public virtual void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) { }
 		public virtual void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info) { }
+
+		public delegate bool PreDrawDelegate(Projectile projectile, ref Color lightColor);
+		public delegate void ModifyHitNPCDelegate(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers);
+		public delegate void ModifyHitPlayerDelegate(Projectile projectile, Player target, ref Player.HurtModifiers modifiers);
 
 	}
 }

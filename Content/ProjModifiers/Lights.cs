@@ -26,7 +26,7 @@ namespace CCMod.Content.ProjModifiers
 		{
 			RegisterDelegation(Hook.AI, AI);
 			RegisterDelegation(Hook.GetAlpha, GetAlpha);
-			RegisterDelegation(Hook.ModifyHitNPC, ModifyHitNPC);
+			RegisterDelegation(Hook.ModifyHitNPC, new ModifyHitNPCDelegate(ModifyHitNPC));
 		}
 		public override void AI(Projectile projectile)
 		{
@@ -37,10 +37,10 @@ namespace CCMod.Content.ProjModifiers
 		{
 			return lightColor * 0.3f;
 		}
-		public override void ModifyHitNPC(Projectile projectile, NPC target, NPCHitModifiers cModifiers)
+		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers refModifiers)
 		{
-			cModifiers.Value.SetCrit();
-			cModifiers.Value.CritDamage *= 2;
+			refModifiers.SetCrit();
+			refModifiers.CritDamage *= 2;
 		}
 	}
 	public class ECSTest : ModItem
