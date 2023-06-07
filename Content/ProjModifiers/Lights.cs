@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static CCMod.Utils.CCModTool;
 
 namespace CCMod.Content.ProjModifiers
 {
@@ -36,11 +37,10 @@ namespace CCMod.Content.ProjModifiers
 		{
 			return lightColor * 0.3f;
 		}
-		public override void ModifyHitNPC(Projectile projectile, NPC target)
+		public override void ModifyHitNPC(Projectile projectile, NPC target, NPCHitModifiers cModifiers)
 		{
-			var manager = projectile.GetGlobalProjectile<ProjModifierManager>();
-			manager.ModifyHitNPC_Modifiers.SetCrit();
-			manager.ModifyHitNPC_Modifiers.CritDamage *= 2;
+			cModifiers.Value.SetCrit();
+			cModifiers.Value.CritDamage *= 2;
 		}
 	}
 	public class ECSTest : ModItem

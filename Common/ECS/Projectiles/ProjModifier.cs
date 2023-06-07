@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
+using static CCMod.Utils.CCModTool;
 
 namespace CCMod.Common.ECS.Projectiles
 {
@@ -38,28 +39,12 @@ namespace CCMod.Common.ECS.Projectiles
 		public virtual bool PreAI(Projectile projectile) { return true; }
 		public virtual void AI(Projectile projectile) { }
 		public virtual void PostAI(Projectile projectile) { }
-		/// <summary>
-		/// Additional parameter: <para>PreDraw_LightColor</para>
-		/// </summary>
-		/// <param name="projectile"></param>
-		/// <returns></returns>
-		public virtual bool PreDraw(Projectile projectile) { return true; }
+		public virtual bool PreDraw(Projectile projectile, CColor cLightColor) { return true; }
 		public virtual void PostDraw(Projectile projectile, Color lightColor) { }
 		public virtual Color? GetAlpha(Projectile projectile, Color lightColor) { return null; }
 		public virtual bool OnTileCollide(Projectile projectile, Vector2 oldVelocity) { return true; }
-		/// <summary>
-		/// Additional parameter: <para>ModifyHitNPC_Modifiers</para>
-		/// </summary>
-		/// <param name="projectile"></param>
-		/// <param name="target"></param>
-		/// <param name="modifiers"></param>
-		public virtual void ModifyHitNPC(Projectile projectile, NPC target) { }
-		/// <summary>
-		/// Additional parameter: <para>ModifyHitPlayer_Modifiers</para>
-		/// </summary>
-		/// <param name="projectile"></param>
-		/// <param name="target"></param>
-		public virtual void ModifyHitPlayer(Projectile projectile, Player target) { }
+		public virtual void ModifyHitNPC(Projectile projectile, NPC target, NPCHitModifiers cModifers) { }
+		public virtual void ModifyHitPlayer(Projectile projectile, Player target, PlayerHurtModifiers cModifiers) { }
 		public virtual void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) { }
 		public virtual void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info) { }
 
