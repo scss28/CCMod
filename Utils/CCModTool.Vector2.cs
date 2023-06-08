@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CCMod.Utils
 {
@@ -53,7 +54,7 @@ namespace CCMod.Utils
 		{
 			var sortedVectors = new List<Vector2>(vectors);
 			sortedVectors.Sort((v1, v2) => v1.LengthSquared().CompareTo(v2.LengthSquared()));
-			return sortedVectors[0];
+			return sortedVectors.FirstOrDefault();
 		}
 	}
 }
