@@ -21,44 +21,39 @@ namespace CCMod.Utils
 		/// }
 		/// </code>
 		/// </summary>
-		/// <param name="velocity">The velocity, this should be use in shoot hook</param>
-		/// <param name="AmountofProjectile">The number of projectile</param>
+		/// <param name="vector">The velocity, this should be use in shoot hook</param>
+		/// <param name="projectileCount">The number of projectile</param>
 		/// <param name="degree">The degree of the spread</param>
 		/// <param name="i"></param>
 		/// <returns>Return velocity</returns>
-		public static Vector2 Vector2EvenArchSpread(this Vector2 velocity, float AmountofProjectile, float degree, int i)
+		public static Vector2 EvenArchSpread(this Vector2 vector, float projectileCount, float degree, int i)
 		{
-			if (AmountofProjectile > 1)
+			if (projectileCount > 1)
 			{
 				degree = MathHelper.ToRadians(degree);
-				return velocity.RotatedBy(MathHelper.Lerp(degree * .5f, degree * -.5f, i / (AmountofProjectile - 1f)));
+				return vector.RotatedBy(MathHelper.Lerp(degree * .5f, degree * -.5f, i / (projectileCount - 1f)));
 			}
-			return velocity;
+			return vector;
 		}
-		public static Vector2 NextVector2RotatedByRandom(this Vector2 Vec2ToRotate, float degrees)
+
+		public static Vector2 NextRotatedByRandom(this Vector2 vector, float degrees)
 		{
 			float rotation = MathHelper.ToRadians(degrees);
-			return Vec2ToRotate.RotatedByRandom(rotation);
+			return vector.RotatedByRandom(rotation);
 		}
-		public static Vector2 NextVector2Spread(this Vector2 ToRotateAgain, float Spread, float additionalMultiplier = 1)
+
+		public static Vector2 NextSpread(this Vector2 vector, float spread, float additionalMultiplier = 1)
 		{
-			ToRotateAgain.X += Main.rand.NextFloat(-Spread, Spread) * additionalMultiplier;
-			ToRotateAgain.Y += Main.rand.NextFloat(-Spread, Spread) * additionalMultiplier;
-			return ToRotateAgain;
+			vector.X += Main.rand.NextFloat(-spread, spread) * additionalMultiplier;
+			vector.Y += Main.rand.NextFloat(-spread, spread) * additionalMultiplier;
+			return vector;
 		}
-		public static Vector2 Vector2SmallestInList(List<Vector2> flag)
+
+		public static Vector2 SmallestInList(List<Vector2> vectors)
 		{
-			for (int i = 0; i < flag.Count;)
-			{
-				Vector2 vector2 = flag[i];
-				for (int l = i + 1; l < flag.Count; ++l)
-				{
-					if (vector2.LengthSquared() > flag[l].LengthSquared())
-						vector2 = flag[l];
-				}
-				return vector2;
-			}
-			return Vector2.Zero;
+			var sortedVectors = new List<Vector2>(vectors);
+			sortedVectors.Sort((v1, v2) => v1.LengthSquared().CompareTo(v2.LengthSquared()));
+			return sortedVectors[0];
 		}
 	}
 }
