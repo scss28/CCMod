@@ -19,11 +19,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 {
-	public class ExperimentalExplosiveLauncher : ModItem, IMadeBy
+	[MadeBy("sucss", "mayhemm")]
+	public class ExperimentalExplosiveLauncher : ModItem
 	{
-		public string CodedBy => "sucss";
-		public string SpritedBy => "mayhemm";
-
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault($"[c/{Color.LightSteelBlue.Hex3()}:Spits out 5 grenades that blow up after a while]\n[c/{(Color.LightSteelBlue * 0.9f).Hex3()}:Use Right Click to shoot and detonate the explosives for higher damage]");

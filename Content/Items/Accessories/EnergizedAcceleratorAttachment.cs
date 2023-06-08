@@ -15,11 +15,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Accessories
 {
-	internal class EnergizedAcceleratorAttachment : ModItem, IMadeBy
+	[MadeBy("LowQualityTrash-Xinim", "RockyStan", "Tim")]
+	internal class EnergizedAcceleratorAttachment : ModItem
 	{
-		public string CodedBy => "LowQualityTrash-Xinim";
-		public string ConceptBy => "Tim";
-		public string SpritedBy => "RockyStan";
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault("Every 5th bullet/arrow shot deal extra 15% damage");

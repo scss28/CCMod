@@ -11,12 +11,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
 {
-	internal class GelVenomDagger : ModItem, IMadeBy
+	[MadeBy("LowQualityTrash-Xinim", "PixelGaming", "LowQualityTrash-Xinim, PixelGaming")]
+	internal class GelVenomDagger : ModItem
 	{
-		public string CodedBy => "LowQualityTrash-Xinim";
-		public string SpritedBy => "PixelGaming";
-		public string ConceptBy => "LowQualityTrash-Xinim, PixelGaming";
-
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault("Covered in gel and venom, making it somehow bouncier !");

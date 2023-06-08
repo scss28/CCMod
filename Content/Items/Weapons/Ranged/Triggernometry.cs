@@ -15,12 +15,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged
 {
-	public class Triggernometry : ModItem, IMadeBy
+	[MadeBy("sucss", "Pick", "Pick, sucss")]
+	public class Triggernometry : ModItem
 	{
-		public string CodedBy => "sucss";
-		public string SpritedBy => "Pick";
-		public string ConceptBy => "Pick, sucss";
-
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault($"[c/{Color.YellowGreen.Hex3()}:Redirects bullets with a ruler for bonus damage]");

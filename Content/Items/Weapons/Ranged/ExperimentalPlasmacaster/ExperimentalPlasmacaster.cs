@@ -14,12 +14,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalPlasmacaster
 {
-	public class ExperimentalPlasmacaster : ModItem, IMadeBy
+	[MadeBy("mayhemm", "mayhemm")]
+	public class ExperimentalPlasmacaster : ModItem
 	{
-		public string CodedBy => "mayhemm";
-
-		public string SpritedBy => "mayhemm";
-
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-0.5f, 0);

@@ -10,12 +10,9 @@ using Terraria.GameContent.Creative;
 
 namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 {
-	public class DemonicShuriken : ModItem, IMadeBy
+	[MadeBy("LowQualityTrash-Xinim", "LowQualityTrash-Xinim", "LowQualityTrash-Xinim")]
+	public class DemonicShuriken : ModItem
 	{
-
-		public string CodedBy => "LowQualityTrash-Xinim";
-		public string SpritedBy => "LowQualityTrash-Xinim";
-		public string ConceptBy => "LowQualityTrash-Xinim";
 		public override void SetStaticDefaults()
 		{
 			/* Tooltip.SetDefault("Ashes Away" +

@@ -13,12 +13,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Magic
 {
-	public class HexedSkyBlades : ModItem, IMadeBy, IChestItem
+	[MadeBy("sucss", "person_")]
+	public class HexedSkyBlades : ModItem, IChestItem
 	{
-		public string CodedBy => "sucss";
-		public string SpritedBy => "person_";
-		// public string ConceptBy => "person_"; ???
-
 		public int ChestType => 21; // 21 is one of the chest types
 		public int ChestStyle => 13; // 13 is the skyware chest style
 		public int Stack => 1;

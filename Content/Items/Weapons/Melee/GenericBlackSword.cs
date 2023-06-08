@@ -14,12 +14,9 @@ using Terraria.ModLoader.IO;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	internal class GenericBlackSword : ModItem, IMadeBy
+	[MadeBy("LowQualityTrash-Xinim", "LowQualityTrash-Xinim")]
+	internal class GenericBlackSword : ModItem
 	{
-		public string CodedBy => "LowQualityTrash-Xinim";
-		public string SpritedBy => "LowQualityTrash-Xinim";
-		public string ConceptBy => "LowQualityTrash-Xinim";
-
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault("it is just a generic sword");

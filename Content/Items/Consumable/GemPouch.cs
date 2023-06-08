@@ -11,14 +11,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Consumable
 {
-	public class GemPouch : ModItem, IMadeBy, IChestItem
+	[MadeBy("sucss", "RockyStan", "RockyStan")]
+	public class GemPouch : ModItem, IChestItem
 	{
-		public string CodedBy => "sucss";
-
-		public string SpritedBy => "RockyStan";
-
-		public string ConceptBy => "RockyStan";
-
 		public int ChestType => 21;
 
 		public int ChestStyle => 1;

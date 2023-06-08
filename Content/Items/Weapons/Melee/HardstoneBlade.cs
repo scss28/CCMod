@@ -14,11 +14,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	public class HardstoneBlade : ModItem, IMadeBy
+	[MadeBy("sucss", "person_, AnUncreativeName")]
+	public class HardstoneBlade : ModItem
 	{
-		public string CodedBy => "sucss";
-		public string SpritedBy => "person_, AnUncreativeName";
-
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault("[c/4bad5e:Shoots stone chunks that have a tiny chance to drop emeralds on hit.]");

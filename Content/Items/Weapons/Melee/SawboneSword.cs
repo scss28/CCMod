@@ -10,10 +10,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	internal class SawboneSword : ModItem, IMadeBy
+	[MadeBy("LowQualityTrash-Xinim", "razorxt")]
+	internal class SawboneSword : ModItem
 	{
-		public string CodedBy => "LowQualityTrash-Xinim";
-		public string SpritedBy => "razorxt";
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault("Sword made out of pure agony ... from the one who code it !");

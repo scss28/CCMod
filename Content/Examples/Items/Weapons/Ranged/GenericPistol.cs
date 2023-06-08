@@ -8,17 +8,15 @@ using CCMod.Common;
 using CCMod.Common.ProjectileComponentSystem;
 using CCMod.Content.ProjectileComponents;
 
-namespace CCMod.Content.Items.Weapons.Example.GenericPistol
+namespace CCMod.Content.Examples.Items.Weapons.Ranged
 {
-	internal class GenericPistol : ModItem, IMadeBy
+	[ExampleItem]
+	[MadeBy("Xinim", "Xinim")]
+	internal class GenericPistol : ModItem
 	{
-		public string CodedBy => "Xinim";
-
-		public string SpritedBy => "Xinim";
-
 		public override void SetDefaults()
 		{
-			Item.CCModItemSetDefaultRange(34, 19, 20, 1f, 20, 20, ItemUseStyleID.Shoot, ProjectileID.Bullet, 10, false, AmmoID.Bullet);
+			Item.SetDefaultRanged(34, 19, 20, 1f, 20, 20, ItemUseStyleID.Shoot, ProjectileID.Bullet, 10, false, AmmoID.Bullet);
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

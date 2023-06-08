@@ -7,15 +7,13 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using CCMod.Common;
 
 namespace CCMod.Content.Items.Weapons.Magic
 {
+	[MadeBy("Kerm", "person_", "Kerm")]
 	public class ElderBranch : ModItem
 	{
-
-        public string CodedBy => "Kerm";
-        public string SpritedBy => "Person_";
-        public string ConceptBy => "Kerm";
         public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Elder Branch");

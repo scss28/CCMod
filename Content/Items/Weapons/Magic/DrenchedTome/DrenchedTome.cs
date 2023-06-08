@@ -15,12 +15,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Magic.DrenchedTome
 {
-	internal class DrenchedTome : ModItem, IMadeBy
+	[MadeBy("LowQualityTrash-Xinim", "Kyoru")]
+	internal class DrenchedTome : ModItem
 	{
-		public string CodedBy => "LowQualityTrash-Xinim";
-
-		public string SpritedBy => "Kyoru";
-
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault("The Pages Are Hard To Turn");

@@ -43,6 +43,8 @@ namespace CCMod.Content.ProjModifiers
 			refModifiers.CritDamage *= 2;
 		}
 	}
+
+/*
 	public class ECSTest : ModItem
 	{
 		public override string Texture => $"Terraria/Images/Item_{ItemID.Ale}";
@@ -60,4 +62,5 @@ namespace CCMod.Content.ProjModifiers
 			return false;
 		}
 	}
+*/
 }

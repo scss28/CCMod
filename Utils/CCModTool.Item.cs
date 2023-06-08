@@ -8,7 +8,7 @@ namespace CCMod.Utils
 {
 	static partial class CCModTool
 	{
-		public static void CCModItemSetDefault(this Item item, int width, int height, int damage, float knockback, int useTime, int useAnimation, int useStyle, bool autoReuse)
+		public static void SetDefault(this Item item, int width, int height, int damage, float knockback, int useTime, int useAnimation, int useStyle, bool autoReuse)
 		{
 			item.width = width;
 			item.height = height;
@@ -25,7 +25,7 @@ namespace CCMod.Utils
 		/// <param name="item"></param>
 		/// <param name="width"></param>
 		/// <param name="height"></param>
-		public static void CCModItemSetDefaultToConsumable(this Item item, int width, int height)
+		public static void SetDefaultConsumable(this Item item, int width, int height)
 		{
 			item.width = width;
 			item.height = height;
@@ -41,7 +41,7 @@ namespace CCMod.Utils
 		/// <param name="item">The item to sets the stats for</param>
 		/// <param name="spearType">The type of projectile the spear uses.</param>
 		/// <param name="shootSpeed"></param>
-		public static void CCModItemSetDefaultSpear(Item item, int spearType, float shootSpeed)
+		public static void SetDefaultSpear(Item item, int spearType, float shootSpeed)
 		{
 			item.noUseGraphic = true;
 			item.noMelee = true;
@@ -60,17 +60,17 @@ namespace CCMod.Utils
 		/// <param name="useAnimation"></param>
 		/// <param name="useStyle"></param>
 		/// <param name="autoReuse"></param>
-		public static void CCModItemSetDefaultMelee(this Item item, int width, int height, int damage, float knockback, int useTime, int useAnimation, int useStyle, bool autoReuse)
+		public static void SetDefaultMelee(this Item item, int width, int height, int damage, float knockback, int useTime, int useAnimation, int useStyle, bool autoReuse)
 		{
-			CCModItemSetDefault(item, width, height, damage, knockback, useTime, useAnimation, useStyle, autoReuse);
+			SetDefault(item, width, height, damage, knockback, useTime, useAnimation, useStyle, autoReuse);
 			item.DamageType = DamageClass.Melee;
 		}
 		/// <summary>
 		/// Use this to set required value for a range item
 		/// </summary>
-		public static void CCModItemSetDefaultRange(this Item item, int width, int height, int damage, float knockback, int useTime, int useAnimation, int useStyle, int shoot, float shootSpeed, bool autoReuse, int useAmmo = 0)
+		public static void SetDefaultRanged(this Item item, int width, int height, int damage, float knockback, int useTime, int useAnimation, int useStyle, int shoot, float shootSpeed, bool autoReuse, int useAmmo = 0)
 		{
-			CCModItemSetDefault(item, width, height, damage, knockback, useTime, useAnimation, useStyle, autoReuse);
+			SetDefault(item, width, height, damage, knockback, useTime, useAnimation, useStyle, autoReuse);
 			item.shoot = shoot;
 			item.shootSpeed = shootSpeed;
 			item.useAmmo = useAmmo;
@@ -80,9 +80,9 @@ namespace CCMod.Utils
 		/// <summary>
 		/// Use this to set required value for a magic item
 		/// </summary>
-		public static void CCModItemSetDefaultMagic(this Item item, int width, int height, int damage, float knockback, int useTime, int useAnimation, int useStyle, int shoot, float shootSpeed, int manaCost, bool autoReuse)
+		public static void SetDefaultMagic(this Item item, int width, int height, int damage, float knockback, int useTime, int useAnimation, int useStyle, int shoot, float shootSpeed, int manaCost, bool autoReuse)
 		{
-			CCModItemSetDefault(item, width, height, damage, knockback, useTime, useAnimation, useStyle, autoReuse);
+			SetDefault(item, width, height, damage, knockback, useTime, useAnimation, useStyle, autoReuse);
 			item.shoot = shoot;
 			item.shootSpeed = shootSpeed;
 			item.mana = manaCost;

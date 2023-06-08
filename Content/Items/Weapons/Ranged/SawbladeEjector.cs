@@ -16,11 +16,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged
 {
-	public class SawbladeEjector : ModItem, IMadeBy, IChestItem
+	[MadeBy("sucss", "mayhemm")]
+	public class SawbladeEjector : ModItem, IChestItem
 	{
-		public string CodedBy => "sucss";
-		public string SpritedBy => "mayhemm";
-
 		public int ChestType => TileID.Containers;
 
 		public int ChestStyle => 2;

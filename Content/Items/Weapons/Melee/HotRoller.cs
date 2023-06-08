@@ -9,12 +9,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	internal class HotRoller : ModItem, IMadeBy
+	[MadeBy("Jon Arbuckle", "Garfield")]
+	internal class HotRoller : ModItem
 	{
-		public string CodedBy => "Jon Arbuckle";
-
-		public string SpritedBy => "Garfield";
-
 		public override void SetDefaults()
 		{
 			Item.DamageType = DamageClass.Melee;

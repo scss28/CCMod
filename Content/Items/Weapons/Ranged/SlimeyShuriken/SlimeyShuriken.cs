@@ -15,12 +15,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
 {
-	internal class SlimeyShuriken : ModItem, IMadeBy
+	[MadeBy("LowQualityTrash-Xinim", "PixelGaming", "Cohozuna Jr., LowQualityTrash-Xinim")]
+	internal class SlimeyShuriken : ModItem
 	{
-		public string CodedBy => "LowQualityTrash-Xinim";
-		public string SpritedBy => "PixelGaming";
-		public string ConceptBy => "Cohozuna Jr., LowQualityTrash-Xinim";
-
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault("The Blade Feels Like Putty");
