@@ -4,21 +4,19 @@ using Terraria.ModLoader;
 using CCMod.Common.GlobalItems;
 using CCMod.Content.Items.Weapons.Melee;
 using Terraria;
-using CCMod.Common;
+using CCMod.Common.Attributes;
 
-namespace CCMod.Content.Items.Weapons.Example.MeleeImproveSwingExample
+namespace CCMod.Content.Examples.Items.Weapons.Melee
 {
-	internal class MeleeImproveSwingExample : ModItem, MeleeWeaponWithImproveSwing,IMadeBy
+	[ExampleItem]
+	[MadeBy("Xinim", "Xinim")]
+	internal class MeleeImproveSwingExample : ModItem, IMeleeWeaponWithImproveSwing
 	{
 		public override string Texture => CCModTool.GetSameTextureAs<GenericBlackSword>();
 
-		public string CodedBy => "Xinim";
-
-		public string SpritedBy => "Xinim";
-
 		public override void SetDefaults()
 		{
-			Item.CCModItemSetDefaultMelee(40, 40, 30, 4f, 30, 30, ItemUseStyleID.Swing, true);
+			Item.SetDefaultMelee(40, 40, 30, 4f, 30, 30, ItemUseStyleID.Swing, true);
 		}
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
