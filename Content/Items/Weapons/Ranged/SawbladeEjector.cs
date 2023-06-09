@@ -1,6 +1,5 @@
-﻿using CCMod.Common;
+﻿using CCMod.Common.Attributes;
 using CCMod.Common.ModPlayers;
-using CCMod.Common.ModSystems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -17,15 +16,9 @@ using Terraria.ModLoader;
 namespace CCMod.Content.Items.Weapons.Ranged
 {
 	[MadeBy("sucss", "mayhemm")]
-	public class SawbladeEjector : ModItem, IChestItem
+	[ChestLoot(ChestType.LockedGoldChest, 8)]
+	public class SawbladeEjector : ModItem
 	{
-		public int ChestType => TileID.Containers;
-
-		public int ChestStyle => 2;
-
-		public int Stack => 1;
-
-		public bool SpawnChance => Main.rand.NextBool(8);
 
 		public override void SetStaticDefaults()
 		{

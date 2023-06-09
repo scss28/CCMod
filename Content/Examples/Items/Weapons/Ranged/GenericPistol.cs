@@ -4,9 +4,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
-using CCMod.Common;
 using CCMod.Common.ProjectileComponentSystem;
 using CCMod.Content.ProjectileComponents;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Examples.Items.Weapons.Ranged
 {

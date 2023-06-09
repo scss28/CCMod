@@ -1,4 +1,4 @@
-﻿using CCMod.Common;
+﻿using CCMod.Common.Attributes;
 using CCMod.Utils;
 using Microsoft.Xna.Framework;
 using System;
@@ -16,7 +16,6 @@ namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
 	{
 		public override void SetStaticDefaults()
 		{
-			// Tooltip.SetDefault("Covered in gel and venom, making it somehow bouncier !");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 		}

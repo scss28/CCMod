@@ -1,8 +1,4 @@
-﻿using CCMod.Common;
-using CCMod.Common.ModSystems;
-using System;
-using System.Collections.Generic;
-
+﻿using CCMod.Common.Attributes;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
@@ -12,16 +8,9 @@ using Terraria.ModLoader;
 namespace CCMod.Content.Items.Consumable
 {
 	[MadeBy("sucss", "RockyStan", "RockyStan")]
-	public class GemPouch : ModItem, IChestItem
+	[ChestLoot(ChestType.GoldChest, 4)]
+	public class GemPouch : ModItem
 	{
-		public int ChestType => 21;
-
-		public int ChestStyle => 1;
-
-		public int Stack => 1;
-
-		public bool SpawnChance => Main.rand.NextBool(4);
-
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault("Right click to open");

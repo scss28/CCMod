@@ -80,6 +80,5 @@ namespace CCMod.Common.GlobalItems
 			}
 			Player.attackCD = 0;
 		}
-
 	}
 }

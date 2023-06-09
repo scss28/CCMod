@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using CCMod.Common.GlobalItems;
 using CCMod.Content.Items.Weapons.Melee;
 using Terraria;
-using CCMod.Common;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Examples.Items.Weapons.Melee
 {

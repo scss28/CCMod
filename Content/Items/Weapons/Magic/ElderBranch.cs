@@ -1,13 +1,8 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
-using CCMod.Common;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Magic
 {
@@ -16,8 +11,6 @@ namespace CCMod.Content.Items.Weapons.Magic
 	{
         public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Elder Branch");
-			//Tooltip.SetDefault("A tree which appears to be elder");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			Item.staff[Item.type] = true;
 		}

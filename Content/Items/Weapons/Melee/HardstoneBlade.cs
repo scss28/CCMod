@@ -1,9 +1,9 @@
 ﻿using CCMod.Common;
+using CCMod.Common.Attributes;
 using CCMod.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

@@ -1,12 +1,12 @@
 using System;
 using Terraria;
-using CCMod.Common;
 using CCMod.Utils;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 {

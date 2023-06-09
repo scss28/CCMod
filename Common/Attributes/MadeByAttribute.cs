@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -8,24 +7,24 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CCMod.Common
+namespace CCMod.Common.Attributes
 {
 	/// <summary>Give credit to coders, artists or conecept creators for their contribuiton.</summary>
 	[AttributeUsage(AttributeTargets.Class)]
-	internal class MadeBy : Attribute 
+	internal class MadeByAttribute : Attribute
 	{
 		public string Coder { get; }
 		public string Spriter { get; }
 		public string ConceptCreator { get; }
 
-		public MadeBy(string coder, string spriter, string conceptCreator) 
-		{ 
+		public MadeByAttribute(string coder, string spriter, string conceptCreator)
+		{
 			Coder = coder;
 			Spriter = spriter;
 			ConceptCreator = conceptCreator;
 		}
 
-		public MadeBy(string coder, string spriter) : this(coder, spriter, coder) { }
+		public MadeByAttribute(string coder, string spriter) : this(coder, spriter, coder) { }
 	}
 
 	internal class MadeByGlobalItem : GlobalItem
@@ -58,11 +57,9 @@ namespace CCMod.Common
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			MadeBy madeBy;
-			if (item.ModItem is null || (madeBy = item.ModItem.GetType().GetCustomAttribute<MadeBy>()) is null)
-			{
+			MadeByAttribute madeBy;
+			if (item.ModItem is null || (madeBy = item.ModItem.GetType().GetCustomAttribute<MadeByAttribute>()) is null)
 				return;
-			}
 
 			tooltips.Add(
 				new TooltipLine(

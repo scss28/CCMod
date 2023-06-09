@@ -1,4 +1,4 @@
-﻿using CCMod.Common;
+﻿using CCMod.Common.Attributes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

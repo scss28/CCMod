@@ -1,4 +1,5 @@
 ﻿using CCMod.Common;
+using CCMod.Common.Attributes;
 using CCMod.Common.ModPlayers;
 using CCMod.Content.Dusts;
 using CCMod.Utils;
@@ -6,7 +7,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria;
@@ -84,13 +84,13 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-			.AddIngredient(ItemID.SoulofFright, 5)
-			.AddIngredient(ItemID.HallowedBar, 12)
-			.AddIngredient(ItemID.Wire, 25)
-			.AddIngredient(ItemID.Grenade, 4)
-			.AddIngredient(ItemID.IllegalGunParts)
-			.AddTile(TileID.MythrilAnvil)
-			.Register();
+				.AddIngredient(ItemID.SoulofFright, 5)
+				.AddIngredient(ItemID.HallowedBar, 12)
+				.AddIngredient(ItemID.Wire, 25)
+				.AddIngredient(ItemID.Grenade, 4)
+				.AddIngredient(ItemID.IllegalGunParts)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
 		}
 	}
 

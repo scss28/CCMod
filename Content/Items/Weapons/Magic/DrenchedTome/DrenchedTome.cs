@@ -1,15 +1,8 @@
-﻿using CCMod.Common;
-using CCMod.Utils;
+﻿using CCMod.Common.Attributes;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.GameContent.Creative;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,7 +13,6 @@ namespace CCMod.Content.Items.Weapons.Magic.DrenchedTome
 	{
 		public override void SetStaticDefaults()
 		{
-			// Tooltip.SetDefault("The Pages Are Hard To Turn");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 		}
