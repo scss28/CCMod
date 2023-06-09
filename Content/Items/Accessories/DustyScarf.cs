@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Accessories
 {
-	internal class DustyScarf : ModItem, IMadeBy
+	internal class DustyScarf : ModItem
 	{
 		//use IMadeBy to add credtis you your item
 		public string CodedBy => "Pexiltd";
