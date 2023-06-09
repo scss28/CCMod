@@ -1,9 +1,9 @@
 ﻿using CCMod.Common;
+using CCMod.Common.Attributes;
 using CCMod.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.DataStructures;
@@ -15,12 +15,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged
 {
-	public class Triggernometry : ModItem, IMadeBy
+	[MadeBy("sucss", "Pick", "Pick, sucss")]
+	public class Triggernometry : ModItem
 	{
-		public string CodedBy => "sucss";
-		public string SpritedBy => "Pick";
-		public string ConceptBy => "Pick, sucss";
-
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault($"[c/{Color.YellowGreen.Hex3()}:Redirects bullets with a ruler for bonus damage]");
