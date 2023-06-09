@@ -10,7 +10,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged.SlimeyShuriken
 {
-	[MadeBy("LowQualityTrash-Xinim", "PixelGaming", "Cohozuna Jr., LowQualityTrash-Xinim")]
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("PixelGaming")]
+	[ConceptBy("Cohozuna Jr.", "LowQualityTrash-Xinim")]
 	internal class SlimeyShuriken : ModItem
 	{
 		public override void SetStaticDefaults()

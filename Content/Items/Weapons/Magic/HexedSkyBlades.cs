@@ -8,7 +8,8 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Magic
 {
-	[MadeBy("sucss", "person_")]
+	[CodedBy("sucss")]
+	[SpritedBy("person_")]
 	[ChestLoot(ChestType.SkywareChest, 3)]
 	public class HexedSkyBlades : ModItem
 	{
@@ -103,7 +104,9 @@ namespace CCMod.Content.Items.Weapons.Magic
 			if (lSQ < 500f)
 			{
 				if ((Projectile.alpha += 4) >= 255)
+				{
 					Projectile.Kill();
+				}
 			}
 
 			if (Projectile.timeLeft % 3 == 0)

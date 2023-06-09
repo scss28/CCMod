@@ -10,7 +10,8 @@ using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 {
-	[MadeBy("LowQualityTrash-Xinim", "LowQualityTrash-Xinim", "LowQualityTrash-Xinim")]
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("LowQualityTrash-Xinim")]
 	public class DemonicShuriken : ModItem
 	{
 		public override void SetStaticDefaults()

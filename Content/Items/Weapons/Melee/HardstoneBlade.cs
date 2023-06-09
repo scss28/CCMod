@@ -14,7 +14,8 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	[MadeBy("sucss", "person_, AnUncreativeName")]
+	[CodedBy("sucss")]
+	[SpritedBy("person_", "AnUncreativeName")]
 	public class HardstoneBlade : ModItem
 	{
 		public override void SetStaticDefaults()

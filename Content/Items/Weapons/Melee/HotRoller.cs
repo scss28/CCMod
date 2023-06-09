@@ -10,7 +10,8 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	[MadeBy("Jon Arbuckle", "Garfield")]
+	[CodedBy("Jon Arbuckle")]
+	[SpritedBy("Garfield")]
 	[CommonNPCDrop(NPCID.WallofFlesh, 3)]
 	internal class HotRoller : ModItem
 	{

@@ -14,7 +14,8 @@ using Terraria.ModLoader.IO;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	[MadeBy("LowQualityTrash-Xinim", "LowQualityTrash-Xinim")]
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("LowQualityTrash-Xinim")]
 	internal class GenericBlackSword : ModItem
 	{
 		public override void SetStaticDefaults()

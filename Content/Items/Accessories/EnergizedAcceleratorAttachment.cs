@@ -7,7 +7,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Accessories
 {
-	[MadeBy("LowQualityTrash-Xinim", "RockyStan", "Tim")]
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("RockyStan")]
+	[ConceptBy("Tim")]
 	internal class EnergizedAcceleratorAttachment : ModItem
 	{
 		public override void SetStaticDefaults()

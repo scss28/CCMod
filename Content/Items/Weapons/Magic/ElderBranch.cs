@@ -6,7 +6,9 @@ using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Magic
 {
-	[MadeBy("Kerm", "person_", "Kerm")]
+	[CodedBy("Kerm")]
+	[SpritedBy("person_")]
+	[ConceptBy("Kerm")]
 	public class ElderBranch : ModItem
 	{
         public override void SetStaticDefaults()

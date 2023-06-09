@@ -8,7 +8,8 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Magic.DrenchedTome
 {
-	[MadeBy("LowQualityTrash-Xinim", "Kyoru")]
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("Kyoru")]
 	internal class DrenchedTome : ModItem
 	{
 		public override void SetStaticDefaults()
@@ -16,6 +17,7 @@ namespace CCMod.Content.Items.Weapons.Magic.DrenchedTome
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 		}
+
 		public override void SetDefaults()
 		{
 			Item.width = 39;
