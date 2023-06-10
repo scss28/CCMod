@@ -18,9 +18,9 @@ namespace CCMod.Content.Projectiles
 	{
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			target.AddBuff(BuffID.CursedInferno, 200);
-			target.AddBuff(BuffID.Frostburn2, 200);
-			target.AddBuff(BuffID.OnFire3, 200);
+			target.AddBuff(BuffID.CursedInferno, 100);
+			target.AddBuff(BuffID.Frostburn, 150);
+			target.AddBuff(BuffID.OnFire, 200);
 		}
 		public override void Kill(int timeLeft)
 		{
@@ -39,13 +39,13 @@ namespace CCMod.Content.Projectiles
 			Projectile.timeLeft = 300;
 			Projectile.alpha = 0;
 			Projectile.light = 2.0f;
-			Projectile.damage = 80;
+			Projectile.damage = 10;
 			Projectile.CritChance = 3;
 			Projectile.spriteDirection = Math.Sign(Projectile.velocity.X);
 		}
 		public override void AI()
 		{
-			Projectile.velocity *= 0.99f;
+			Projectile.velocity *= 1.08F;
 			if (++Projectile.frameCounter >= 5)
 			{
 				Projectile.frameCounter = 0;

@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CCMod.Common.Attributes;
 using Microsoft.Xna.Framework;
 using CCMod.Common;
 using CCMod.Common.GlobalItems;
@@ -21,7 +22,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{		    
 			var manager = (IEntity)Projectile.NewProjectileDirect(source, position, velocity * 2, type, damage, knockback).GetGlobalProjectile<ProjectileModifierManager>();
-			manager.InstallComponent(new Homing(manager, 200, 0.3f));
+			manager.InstallComponent(new Homing(manager, 216, 0.33f));
 			return false;
 		}
 		public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -80,10 +81,10 @@ namespace CCMod.Content.Items.Weapons.Melee
 				Item.knockBack = 10;
 				Item.useTime = 20;
 				Item.useAnimation = 20;
-				Item.damage = 40;
+				Item.damage = 20;
 				Item.autoReuse = true;
-				Item.scale = 2.00f;
-				Item.crit = 10;
+				Item.scale = 2.15f;
+				Item.crit = 3;
 				Item.width = 54;
 				Item.height = 52;
 				Item.useTime = 20;

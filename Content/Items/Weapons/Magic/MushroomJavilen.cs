@@ -7,12 +7,11 @@ using CCMod.Common;
 using Terraria.DataStructures;
 using Terraria.Audio;
 using Terraria.GameContent.Creative;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Magic
 {
-    [CodedBy("Pexiltd")]
-    [SpritedBy("Pexiltd")]
-    [ConceptBy("Pexiltd")]
+
     public class MushroomJavilen : ModItem
 	{
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
