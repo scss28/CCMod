@@ -41,7 +41,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
 		}
 		public override void SetDefaults() 
 		{
-			Item.CCModItemSetDefaultRange(12, 18, 55, 5, 75, 75, ItemUseStyleID.Shoot, ProjectileID.StickyGrenade, 13, true);
+			Item.SetDefaultRanged(12, 18, 55, 5, 75, 75, ItemUseStyleID.Shoot, ProjectileID.StickyGrenade, 13, true);
 
 			Terraria.Audio.SoundStyle item36 = SoundID.Item36;
 			Item.UseSound = item36;

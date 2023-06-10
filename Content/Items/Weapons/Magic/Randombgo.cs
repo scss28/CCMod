@@ -53,7 +53,7 @@ namespace CCMod.Content.Items.Weapons.Magic
 		}
 		public override void SetDefaults()
 		{
-			Item.CCModItemSetDefaultMagic(9, 9, 25, 6, 13, 13, ItemUseStyleID.Shoot, ProjectileID.Mushroom, 40, 10, true);
+			Item.SetDefaultMagic(9, 9, 25, 6, 13, 13, ItemUseStyleID.Shoot, ProjectileID.Mushroom, 40, 10, true);
 		}
 	}
 }

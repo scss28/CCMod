@@ -46,7 +46,7 @@ namespace CCMod.Content.Items.Weapons.Magic
 		{
 			Terraria.Audio.SoundStyle item36 = SoundID.Item36;
 			Item.UseSound = item36;
-			Item.CCModItemSetDefaultMagic(9, 9, 40, 6, 60, 60, ItemUseStyleID.Shoot, ProjectileID.ZapinatorLaser, 10, 6, true);
+			Item.SetDefaultMagic(9, 9, 40, 6, 60, 60, ItemUseStyleID.Shoot, ProjectileID.ZapinatorLaser, 10, 6, true);
 		}
 	}
 }

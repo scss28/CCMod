@@ -16,10 +16,9 @@ namespace CCMod.Content.Items.Weapons.Magic
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			Projectile.NewProjectile(source, position, velocity, ProjectileID.Mushroom, 3, 11, player.whoAmI);
-			Projectile.NewProjectile(source, position, velocity, ProjectileID.Mushroom, 3, 10, player.whoAmI);
 			for (int i = 0; i < 0; i++)
 			{
-				Vector2 vec = velocity.Vector2EvenArchSpread(0f, 0, i);
+				Vector2 vec = velocity.EvenArchSpread(1f, 2, i);
 				Projectile.NewProjectile(source, position, vec, type, damage, knockback, player.whoAmI);
 			}
 			return base.Shoot(player, source, position, velocity, type, damage, knockback);
@@ -49,7 +48,7 @@ namespace CCMod.Content.Items.Weapons.Magic
 		{
 			Terraria.Audio.SoundStyle item1 = SoundID.Item1;
 			Item.UseSound = item1;
-			Item.CCModItemSetDefaultMagic(16, 16, 7, 5, 14, 14, ItemUseStyleID.Shoot, ProjectileID.Mushroom, 60, 4, true);
+			Item.SetDefaultMagic(16, 16, 7, 5, 14, 14, ItemUseStyleID.Shoot, ProjectileID.Mushroom, 60, 4, true);
 		}
 	}
 }

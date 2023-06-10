@@ -47,7 +47,7 @@ namespace CCMod.Content.Items.Weapons.Magic
 
 			Terraria.Audio.SoundStyle item1 = SoundID.Item1;
 			Item.UseSound = item1;
-			Item.CCModItemSetDefaultMagic(9, 9, 20, 6, 14, 14, ItemUseStyleID.Shoot, ProjectileID.Mushroom, 60, 4, true);
+			Item.SetDefaultMagic(9, 9, 20, 6, 14, 14, ItemUseStyleID.Shoot, ProjectileID.Mushroom, 60, 4, true);
 			Item.CanRollPrefix(PrefixID.Mythical);
 			Item.CanRollPrefix(PrefixID.Taboo);
 			Item.CanRollPrefix(PrefixID.Celestial);
