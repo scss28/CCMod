@@ -45,7 +45,6 @@ namespace CCMod.Content.Projectiles
 		}
 		public override void AI()
 		{
-			Projectile.velocity *= 1.08F;
 			if (++Projectile.frameCounter >= 5)
 			{
 				Projectile.frameCounter = 0;
