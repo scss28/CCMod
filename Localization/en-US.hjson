@@ -127,6 +127,11 @@ Mods: {
 				DisplayName: E C S Test
 				Tooltip: ""
 			}
+
+			ExampleShootBouncyProjectile: {
+				DisplayName: Example Shoot Bouncy Projectile
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -163,6 +168,7 @@ Mods: {
 			TriggernometryHeldProj.DisplayName: Triggernometry Held Proj
 			TriggernometryRuler.DisplayName: Triggernometry Ruler
 			GhostHitBox.DisplayName: Ghost Hit Box
+			ExampleBouncyProjectile.DisplayName: Example Bouncy Projectile
 		}
 	}
 }
