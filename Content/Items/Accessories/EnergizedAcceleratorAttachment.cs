@@ -1,30 +1,23 @@
-﻿using CCMod.Common;
-using CCMod.Utils;
+﻿using CCMod.Common.Attributes;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.GameContent.Creative;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Accessories
 {
-	internal class EnergizedAcceleratorAttachment : ModItem, IMadeBy
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("RockyStan")]
+	[ConceptBy("Tim")]
+	internal class EnergizedAcceleratorAttachment : ModItem
 	{
-		public string CodedBy => "LowQualityTrash-Xinim";
-		public string ConceptBy => "Tim";
-		public string SpritedBy => "RockyStan";
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault("Every 5th bullet/arrow shot deal extra 15% damage");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
+
 		public override void SetDefaults()
 		{
 			Item.width = 20;
@@ -33,10 +26,12 @@ namespace CCMod.Content.Items.Accessories
 			Item.accessory = true;
 			Item.value = 1000;
 		}
+
 		public override void UpdateEquip(Player player)
 		{
 			player.GetModPlayer<EnergizedAcceleratorAttachmentPlayer>().EnergizedAcceleratorAttachment = true;
 		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe()
@@ -60,7 +55,10 @@ namespace CCMod.Content.Items.Accessories
 		public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			if (!EnergizedAcceleratorAttachment)
+			{
 				return;
+			}
+
 			if (item.useAmmo == AmmoID.Bullet || item.useAmmo == AmmoID.Arrow)
 			{
 				if (++counter == 5)

@@ -1,4 +1,4 @@
-﻿using CCMod.Common;
+﻿using CCMod.Common.Attributes;
 using CCMod.Content.Projectiles;
 using CCMod.Utils;
 using Microsoft.Xna.Framework;
@@ -11,12 +11,10 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged.StormGun
 {
-	internal class StormGun : ModItem, IMadeBy
+	[ConceptBy("LowQualityTrashXinim")]
+	[SpritedBy("mayhemmm")]
+	internal class StormGun : ModItem
 	{
-		public string CodedBy => "LowQualityTrashXinim";
-
-		public string SpritedBy => "mayhemmm";
-
 		public override void SetStaticDefaults()
 		{
 			/* Tooltip.SetDefault("Doesn't require mana to operate, but would be a lot more powerful" +

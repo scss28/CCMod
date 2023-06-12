@@ -1,4 +1,5 @@
 ﻿using CCMod.Common;
+using CCMod.Common.Attributes;
 using CCMod.Common.ModPlayers;
 using CCMod.Content.Dusts;
 using CCMod.Utils;
@@ -6,7 +7,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria;
@@ -19,11 +19,10 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 {
-	public class ExperimentalExplosiveLauncher : ModItem, IMadeBy
+	[CodedBy("sucss")]
+	[SpritedBy("mayhemm")]
+	public class ExperimentalExplosiveLauncher : ModItem
 	{
-		public string CodedBy => "sucss";
-		public string SpritedBy => "mayhemm";
-
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault($"[c/{Color.LightSteelBlue.Hex3()}:Spits out 5 grenades that blow up after a while]\n[c/{(Color.LightSteelBlue * 0.9f).Hex3()}:Use Right Click to shoot and detonate the explosives for higher damage]");
@@ -86,13 +85,13 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-			.AddIngredient(ItemID.SoulofFright, 5)
-			.AddIngredient(ItemID.HallowedBar, 12)
-			.AddIngredient(ItemID.Wire, 25)
-			.AddIngredient(ItemID.Grenade, 4)
-			.AddIngredient(ItemID.IllegalGunParts)
-			.AddTile(TileID.MythrilAnvil)
-			.Register();
+				.AddIngredient(ItemID.SoulofFright, 5)
+				.AddIngredient(ItemID.HallowedBar, 12)
+				.AddIngredient(ItemID.Wire, 25)
+				.AddIngredient(ItemID.Grenade, 4)
+				.AddIngredient(ItemID.IllegalGunParts)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
 		}
 	}
 

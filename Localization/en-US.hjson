@@ -122,6 +122,11 @@ Mods: {
 				DisplayName: Melee Improve Swing Example
 				Tooltip: ""
 			}
+
+			ECSTest: {
+				DisplayName: E C S Test
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {

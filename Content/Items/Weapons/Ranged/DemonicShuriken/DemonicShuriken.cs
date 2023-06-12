@@ -1,21 +1,19 @@
 using System;
 using Terraria;
-using CCMod.Common;
 using CCMod.Utils;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 {
-	public class DemonicShuriken : ModItem, IMadeBy
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("LowQualityTrash-Xinim")]
+	public class DemonicShuriken : ModItem
 	{
-
-		public string CodedBy => "LowQualityTrash-Xinim";
-		public string SpritedBy => "LowQualityTrash-Xinim";
-		public string ConceptBy => "LowQualityTrash-Xinim";
 		public override void SetStaticDefaults()
 		{
 			/* Tooltip.SetDefault("Ashes Away" +
