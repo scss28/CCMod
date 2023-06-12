@@ -6,14 +6,17 @@ namespace CCMod.Common.GlobalItems
 {
 	internal class BouncyProjectile : GlobalProjectile
 	{
+		public override bool InstancePerEntity => true;
 		public override void SetDefaults(Projectile entity)
 		{
 			base.SetDefaults(entity);
-			if(entity.ModProjectile is IBouncyProjectile)
+			if(entity.ModProjectile is IBouncyProjectile Iproj)
 			{
 				entity.tileCollide = true;
+				BounceAmount = Iproj.BounceTime;
 			}
 		}
+		int BounceAmount = 1;
 		public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
 		{
 			if (projectile.ModProjectile is IBouncyProjectile Iproj)
@@ -26,9 +29,9 @@ namespace CCMod.Common.GlobalItems
 				{
 					projectile.velocity.Y = -oldVelocity.Y * Iproj.ChangeVelocityPerBounce;
 				}
-				if (Iproj.BounceTime > 0)
+				if (BounceAmount > 0)
 				{
-					Iproj.BounceTime--;
+					BounceAmount--;
 				}
 				return false;
 			}
@@ -39,25 +42,28 @@ namespace CCMod.Common.GlobalItems
 			base.PostAI(projectile);
 			if (projectile.ModProjectile is IBouncyProjectile Iproj)
 			{
-				if(Iproj.BounceTime < 1)
+				if(BounceAmount == 0)
 				{
 					projectile.Kill();
 				}
 			}
 		}
 	}
+	/// <summary>
+	/// Add this to make your projectile can bounce
+	/// </summary>
 	interface IBouncyProjectile
 	{
 		/// <summary>
 		/// Set amount of time can a projectile bounce
 		/// set -1 if you want it to bounce infinitely
 		/// </summary>
-		public int BounceTime { get; set; }
+		public int BounceTime { get; }
 		/// <summary>
 		/// This is to decrease the velocity of the projectile
 		/// Set this to 1 if you don't want to decrease the velocity at all
 		/// This use multiplication, no point to make this any lesser than 0
 		/// </summary>
-		public int ChangeVelocityPerBounce => 1;
+		public float ChangeVelocityPerBounce => 1;
 	}
 }

@@ -127,6 +127,11 @@ Mods: {
 				DisplayName: E C S Test
 				Tooltip: ""
 			}
+
+			ExampleShootBouncyProjectile: {
+				DisplayName: Example Shoot Bouncy Projectile
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
