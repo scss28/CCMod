@@ -158,6 +158,7 @@ Mods: {
 			TriggernometryHeldProj.DisplayName: Triggernometry Held Proj
 			TriggernometryRuler.DisplayName: Triggernometry Ruler
 			GhostHitBox.DisplayName: Ghost Hit Box
+			ExampleBouncyProjectile.DisplayName: Example Bouncy Projectile
 		}
 	}
 }
