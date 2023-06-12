@@ -1,4 +1,5 @@
 ﻿using CCMod.Common;
+using CCMod.Common.Attributes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,12 +10,11 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	internal class HotRoller : ModItem, IMadeBy
+	[CodedBy("Jon Arbuckle")]
+	[SpritedBy("Garfield")]
+	[CommonNPCDrop(NPCID.WallofFlesh, 3)]
+	internal class HotRoller : ModItem
 	{
-		public string CodedBy => "Jon Arbuckle";
-
-		public string SpritedBy => "Garfield";
-
 		public override void SetDefaults()
 		{
 			Item.DamageType = DamageClass.Melee;
@@ -30,6 +30,11 @@ namespace CCMod.Content.Items.Weapons.Melee
 		public override bool CanUseItem(Player player)
 		{
 			return player.ownedProjectileCounts[ModContent.ProjectileType<HotRollerProjectile>()] <= 0;
+		}
+
+		public override void AddRecipes()
+		{
+
 		}
 
 		public override bool? UseItem(Player player)
@@ -77,13 +82,17 @@ namespace CCMod.Content.Items.Weapons.Melee
 				Owner.velocity += Vector2.Normalize(Main.MouseWorld - Owner.Center) * 3;
 
 				if (Owner.velocity.Length() > 20)
+				{
 					Owner.velocity = Vector2.Normalize(Owner.velocity) * 19.99f;
+				}
 			}
 
 			Owner.direction = Owner.velocity.X > 0 ? 1 : -1;
 
 			if (Owner.velocity.Y == 0 && Projectile.timeLeft > 10)
+			{
 				Projectile.timeLeft = 10;
+			}
 
 			float dustRot = Main.rand.NextFloat(6.28f);
 			var d = Dust.NewDustPerfect(Projectile.Center + Vector2.One.RotatedBy(dustRot) * 50f, ModContent.DustType<Dusts.Cinder>(), Vector2.UnitX.RotatedBy(dustRot + 1.57f * Owner.direction) * Main.rand.NextFloat(6, 16), Owner.direction, new Color(255, Main.rand.Next(150, 255), 150), Main.rand.NextFloat(0.5f, 1.75f));
@@ -123,10 +132,14 @@ namespace CCMod.Content.Items.Weapons.Melee
 			float fade = 1f;
 
 			if (Timer < 10)
+			{
 				fade = Timer / 10f;
+			}
 
 			if (Timer > 50)
+			{
 				fade = 1 - (Timer - 50) / 10f;
+			}
 
 			Color color = Color.White * fade;
 			color.A = 0;

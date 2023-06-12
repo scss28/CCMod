@@ -1,4 +1,4 @@
-﻿using CCMod.Common;
+﻿using CCMod.Common.Attributes;
 using CCMod.Utils;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	internal class SawboneSword : ModItem, IMadeBy
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("razorxt")]
+	internal class SawboneSword : ModItem
 	{
-		public string CodedBy => "LowQualityTrash-Xinim";
-		public string SpritedBy => "razorxt";
 		public override void SetStaticDefaults()
 		{
 			// Tooltip.SetDefault("Sword made out of pure agony ... from the one who code it !");
@@ -124,13 +124,13 @@ namespace CCMod.Content.Items.Weapons.Melee
 				Player player = Main.player[Projectile.owner];
 				for (int i = 0; i < 40; i++)
 				{
-					int dust = Dust.NewDust(player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).Vector2EvenArchSpread(5, 120, (int)Projectile.ai[0] + 1), 0, 0, DustID.Blood, 0, 0, 0, default, Main.rand.NextFloat(1.3f, 2.35f));
+					int dust = Dust.NewDust(player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).EvenArchSpread(5, 120, (int)Projectile.ai[0] + 1), 0, 0, DustID.Blood, 0, 0, 0, default, Main.rand.NextFloat(1.3f, 2.35f));
 					Main.dust[dust].velocity = Main.rand.NextVector2Circular(5, 5);
 					Main.dust[dust].noGravity = true;
 				}
 
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(),
-					player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).Vector2EvenArchSpread(5, 120, (int)Projectile.ai[0] + 1),
+					player.Center + ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX) * -75f).EvenArchSpread(5, 120, (int)Projectile.ai[0] + 1),
 					Vector2.Zero, ModContent.ProjectileType<SawboneSwordP>(),
 					Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]);
 				return;

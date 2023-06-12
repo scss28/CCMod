@@ -1,25 +1,18 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Magic
 {
+	[CodedBy("Kerm")]
+	[SpritedBy("person_")]
+	[ConceptBy("Kerm")]
 	public class ElderBranch : ModItem
 	{
-
-        public string CodedBy => "Kerm";
-        public string SpritedBy => "Person_";
-        public string ConceptBy => "Kerm";
         public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Elder Branch");
-			//Tooltip.SetDefault("A tree which appears to be elder");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			Item.staff[Item.type] = true;
 		}
