@@ -2,15 +2,15 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace CCMod.Common.GlobalItems
+namespace CCMod.Common.GlobalProjectiles
 {
-	internal class BouncyProjectile : GlobalProjectile
+	internal class BouncyGlobalProjectile : GlobalProjectile
 	{
 		public override bool InstancePerEntity => true;
 		public override void SetDefaults(Projectile entity)
 		{
 			base.SetDefaults(entity);
-			if(entity.ModProjectile is IBouncyProjectile Iproj)
+			if (entity.ModProjectile is IBouncyProjectile Iproj)
 			{
 				entity.tileCollide = true;
 				BounceAmount = Iproj.BounceTime;
@@ -42,7 +42,7 @@ namespace CCMod.Common.GlobalItems
 			base.PostAI(projectile);
 			if (projectile.ModProjectile is IBouncyProjectile Iproj)
 			{
-				if(BounceAmount == 0)
+				if (BounceAmount == 0)
 				{
 					projectile.Kill();
 				}

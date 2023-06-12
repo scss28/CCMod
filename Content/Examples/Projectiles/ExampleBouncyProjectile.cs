@@ -1,12 +1,12 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using CCMod.Common.GlobalItems;
 using CCMod.Utils;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
+using CCMod.Common.GlobalProjectiles;
 
-namespace CCMod.Content.Examples.Items.Weapons.Ranged
+namespace CCMod.Content.Examples.Projectiles
 {
 	internal class ExampleBouncyProjectile : ModProjectile, IBouncyProjectile
 	{
