@@ -11,7 +11,8 @@ using CCMod.Common.Attributes;
 namespace CCMod.Content.Examples.Items.Weapons.Ranged
 {
 	[ExampleItem]
-	[MadeBy("Xinim", "Xinim")]
+	[CodedBy("Xinim")]
+	[SpritedBy("Xinim")]
 	internal class GenericPistol : ModItem
 	{
 		public override void SetDefaults()

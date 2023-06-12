@@ -7,7 +7,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Consumable
 {
-	[MadeBy("sucss", "RockyStan", "RockyStan")]
+	[CodedBy("sucss")]
+	[SpritedBy("RockyStan")]
+	[ConceptBy("RockyStan")]
 	[ChestLoot(ChestType.GoldChest, 4)]
 	public class GemPouch : ModItem
 	{

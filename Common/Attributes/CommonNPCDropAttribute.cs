@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader;
 
-namespace CCMod.Common
+namespace CCMod.Common.Attributes
 {
 
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
@@ -22,7 +22,7 @@ namespace CCMod.Common
 		}
 	}
 
-	internal record CommonNPCDropInfo(int NPCType, int ChanceDenominator = 1, int MinimumDropped = 1, int MaximumDropped = 1) { }
+	internal record CommonNPCDropInfo(int NPCType, int ChanceDenominator, int MinimumDropped, int MaximumDropped) { }
 
 	internal record CommonItemDropInfo(int ItemType, int ChanceDenominator, int MinimumDropped, int MaximumDropped) { }
 

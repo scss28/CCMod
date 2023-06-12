@@ -15,7 +15,9 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged
 {
-	[MadeBy("sucss", "Pick", "Pick, sucss")]
+	[CodedBy("sucss")]
+	[SpritedBy("Pick")]
+	[ConceptBy("Pick", "sucss")]
 	public class Triggernometry : ModItem
 	{
 		public override void SetStaticDefaults()

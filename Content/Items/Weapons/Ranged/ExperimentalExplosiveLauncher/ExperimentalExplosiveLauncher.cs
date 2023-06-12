@@ -19,7 +19,8 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 {
-	[MadeBy("sucss", "mayhemm")]
+	[CodedBy("sucss")]
+	[SpritedBy("mayhemm")]
 	public class ExperimentalExplosiveLauncher : ModItem
 	{
 		public override void SetStaticDefaults()

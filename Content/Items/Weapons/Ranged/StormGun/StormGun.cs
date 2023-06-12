@@ -11,7 +11,8 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged.StormGun
 {
-	[MadeBy("LowQualityTrashXinim", "mayhemmm")]
+	[ConceptBy("LowQualityTrashXinim")]
+	[SpritedBy("mayhemmm")]
 	internal class StormGun : ModItem
 	{
 		public override void SetStaticDefaults()

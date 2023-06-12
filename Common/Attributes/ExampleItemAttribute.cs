@@ -15,7 +15,9 @@ namespace CCMod.Common.Attributes
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
 			if (item.ModItem is not null && item.ModItem.GetType().GetCustomAttribute<ExampleItemAttribute>() is not null)
+			{
 				tooltips.Add(new TooltipLine(Mod, "ExampleItem", $"[[c/{Color.OrangeRed.Hex3()}:Example Item]]"));
+			}
 		}
 	}
 }

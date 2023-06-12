@@ -9,8 +9,9 @@ using CCMod.Common.Attributes;
 namespace CCMod.Content.Examples.Items.Weapons.Melee
 {
 	[ExampleItem]
-	[MadeBy("Xinim", "Xinim")]
-	internal class MeleeImproveSwingExample : ModItem, MeleeWeaponWithImproveSwing
+	[CodedBy("Xinim")]
+	[SpritedBy("Xinim")]
+	internal class MeleeImproveSwingExample : ModItem, IMeleeWeaponWithImproveSwing
 	{
 		public override string Texture => CCModTool.GetSameTextureAs<GenericBlackSword>();
 

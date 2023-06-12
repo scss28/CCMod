@@ -10,7 +10,8 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	[MadeBy("LowQualityTrash-Xinim", "razorxt")]
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("razorxt")]
 	internal class SawboneSword : ModItem
 	{
 		public override void SetStaticDefaults()

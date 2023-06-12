@@ -15,7 +15,8 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Ranged
 {
-	[MadeBy("sucss", "mayhemm")]
+	[CodedBy("sucss")]
+	[SpritedBy("mayhemm")]
 	[ChestLoot(ChestType.LockedGoldChest, 8)]
 	public class SawbladeEjector : ModItem
 	{

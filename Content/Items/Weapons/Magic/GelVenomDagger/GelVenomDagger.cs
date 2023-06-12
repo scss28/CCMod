@@ -11,13 +11,14 @@ using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
 {
-	[MadeBy("LowQualityTrash-Xinim", "PixelGaming", "LowQualityTrash-Xinim, PixelGaming")]
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("PixelGaming")]
+	[ConceptBy("LowQualityTrash-Xinim", "PixelGaming")]
 	internal class GelVenomDagger : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
 		}
 
 		public override void SetDefaults()
