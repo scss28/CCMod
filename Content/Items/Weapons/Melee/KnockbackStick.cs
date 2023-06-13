@@ -4,10 +4,13 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using CCMod.Common;
 using Terraria.GameContent.Creative;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	public class KnockbackStick : ModItem, IMadeBy
+	[CodedBy("???")]
+	[SpritedBy("???")]
+	public class KnockbackStick : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -15,10 +18,6 @@ namespace CCMod.Content.Items.Weapons.Melee
 			// Tooltip.SetDefault("[For some reason you cant say, This seems out of place]);
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
-		public string CodedBy => "Pexiltd";
-
-		public string SpritedBy => "Pexiltd";
-
 		public override void SetDefaults()
 		{
 			Item.damage = 7;
@@ -32,10 +31,10 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Item.CanRollPrefix(PrefixID.Awful);
 			Item.useAnimation = 20;
 			Item.useTurn = true;
-			Item.useStyle = 1;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 23;
 			Item.value = 10000;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Terraria.Audio.SoundStyle item1 = SoundID.Item1;
 			Item.UseSound = item1;
 			Item.autoReuse = true;

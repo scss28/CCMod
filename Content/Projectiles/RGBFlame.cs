@@ -62,9 +62,9 @@ namespace CCMod.Content.Projectiles
 			Projectile.velocity.Y += Projectile.ai[0];
 			if (Main.rand.NextBool(3))
 			{
-				Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, 235, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
-				Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, 41, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
-				Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, 74, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+				Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.LifeDrain, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+				Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.GlowingMushroom, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+				Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.GreenFairy, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
 			}
 		}
 	}

@@ -1,24 +1,16 @@
-﻿using CCMod.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CCMod.Common.Attributes;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CCMod.Content.Items.Accessories
 {
+	[CodedBy("Pexiltd")]
+	[SpritedBy("Pexiltd")]
+	[ConceptBy("Pexiltd")]
 	internal class DustyScarf : ModItem
 	{
-		//use IMadeBy to add credtis you your item
-		public string CodedBy => "Pexiltd";
-		public string ConceptBy => "???";
-		public string SpritedBy => "Pexiltd";
-		// UpdateEquip is used to 
 		public override void UpdateEquip(Player player)
 		{
 			player.GetModPlayer<DustyScarfPlayer>().DustyScarf = true;
@@ -47,8 +39,6 @@ namespace CCMod.Content.Items.Accessories
 		public class DustyScarfPlayer : ModPlayer
 		{
 			public bool DustyScarf = false;
-			int counter;
-
 			public override void ResetEffects()
 			{
 				DustyScarf = false;

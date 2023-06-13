@@ -2,23 +2,19 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using CCMod.Common;
 using CCMod.Common.GlobalItems;
 using Terraria.DataStructures;
-using CCmod.Content.Effects.Debuffs;
-using Mono.Cecil;
-using static Terraria.ModLoader.PlayerDrawLayer;
 using CCMod.Content.Projectiles;
 using CCMod.Content.Effects.Debuffs;
 using CCMod.Utils;
-using Terraria.Net;
-using CCMod.Common.ECS.Projectiles;
-using CCMod.Common.ECS;
-using CCMod.Content.ProjModifiers;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	public class CodeBreaker : ModItem, MeleeWeaponWithImproveSwing, IMadeBy
+	[CodedBy("Pexiltd")]
+	[SpritedBy("Pexiltd")]
+	[ConceptBy("Pexiltd")]
+	public class CodeBreaker : ModItem, MeleeWeaponWithImproveSwing
 	{
 		public override void AddRecipes()
 		{
@@ -86,7 +82,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 				Item.CanRollPrefix(PrefixID.Legendary);
 				Item.CanRollPrefix(PrefixID.Awful);
 				Item.value = 100000;
-				Item.rare = 3;
+				Item.rare = ItemRarityID.Orange;
 				Terraria.Audio.SoundStyle item1 = SoundID.Item1;
 				Item.UseSound = item1;
 				Item.autoReuse = true;
@@ -118,9 +114,6 @@ namespace CCMod.Content.Items.Weapons.Melee
 			}
 			CCModTool.LifeStealOnHit(player.whoAmI, target.whoAmI, 3, 3, 1, 3);
 		}
-		public string CodedBy => "Pexiltd";
-
-		public string SpritedBy => "Pexiltd";
 		public override void SetDefaults()
 		{
 			Item.damage = 130;
@@ -134,7 +127,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Item.CanRollPrefix(PrefixID.Legendary);
 			Item.CanRollPrefix(PrefixID.Awful);
 			Item.value = 100000;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Terraria.Audio.SoundStyle item1 = SoundID.Item1;
 			Item.UseSound = item1;
 			Item.autoReuse = true;
@@ -148,14 +141,14 @@ namespace CCMod.Content.Items.Weapons.Melee
 			{
 				if (player.altFunctionUse == 2)
 				{
-					int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 23, 2f, 2f, 100, default(Color), 3f);
+					int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.t_Meteor, 2f, 2f, 100, default, 3f);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.X += player.direction * 2f;
 					Main.dust[dust].velocity.Y += 0.2f;
 				}
 				else
 				{
-					int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 278, player.velocity.X * 0.2f + (float)(player.direction * 3), player.velocity.Y * 0.2f, 100, default(Color), 2.5f);
+					int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.FireworksRGB, player.velocity.X * 0.2f + (float)(player.direction * 3), player.velocity.Y * 0.2f, 100, default, 2.5f);
 					Main.dust[dust].noGravity = true;
 				}
 			}

@@ -132,6 +132,66 @@ Mods: {
 				DisplayName: Example Shoot Bouncy Projectile
 				Tooltip: ""
 			}
+
+			DustyScarf: {
+				DisplayName: Dusty Scarf
+				Tooltip: ""
+			}
+
+			Gattlinator: {
+				DisplayName: Gattlinator
+				Tooltip: ""
+			}
+
+			MushroomJavilen: {
+				DisplayName: Mushroom Javilen
+				Tooltip: ""
+			}
+
+			ShroomishBranch: {
+				DisplayName: Shroomish Branch
+				Tooltip: ""
+			}
+
+			CodeBreaker: {
+				DisplayName: Code Breaker
+				Tooltip: ""
+			}
+
+			GenericBlackStick: {
+				DisplayName: Generic Black Stick
+				Tooltip: ""
+			}
+
+			KnockbackStick: {
+				DisplayName: Knockback Stick
+				Tooltip: ""
+			}
+
+			ShroomishRapier: {
+				DisplayName: Shroomish Rapier
+				Tooltip: ""
+			}
+
+			SpriteSlicer: {
+				DisplayName: Sprite Slicer
+				Tooltip: ""
+			}
+
+			SpriteSmasher: {
+				DisplayName: Sprite Smasher
+				Tooltip: ""
+			}
+
+			Bombgun: {
+				DisplayName: Bombgun
+				Tooltip: ""
+			}
+
+			HomingTest: {
+				DisplayName: Homing Test
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -169,6 +229,23 @@ Mods: {
 			TriggernometryRuler.DisplayName: Triggernometry Ruler
 			GhostHitBox.DisplayName: Ghost Hit Box
 			ExampleBouncyProjectile.DisplayName: Example Bouncy Projectile
+			GBubble.DisplayName: G Bubble
+			RGBFlame.DisplayName: R G B Flame
+			VoidBubble.DisplayName: Void Bubble
+			VoidBubble2.DisplayName: Void Bubble2
+			VoidBubble3.DisplayName: Void Bubble3
+		}
+
+		Buffs: {
+			Exhausted: {
+				DisplayName: Exhausted
+				Description: Mods.CCMod.Buffs.Exhausted.Description
+			}
+
+			Exhausted2: {
+				DisplayName: Exhausted2
+				Description: Mods.CCMod.Buffs.Exhausted2.Description
+			}
 		}
 	}
 }

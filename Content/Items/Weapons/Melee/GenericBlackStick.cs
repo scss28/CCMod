@@ -47,7 +47,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 3;
 			Item.value = 10000;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Terraria.Audio.SoundStyle item1 = SoundID.Item1;
 			Item.UseSound = item1;
 			Item.autoReuse = true;

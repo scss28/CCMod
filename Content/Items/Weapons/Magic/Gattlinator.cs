@@ -6,11 +6,15 @@ using CCMod.Utils;
 using CCMod.Common;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Magic
 
 {
-	public class Gattlinator : ModItem, IMadeBy
+	[CodedBy("Pexiltd")]
+	[SpritedBy("Pexiltd")]
+	[ConceptBy("Pexiltd")]
+	public class Gattlinator : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -27,9 +31,6 @@ namespace CCMod.Content.Items.Weapons.Magic
 			}
 			return base.Shoot(player, source, position, velocity, type, damage, knockback);
 		}
-		public string CodedBy => "Pexiltd";
-
-		public string SpritedBy => "Pexiltd";
 
 		public override void AddRecipes()
 		{

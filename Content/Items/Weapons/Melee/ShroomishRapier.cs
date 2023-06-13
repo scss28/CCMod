@@ -36,7 +36,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Item.CanRollPrefix(PrefixID.Legendary);
 			Item.CanRollPrefix(PrefixID.Awful);
 			Item.value = 50000;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Terraria.Audio.SoundStyle item1 = SoundID.Item1;
 			Item.UseSound = item1;
 			Item.autoReuse = true;

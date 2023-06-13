@@ -11,8 +11,10 @@ using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Magic
 {
-
-    public class MushroomJavilen : ModItem
+	[CodedBy("Pexiltd")]
+	[SpritedBy("Pexiltd")]
+	[ConceptBy("Pexiltd")]
+	public class MushroomJavilen : ModItem
 	{
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{

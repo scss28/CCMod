@@ -3,21 +3,20 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using CCMod.Common.Attributes;
 using Microsoft.Xna.Framework;
-using CCMod.Common;
 using CCMod.Common.GlobalItems;
 using Terraria.DataStructures;
 using CCmod.Content.Effects.Debuffs;
 using CCMod.Content.Projectiles;
-using CCMod.Common.ProjectileComponentSystem;
-using CCMod.Content.ProjectileComponents;
 using CCMod.Common.ECS.Projectiles;
 using CCMod.Common.ECS;
 using CCMod.Content.ProjectileModifiers;
-using CCMod.Content.ProjModifiers;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
-	public class SpriteSlicer : ModItem, MeleeWeaponWithImproveSwing, IMadeBy
+	[CodedBy("Pexiltd")]
+	[SpritedBy("Pexiltd")]
+	[ConceptBy("Pexiltd")]
+	public class SpriteSlicer : ModItem, MeleeWeaponWithImproveSwing
 	{
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{		    
@@ -31,14 +30,14 @@ namespace CCMod.Content.Items.Weapons.Melee
 			{
 				if (player.altFunctionUse == 2)
 				{
-					int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 66, 5f, 5f, 100, new(0, 0, 0), 5f);
+					int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.RainbowTorch, 5f, 5f, 100, new(0, 0, 0), 5f);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.X += player.direction * 2f;
 					Main.dust[dust].velocity.Y += 2f;
 				}
 				else
 				{
-					int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 92, 3f, 3f, 100, new(0, 0, 0), 3f);
+					int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Frost, 3f, 3f, 100, new(0, 0, 0), 3f);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.X += player.direction * 2f;
 					Main.dust[dust].velocity.Y += 2f;
@@ -117,9 +116,6 @@ namespace CCMod.Content.Items.Weapons.Melee
 		{
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpriteSmasher>();
 		}
-		public string CodedBy => "Pexiltd";
-
-		public string SpritedBy => "Pexiltd";
 		public override void SetDefaults()
 		{
 			Item.damage = 70;
@@ -133,7 +129,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Item.CanRollPrefix(PrefixID.Legendary);
 			Item.CanRollPrefix(PrefixID.Awful);
 			Item.value = 50000;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Terraria.Audio.SoundStyle item1 = SoundID.Item1;
 			Item.UseSound = item1;
 			Item.autoReuse = true;

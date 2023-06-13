@@ -6,15 +6,16 @@ using CCMod.Utils;
 using Terraria.DataStructures;
 using CCMod.Common;
 using Terraria.GameContent.Creative;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Ranged
 {
-	public class Bombgun : ModItem, IMadeBy
-
+	[CodedBy("Pexiltd")]
+	[SpritedBy("Pexiltd")]
+	[ConceptBy("Pexiltd")]
+	public class Bombgun : ModItem
 	{
-		public string CodedBy => "Pexiltd";
 
-		public string SpritedBy => "Pexiltd";
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Gunnade");

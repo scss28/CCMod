@@ -3,15 +3,17 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using CCMod.Utils;
-using CCMod.Common;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Magic
 
 {
-	internal class ShroomishBranch : ModItem, IMadeBy
+	[CodedBy("Pexiltd")]
+	[SpritedBy("Pexiltd")]
+	[ConceptBy("Pexiltd")]
+	internal class ShroomishBranch : ModItem
 	{
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
@@ -31,10 +33,6 @@ namespace CCMod.Content.Items.Weapons.Magic
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			Item.staff[Item.type] = true;
 		}
-		public string CodedBy => "Pexiltd";
-
-		public string SpritedBy => "Pexiltd";
-
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
