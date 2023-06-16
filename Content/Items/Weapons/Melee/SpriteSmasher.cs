@@ -58,8 +58,8 @@ namespace CCMod.Content.Items.Weapons.Melee
 				Item.useStyle = ItemUseStyleID.Swing;
 				Item.useTime = 30;
 				Item.useAnimation = 30;
-				Item.damage = 190;
-				Item.crit = 75;
+				Item.damage = 140;
+				Item.crit = 50;
 				Item.width = 54;
 				Item.height = 52;
 				Item.knockBack = 13;
@@ -67,12 +67,12 @@ namespace CCMod.Content.Items.Weapons.Melee
 			}
 			else
 			{
-				Item.damage = 80;
+				Item.damage = 90;
 				Item.DamageType = DamageClass.Melee;
 				Item.width = 55;
 				Item.height = 58;
-				Item.useTime = 80;
-				Item.useAnimation = 80;
+				Item.useTime = 90;
+				Item.useAnimation = 90;
 				Item.useStyle = ItemUseStyleID.Swing;
 				Item.knockBack = 8;
 				Item.CanRollPrefix(PrefixID.Legendary);
@@ -91,14 +91,14 @@ namespace CCMod.Content.Items.Weapons.Melee
 		{
 			if (player.altFunctionUse == 2)
 			{
-				target.AddBuff(BuffID.OnFire3, 4000);
+				target.AddBuff(BuffID.CursedInferno, 3000);
 				player.AddBuff(ModContent.BuffType<Exhausted>(), 180);
 			}
 			else
 			{
-				target.AddBuff(BuffID.CursedInferno, 480);
+				target.AddBuff(BuffID.OnFire, 480);
 				target.AddBuff(BuffID.Bleeding, 540);
-				target.AddBuff(BuffID.Frostburn2, 220);
+				target.AddBuff(BuffID.Frostburn, 220);
 			}
 			CCModTool.LifeStealOnHit(player.whoAmI, target.whoAmI, 3, 3, 1, 3);
 		}
@@ -109,7 +109,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 		}
 		public override void SetDefaults()
 		{
-			Item.damage = 80;
+			Item.damage = 90;
 			Item.DamageType = DamageClass.Melee;
 			Item.width = 55;
 			Item.height = 58;

@@ -21,7 +21,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{		    
 			var manager = (IEntity)Projectile.NewProjectileDirect(source, position, velocity * 2, type, damage, knockback).GetGlobalProjectile<ProjectileModifierManager>();
-			manager.InstallComponent(new Homing(manager, 216, 0.6f));
+			manager.InstallComponent(new Homing(manager, 216, 0.45f));
 			return false;
 		}
 		public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -97,9 +97,9 @@ namespace CCMod.Content.Items.Weapons.Melee
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			base.OnHitNPC(player, target, hit, damageDone);
-			target.AddBuff(BuffID.CursedInferno, 480);
-			target.AddBuff(BuffID.Bleeding, 540);
-			target.AddBuff(BuffID.Frostburn2, 220);
+			target.AddBuff(BuffID.CursedInferno, 280);
+			target.AddBuff(BuffID.Bleeding, 340);
+			target.AddBuff(BuffID.Frostburn, 120);
 			if (player.altFunctionUse == 2)
 			{
 				target.AddBuff(BuffID.Frostburn2, 2000);
@@ -107,9 +107,9 @@ namespace CCMod.Content.Items.Weapons.Melee
 			}
 			else
 			{
-				target.AddBuff(BuffID.CursedInferno, 220);
+				target.AddBuff(BuffID.CursedInferno, 120);
 				target.AddBuff(BuffID.Bleeding, 540);
-				target.AddBuff(BuffID.Frostburn2, 480);
+				target.AddBuff(BuffID.Frostburn, 580);
 			}
 		}
 		public override void SetStaticDefaults()
@@ -122,8 +122,8 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Item.DamageType = DamageClass.Melee;
 			Item.width = 54;
 			Item.height = 50;
-			Item.useTime = 20;
-			Item.useAnimation = 20;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 5;
 			Item.CanRollPrefix(PrefixID.Legendary);

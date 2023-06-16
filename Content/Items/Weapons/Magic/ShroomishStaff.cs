@@ -14,11 +14,11 @@ namespace CCMod.Content.Items.Weapons.Magic
 	[CodedBy("Pexiltd")]
 	[SpritedBy("Pexiltd")]
 	[ConceptBy("Pexiltd")]
-	public class MushroomJavilen : ModItem
+	public class ShroomishStaff : ModItem
 	{
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, position, velocity, ProjectileID.FlaironBubble, 40, 3, player.whoAmI);
+			Projectile.NewProjectile(source, position, velocity, ProjectileID.FlaironBubble, 30, 3, player.whoAmI);
 			for (int i = 0; i < 4; i++)
 			{
 				Vector2 vec = velocity.NextVector2RotatedByRandom(20f, 30, i);

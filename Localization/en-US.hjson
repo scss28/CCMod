@@ -135,12 +135,12 @@ Mods: {
 
 			DustyScarf: {
 				DisplayName: Dusty Scarf
-				Tooltip: ""
+				Tooltip: Sometimes kindess isnt the best option
 			}
 
 			Gattlinator: {
 				DisplayName: Gattlinator
-				Tooltip: ""
+				Tooltip: A mis match of broken parts
 			}
 
 			MushroomJavilen: {
@@ -150,12 +150,12 @@ Mods: {
 
 			ShroomishBranch: {
 				DisplayName: Shroomish Branch
-				Tooltip: ""
+				Tooltip: A suprisingly good weapon made from magic shrooms and hope
 			}
 
 			CodeBreaker: {
 				DisplayName: Code Breaker
-				Tooltip: ""
+				Tooltip: Pop
 			}
 
 			GenericBlackStick: {
@@ -165,7 +165,7 @@ Mods: {
 
 			KnockbackStick: {
 				DisplayName: Knockback Stick
-				Tooltip: ""
+				Tooltip: This shouldnt be here
 			}
 
 			ShroomishRapier: {
@@ -175,22 +175,27 @@ Mods: {
 
 			SpriteSlicer: {
 				DisplayName: Sprite Slicer
-				Tooltip: ""
+				Tooltip: A little bit of homing never harmed the user
 			}
 
 			SpriteSmasher: {
 				DisplayName: Sprite Smasher
-				Tooltip: ""
+				Tooltip: It be a bit more like forcing a cut wouldnt it.
 			}
 
 			Bombgun: {
-				DisplayName: Bombgun
-				Tooltip: ""
+				DisplayName: Gunnade
+				Tooltip: A demo's favorite gun
 			}
 
 			HomingTest: {
 				DisplayName: Homing Test
 				Tooltip: ""
+			}
+
+			ShroomishStaff: {
+				DisplayName: Shroomish Staff
+				Tooltip: A magical alt
 			}
 		}
 
@@ -239,12 +244,12 @@ Mods: {
 		Buffs: {
 			Exhausted: {
 				DisplayName: Exhausted
-				Description: Mods.CCMod.Buffs.Exhausted.Description
+				Description: Your last attack was to strong for your body
 			}
 
 			Exhausted2: {
 				DisplayName: Exhausted2
-				Description: Mods.CCMod.Buffs.Exhausted2.Description
+				Description: You have over exerted yourself and are now paying the price
 			}
 		}
 	}
