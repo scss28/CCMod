@@ -11,7 +11,7 @@ namespace CCMod.Content.Examples.Items.Weapons.Melee
 	[ExampleItem]
 	[CodedBy("Xinim")]
 	[SpritedBy("Xinim")]
-	internal class MeleeImproveSwingExample : ModItem, IMeleeWeaponWithImproveSwing
+	internal class MeleeImproveSwingExample : ModItem, MeleeWeaponWithImproveSwing
 	{
 		public override string Texture => CCModTool.GetSameTextureAs<GenericBlackSword>();
 

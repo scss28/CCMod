@@ -439,7 +439,6 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 		}
 
 		float blinkProg = 0f;
-		readonly float blinkDiff = 30;
 		float blinkTimer = 30;
 		public void DrawAdditive(Color lightColor)
 		{

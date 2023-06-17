@@ -11,14 +11,13 @@ namespace CCMod.Common.GlobalItems
 		public const float PLAYERARMLENGTH = 12f;
 		public override void UseStyle(Item item, Player player, Rectangle heldItemFrame)
 		{
-			if (item.ModItem is not IMeleeWeaponWithImproveSwing || item.noMelee)
+			if (item.ModItem is not MeleeWeaponWithImproveSwing || item.noMelee)
 			{
 				return;
 			}
 			SwipeAttack(player, player.GetModPlayer<ImprovedSwingGlobalItemPlayer>(), 1);
 		}
-
-		private static void SwipeAttack(Player player, ImprovedSwingGlobalItemPlayer modplayer, int direct)
+		private void SwipeAttack(Player player, ImprovedSwingGlobalItemPlayer modplayer, int direct)
 		{
 			float percentDone = player.itemAnimation / (float)player.itemAnimationMax;
 			percentDone = CCModUtils.InExpo(percentDone);
@@ -32,26 +31,24 @@ namespace CCMod.Common.GlobalItems
 			player.compositeFrontArm = new Player.CompositeArmData(true, Player.CompositeArmStretchAmount.Full, currentAngle - MathHelper.PiOver2);
 			player.itemLocation = player.MountedCenter + Vector2.UnitX.RotatedBy(currentAngle) * PLAYERARMLENGTH;
 		}
-
 		//Credit hitbox code to Stardust
 		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
 		{
-			if (item.ModItem is IMeleeWeaponWithImproveSwing)
+			if (item.ModItem is MeleeWeaponWithImproveSwing)
 			{
 				Vector2 handPos = Vector2.UnitY.RotatedBy(player.compositeFrontArm.rotation);
-				float length = item.Size.Length() * player.GetAdjustedItemScale(player.HeldItem);
-				Vector2 endPos = handPos * length;
-
+				float length = new Vector2(item.width, item.height).Length() * player.GetAdjustedItemScale(player.HeldItem);
+				Vector2 endPos = handPos;
+				endPos *= length;
 				handPos += player.MountedCenter;
 				endPos += player.MountedCenter;
-
-				(int X1, int X2) = CCModUtils.Order(handPos.X, endPos.X);
-				(int Y1, int Y2) = CCModUtils.Order(handPos.Y, endPos.Y);
-				hitbox = new Rectangle(X1 - 2, Y1 - 2, X2 - X1 + 2, Y2 - Y1 + 2);
+				(int X1, int X2) XVals = CCModUtils.Order(handPos.X, endPos.X);
+				(int Y1, int Y2) YVals = CCModUtils.Order(handPos.Y, endPos.Y);
+				hitbox = new Rectangle(XVals.X1 - 2, YVals.Y1 - 2, XVals.X2 - XVals.X1 + 2, YVals.Y2 - YVals.Y1 + 2);
 			}
 		}
 	}
-	interface IMeleeWeaponWithImproveSwing { }
+	interface MeleeWeaponWithImproveSwing { }
 	public class ImprovedSwingGlobalItemPlayer : ModPlayer
 	{
 		public Vector2 data = Vector2.Zero;
@@ -59,14 +56,14 @@ namespace CCMod.Common.GlobalItems
 		public override void PreUpdate()
 		{
 			Player.attackCD = 0;
-			if (Player.HeldItem.ModItem is not IMeleeWeaponWithImproveSwing || Player.HeldItem.noMelee)
+			if (Player.HeldItem.ModItem is not MeleeWeaponWithImproveSwing || Player.HeldItem.noMelee)
 			{
 				return;
 			}
 		}
 		public override void PostUpdate()
 		{
-			if (Player.HeldItem.ModItem is not IMeleeWeaponWithImproveSwing || Player.HeldItem.noMelee)
+			if (Player.HeldItem.ModItem is not MeleeWeaponWithImproveSwing || Player.HeldItem.noMelee)
 			{
 				return;
 			}
@@ -80,5 +77,6 @@ namespace CCMod.Common.GlobalItems
 			}
 			Player.attackCD = 0;
 		}
+
 	}
 }
