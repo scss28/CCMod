@@ -14,7 +14,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 	[CodedBy("Pexiltd")]
 	[SpritedBy("Pexiltd")]
 	[ConceptBy("Pexiltd")]
-	public class CodeBreaker : ModItem, MeleeWeaponWithImproveSwing
+	public class CodeBreaker : ModItem, MeleeWeaponWithImprovedSwing
 	{
 		public override void AddRecipes()
 		{
@@ -31,9 +31,19 @@ namespace CCMod.Content.Items.Weapons.Melee
 		}
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<VoidBubble>(), 150, 5, player.whoAmI);
-			Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<VoidBubble2>(), 100, 3, player.whoAmI);
-			Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<VoidBubble3>(), 40, 15, player.whoAmI);
+			for (byte i = 0; i < 3; i++)
+			{
+				Projectile.NewProjectile(
+					player.GetSource_ItemUse_WithPotentialAmmo(Item, source.AmmoItemIdUsed, $"{i}"),
+					position,
+					velocity,
+					ModContent.ProjectileType<VoidBubble>(),
+					i == 0 ? 150 : i == 1 ? 100 : 40,
+					i == 0 ? 5 : i == 1 ? 3 : 15, 
+					player.whoAmI
+				);
+			}
+
 			return false;
 		}
 		public override bool AltFunctionUse(Player player)
@@ -57,8 +67,6 @@ namespace CCMod.Content.Items.Weapons.Melee
 			if (player.altFunctionUse == 2)
 			{
 				Item.shoot = ModContent.ProjectileType<VoidBubble>();
-				Item.shoot = ModContent.ProjectileType<VoidBubble2>();
-				Item.shoot = ModContent.ProjectileType<VoidBubble3>();
 				Item.useStyle = ItemUseStyleID.Swing;
 				Item.useTime = 20;
 				Item.useAnimation = 20;

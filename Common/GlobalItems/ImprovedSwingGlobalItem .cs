@@ -11,7 +11,7 @@ namespace CCMod.Common.GlobalItems
 		public const float PLAYERARMLENGTH = 12f;
 		public override void UseStyle(Item item, Player player, Rectangle heldItemFrame)
 		{
-			if (item.ModItem is not MeleeWeaponWithImproveSwing || item.noMelee)
+			if (item.ModItem is not MeleeWeaponWithImprovedSwing || item.noMelee)
 			{
 				return;
 			}
@@ -34,7 +34,7 @@ namespace CCMod.Common.GlobalItems
 		//Credit hitbox code to Stardust
 		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
 		{
-			if (item.ModItem is MeleeWeaponWithImproveSwing)
+			if (item.ModItem is MeleeWeaponWithImprovedSwing)
 			{
 				Vector2 handPos = Vector2.UnitY.RotatedBy(player.compositeFrontArm.rotation);
 				float length = new Vector2(item.width, item.height).Length() * player.GetAdjustedItemScale(player.HeldItem);
@@ -48,7 +48,7 @@ namespace CCMod.Common.GlobalItems
 			}
 		}
 	}
-	interface MeleeWeaponWithImproveSwing { }
+	interface MeleeWeaponWithImprovedSwing { }
 	public class ImprovedSwingGlobalItemPlayer : ModPlayer
 	{
 		public Vector2 data = Vector2.Zero;
@@ -56,14 +56,14 @@ namespace CCMod.Common.GlobalItems
 		public override void PreUpdate()
 		{
 			Player.attackCD = 0;
-			if (Player.HeldItem.ModItem is not MeleeWeaponWithImproveSwing || Player.HeldItem.noMelee)
+			if (Player.HeldItem.ModItem is not MeleeWeaponWithImprovedSwing || Player.HeldItem.noMelee)
 			{
 				return;
 			}
 		}
 		public override void PostUpdate()
 		{
-			if (Player.HeldItem.ModItem is not MeleeWeaponWithImproveSwing || Player.HeldItem.noMelee)
+			if (Player.HeldItem.ModItem is not MeleeWeaponWithImprovedSwing || Player.HeldItem.noMelee)
 			{
 				return;
 			}

@@ -1,4 +1,5 @@
-﻿using CCMod.Common.ECS;
+﻿using CCMod.Common.Attributes;
+using CCMod.Common.ECS;
 using CCMod.Common.ECS.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -40,6 +41,8 @@ namespace CCMod.Content.ProjectileModifiers
 				) * projectile.velocity.Length();
 		}
 	}
+
+	[ExampleItem]
 	public class HomingTest : ModItem
 	{
 		public override string Texture => $"Terraria/Images/Item_{ItemID.AshWoodBow}";

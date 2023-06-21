@@ -183,11 +183,6 @@ Mods: {
 				Tooltip: It be a bit more like forcing a cut wouldnt it.
 			}
 
-			Bombgun: {
-				DisplayName: Gunnade
-				Tooltip: A demo's favorite gun
-			}
-
 			HomingTest: {
 				DisplayName: Homing Test
 				Tooltip: ""
@@ -196,6 +191,16 @@ Mods: {
 			ShroomishStaff: {
 				DisplayName: Shroomish Staff
 				Tooltip: A magical alt
+			}
+
+			MeleeImprovedSwingExample: {
+				DisplayName: Melee Improved Swing Example
+				Tooltip: ""
+			}
+
+			Gunnade: {
+				DisplayName: Gunnade
+				Tooltip: ""
 			}
 		}
 

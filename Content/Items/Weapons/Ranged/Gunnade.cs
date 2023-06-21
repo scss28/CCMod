@@ -13,7 +13,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
 	[CodedBy("Pexiltd")]
 	[SpritedBy("Pexiltd")]
 	[ConceptBy("Pexiltd")]
-	public class Bombgun : ModItem
+	public class Gunnade : ModItem
 	{
 
 		public override void SetStaticDefaults()
@@ -35,7 +35,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				Vector2 vec = velocity.NextVector2RotatedByRandom(20f, 30, i);
+				Vector2 vec = velocity.EvenArchSpread(20f, 30, i);
 				Projectile.NewProjectile(source, position, vec, type, damage, knockback, player.whoAmI);
 			}
 			return base.Shoot(player, source, position, velocity, type, damage, knockback);

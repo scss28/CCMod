@@ -12,7 +12,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 	[CodedBy("Pexiltd")]
 	[SpritedBy("Pexiltd")]
 	[ConceptBy("Pexiltd")]
-	public class SpriteSmasher : ModItem, MeleeWeaponWithImproveSwing
+	public class SpriteSmasher : ModItem, MeleeWeaponWithImprovedSwing
 	{
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{

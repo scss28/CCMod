@@ -16,7 +16,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 	[CodedBy("Pexiltd")]
 	[SpritedBy("Pexiltd")]
 	[ConceptBy("Pexiltd")]
-	public class SpriteSlicer : ModItem, MeleeWeaponWithImproveSwing
+	public class SpriteSlicer : ModItem, MeleeWeaponWithImprovedSwing
 	{
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{		    
@@ -58,11 +58,11 @@ namespace CCMod.Content.Items.Weapons.Melee
 		}
 		public override bool CanUseItem(Player player)
 		{
-			    if (player.HasBuff(ModContent.BuffType<Exhausted>()))
+			if (player.HasBuff(ModContent.BuffType<Exhausted>()))
 			{
 				return false;
 			}
-				if (player.altFunctionUse == 2)
+			if (player.altFunctionUse == 2)
 			{
 				Item.useStyle = ItemUseStyleID.Swing;
 				Item.useTime = 90;
