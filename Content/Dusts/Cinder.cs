@@ -48,7 +48,9 @@ namespace CCMod.Content.Dusts
 				Vector2 pos = dust.position + Vector2.One * 80 * dust.scale;
 				dust.velocity = Vector2.Lerp(dust.velocity, pos.DirectionTo(target) * pos.Distance(target) * 0.1f, 0.03f);
 				if (pos.Distance(target) < 3f)
+				{
 					dust.active = false;
+				}
 			}
 
 			if (dust.customData is Player player && dust.fadeIn > 0)
@@ -60,22 +62,31 @@ namespace CCMod.Content.Dusts
 
 			dust.fadeIn += 3;
 			if (dust.fadeIn > 100)
+			{
 				dust.active = false;
+			}
 
 			if (dust.noGravity)
 			{
 				if (Main.rand.NextBool())
+				{
 					dust.velocity += Main.rand.NextVector2Circular(0.2f, 0.05f);
+				}
+
 				dust.velocity.Y -= 0.01f;
 
 				if (dust.fadeIn > 20)
+				{
 					dust.velocity *= 0.98f;
+				}
 			}
 			else if (dust.fadeIn > 10)
 			{
 				dust.velocity.Y += 0.25f;
 				if (Collision.SolidTiles(dust.position + new Vector2(0, 22), 8, 8))
+				{
 					dust.velocity = Vector2.Zero;
+				}
 			}
 
 			dust.velocity = dust.velocity.RotatedBy(0.002f * dust.alpha * dust.velocity.Length());

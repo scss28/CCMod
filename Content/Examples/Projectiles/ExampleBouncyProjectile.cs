@@ -1,12 +1,13 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using CCMod.Common.GlobalItems;
 using CCMod.Utils;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
+using CCMod.Common.GlobalProjectiles;
+using CCMod.Common.Attributes;
 
-namespace CCMod.Content.Examples.Items.Weapons.Ranged
+namespace CCMod.Content.Examples.Projectiles
 {
 	internal class ExampleBouncyProjectile : ModProjectile, IBouncyProjectile
 	{
@@ -20,6 +21,7 @@ namespace CCMod.Content.Examples.Items.Weapons.Ranged
 			Projectile.friendly = true;
 			Projectile.timeLeft = 900;
 		}
+
 		int first = 0;
 		public override void AI()
 		{
@@ -32,11 +34,16 @@ namespace CCMod.Content.Examples.Items.Weapons.Ranged
 			Projectile.rotation += MathHelper.ToRadians(20);
 			if (Projectile.ai[0] > 10)
 			{
-				if (Projectile.velocity.Y <= 16) Projectile.velocity.Y += .15f;
+				if (Projectile.velocity.Y <= 16)
+				{
+					Projectile.velocity.Y += .15f;
+				}
 			}
 			Projectile.ai[0]++;
 		}
 	}
+
+	[ExampleItem]
 	class ExampleShootBouncyProjectile : ModItem
 	{
 		public override string Texture => CCModTool.GetVanillaTexture<Item>(ItemID.Acorn);

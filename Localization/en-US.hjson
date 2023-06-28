@@ -132,6 +132,76 @@ Mods: {
 				DisplayName: Example Shoot Bouncy Projectile
 				Tooltip: ""
 			}
+
+			DustyScarf: {
+				DisplayName: Dusty Scarf
+				Tooltip: Sometimes kindess isnt the best option
+			}
+
+			Gattlinator: {
+				DisplayName: Gattlinator
+				Tooltip: A mis match of broken parts
+			}
+
+			MushroomJavilen: {
+				DisplayName: Mushroom Javilen
+				Tooltip: ""
+			}
+
+			ShroomishBranch: {
+				DisplayName: Shroomish Branch
+				Tooltip: A suprisingly good weapon made from magic shrooms and hope
+			}
+
+			CodeBreaker: {
+				DisplayName: Code Breaker
+				Tooltip: Pop
+			}
+
+			GenericBlackStick: {
+				DisplayName: Generic Black Stick
+				Tooltip: ""
+			}
+
+			KnockbackStick: {
+				DisplayName: Knockback Stick
+				Tooltip: This shouldnt be here
+			}
+
+			ShroomishRapier: {
+				DisplayName: Shroomish Rapier
+				Tooltip: ""
+			}
+
+			SpriteSlicer: {
+				DisplayName: Sprite Slicer
+				Tooltip: A little bit of homing never harmed the user
+			}
+
+			SpriteSmasher: {
+				DisplayName: Sprite Smasher
+				Tooltip: It be a bit more like forcing a cut wouldnt it.
+			}
+
+			HomingTest: {
+				DisplayName: Homing Test
+				Tooltip: ""
+			}
+
+			ShroomishStaff: {
+				DisplayName: Shroomish Staff
+				Tooltip: A magical alt
+			}
+
+			MeleeImprovedSwingExample: {
+				DisplayName: Melee Improved Swing Example
+				Tooltip: ""
+			}
+
+			Gunnade: {
+				DisplayName: Gunnade
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -169,6 +239,23 @@ Mods: {
 			TriggernometryRuler.DisplayName: Triggernometry Ruler
 			GhostHitBox.DisplayName: Ghost Hit Box
 			ExampleBouncyProjectile.DisplayName: Example Bouncy Projectile
+			GBubble.DisplayName: G Bubble
+			RGBFlame.DisplayName: R G B Flame
+			VoidBubble.DisplayName: Void Bubble
+			VoidBubble2.DisplayName: Void Bubble2
+			VoidBubble3.DisplayName: Void Bubble3
+		}
+
+		Buffs: {
+			Exhausted: {
+				DisplayName: Exhausted
+				Description: Your last attack was to strong for your body
+			}
+
+			Exhausted2: {
+				DisplayName: Exhausted2
+				Description: You have over exerted yourself and are now paying the price
+			}
 		}
 	}
 }
