@@ -30,17 +30,7 @@ namespace CCMod.Utils
 				return GetVanillaTexture<Item>(ItemID.Acorn);
 			return NameSpace.Replace(".", "/") + "/" + altName;
 		}
-		public static string GetVanillaTexture<T>(int EntityType) where T : class
-		{
-			Type type = typeof(T);
-			if (type == typeof(NPC))
-				return "Terraria/Images/NPC_" + EntityType;
-			if (type == typeof(Item))
-				return "Terraria/Images/Item_" + EntityType;
-			if (type == typeof(Projectile))
-				return "Terraria/Images/Projectile_" + EntityType;
-			return GetVanillaTexture<Item>(ItemID.Acorn);
-		}
+		public static string GetVanillaTexture<T>(int EntityType) where T : class => $"Terraria/Images/{typeof(T).Name}_{EntityType}";
 		public static bool CompareSquareFloatValue(Vector2 pos1, Vector2 pos2, float maxDistance)
 		{
 			double value1X = pos1.X,

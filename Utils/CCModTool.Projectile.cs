@@ -46,13 +46,13 @@ namespace CCMod.Utils
 		/// <param name="knockback">The knockback of that projectile</param>
 		/// <param name="Range">Spawn position on X and Y axis, you only need to set positive if you gonna randomize it, otherwise no need to set it</param>
 		/// <param name="randomizePosition">Make your range position randomize instead of fixed</param>
-		public static void SpawnProjectileLikeStarFury(IEntitySource source, Player player, float speed, int ProjectileType, int damage, float knockback, Vector2 Range, bool randomizePosition = true)
+		public static int SpawnProjectileLikeStarFury(IEntitySource source, Player player, float speed, int ProjectileType, int damage, float knockback, Vector2 Range, bool randomizePosition = true)
 		{
 			float RandomizeX = randomizePosition ? Main.rand.NextFloat(-Range.X, Range.X) : Range.X;
 			float RandomizeY = randomizePosition ? Main.rand.NextFloat(-Range.Y, Range.Y) : Range.Y;
 			Vector2 spawn = new Vector2(player.Center.X + RandomizeX, player.Center.Y - 1000 + RandomizeY);
 			Vector2 velocity = (Main.MouseWorld - spawn).SafeNormalize(Vector2.Zero) * speed;
-			Projectile.NewProjectile(source, spawn, velocity, ProjectileType, damage, knockback, player.whoAmI);
+			return Projectile.NewProjectile(source, spawn, velocity, ProjectileType, damage, knockback, player.whoAmI);
 		}
 		/// <summary>
 		/// This method will ensure that you will spawn a projectile like how starfury sword do<br />
@@ -65,13 +65,13 @@ namespace CCMod.Utils
 		/// <param name="knockback">The knockback of that projectile</param>
 		/// <param name="Range">Spawn position on X and Y axis, you only need to set positive if you gonna randomize it, otherwise no need to set it</param>
 		/// <param name="randomizePosition">Make your range position randomize instead of fixed</param>
-		public static void SpawnProjectileLikeStarFuryItem(Player player, float speed, int ProjectileType, int damage, float knockback, Vector2 Range, bool randomizePosition)
+		public static int SpawnProjectileLikeStarFuryItem(Player player, float speed, int ProjectileType, int damage, float knockback, Vector2 Range, bool randomizePosition)
 		{
 			float RandomizeX = randomizePosition ? Main.rand.NextFloat(-Range.X, Range.X) : Range.X;
 			float RandomizeY = randomizePosition ? Main.rand.NextFloat(-Range.Y, Range.Y) : Range.Y;
 			Vector2 spawn = new Vector2(player.Center.X + RandomizeX, player.Center.Y - 1000 + RandomizeY);
 			Vector2 velocity = (Main.MouseWorld - spawn).SafeNormalize(Vector2.Zero) * speed;
-			Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), spawn, velocity, ProjectileType, damage, knockback, player.whoAmI);
+			return Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), spawn, velocity, ProjectileType, damage, knockback, player.whoAmI);
 		}
 		/// <summary>
 		/// Go through all projectiles in Main.projectile[] <br/>
