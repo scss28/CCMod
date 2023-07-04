@@ -3,6 +3,7 @@ using Terraria;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Terraria.ID;
 
 namespace CCMod.Utils
 {
@@ -32,7 +33,7 @@ namespace CCMod.Utils
 			npcsWithinRange.Sort(
 				(npc1, npc2) => npc1.Center.DistanceSQ(position).CompareTo(npc2.Center.DistanceSQ(position))
 			);
-			return (closestNPC = npcsWithinRange.FirstOrDefault()) is not null;
+			return (closestNPC = npcsWithinRange.FirstOrDefault()) is not null && closestNPC.type != NPCID.TargetDummy;
 		}
 
 		/// <summary>Collects nearby npcs into a list.</summary>

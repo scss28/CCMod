@@ -14,7 +14,7 @@ namespace CCMod.Content.Examples.Items.Weapons.Melee
 	internal class MeleeImprovedSwingExample : ModItem, MeleeWeaponWithImprovedSwing
 	{
 		public override string Texture => CCModTool.GetSameTextureAs<GenericBlackSword>();
-
+		public float swingDegree { get => 170; set => swingDegree = value; }
 		public override void SetDefaults()
 		{
 			Item.SetDefaultMelee(40, 40, 30, 4f, 30, 30, ItemUseStyleID.Swing, true);

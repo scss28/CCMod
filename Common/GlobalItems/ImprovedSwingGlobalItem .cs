@@ -11,18 +11,17 @@ namespace CCMod.Common.GlobalItems
 		public const float PLAYERARMLENGTH = 12f;
 		public override void UseStyle(Item item, Player player, Rectangle heldItemFrame)
 		{
-			if (item.ModItem is not MeleeWeaponWithImprovedSwing || item.noMelee)
+			if (item.ModItem is MeleeWeaponWithImprovedSwing itemswing && !item.noMelee)
 			{
-				return;
+				SwipeAttack(player, player.GetModPlayer<ImprovedSwingGlobalItemPlayer>(), itemswing.swingDegree, 1);
 			}
-			SwipeAttack(player, player.GetModPlayer<ImprovedSwingGlobalItemPlayer>(), 1);
 		}
-		private void SwipeAttack(Player player, ImprovedSwingGlobalItemPlayer modplayer, int direct)
+		private void SwipeAttack(Player player, ImprovedSwingGlobalItemPlayer modplayer,float swingdegree, int direct)
 		{
 			float percentDone = player.itemAnimation / (float)player.itemAnimationMax;
 			percentDone = CCModUtils.InExpo(percentDone);
 			float baseAngle = modplayer.data.ToRotation();
-			float angle = MathHelper.ToRadians(baseAngle + 120) * player.direction;
+			float angle = MathHelper.ToRadians(baseAngle + swingdegree) * player.direction;
 			float start = baseAngle + angle * direct;
 			float end = baseAngle - angle * direct;
 			float currentAngle = MathHelper.SmoothStep(start, end, percentDone);
@@ -48,7 +47,10 @@ namespace CCMod.Common.GlobalItems
 			}
 		}
 	}
-	interface MeleeWeaponWithImprovedSwing { }
+	interface MeleeWeaponWithImprovedSwing
+	{
+		float swingDegree { get; set; }
+	}
 	public class ImprovedSwingGlobalItemPlayer : ModPlayer
 	{
 		public Vector2 data = Vector2.Zero;

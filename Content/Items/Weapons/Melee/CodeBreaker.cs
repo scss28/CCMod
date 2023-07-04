@@ -16,6 +16,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 	[ConceptBy("Pexiltd")]
 	public class CodeBreaker : ModItem, MeleeWeaponWithImprovedSwing
 	{
+		public float swingDegree { get => 120; set => swingDegree = value; }
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
