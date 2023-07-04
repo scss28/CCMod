@@ -18,6 +18,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 	[ConceptBy("Pexiltd")]
 	public class SpriteSlicer : ModItem, MeleeWeaponWithImprovedSwing
 	{
+		public float swingDegree { get => 120; set => swingDegree = value; }
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{		    
 			var manager = (IEntity)Projectile.NewProjectileDirect(source, position, velocity * 2, type, damage, knockback).GetGlobalProjectile<ProjectileModifierManager>();
