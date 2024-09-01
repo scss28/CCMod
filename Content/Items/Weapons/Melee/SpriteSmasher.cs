@@ -12,9 +12,9 @@ namespace CCMod.Content.Items.Weapons.Melee
 	[CodedBy("Pexiltd")]
 	[SpritedBy("Pexiltd")]
 	[ConceptBy("Pexiltd")]
-	public class SpriteSmasher : ModItem, MeleeWeaponWithImprovedSwing
+	public class SpriteSmasher : ModItem, IMeleeWeaponWithImprovedSwing
 	{
-		public float swingDegree { get => 120; set => swingDegree = value; }
+		public float SwingDegree => 120;
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
 			if (Main.rand.NextFloat(1) < 0.6511628f)

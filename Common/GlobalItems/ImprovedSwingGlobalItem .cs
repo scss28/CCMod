@@ -11,11 +11,12 @@ namespace CCMod.Common.GlobalItems
 		public const float PLAYERARMLENGTH = 12f;
 		public override void UseStyle(Item item, Player player, Rectangle heldItemFrame)
 		{
-			if (item.ModItem is MeleeWeaponWithImprovedSwing itemswing && !item.noMelee)
+			if (item.ModItem is IMeleeWeaponWithImprovedSwing itemswing && !item.noMelee)
 			{
-				SwipeAttack(player, player.GetModPlayer<ImprovedSwingGlobalItemPlayer>(), itemswing.swingDegree, 1);
+				SwipeAttack(player, player.GetModPlayer<ImprovedSwingGlobalItemPlayer>(), itemswing.SwingDegree, 1);
 			}
 		}
+
 		private void SwipeAttack(Player player, ImprovedSwingGlobalItemPlayer modplayer,float swingdegree, int direct)
 		{
 			float percentDone = player.itemAnimation / (float)player.itemAnimationMax;
@@ -30,10 +31,11 @@ namespace CCMod.Common.GlobalItems
 			player.compositeFrontArm = new Player.CompositeArmData(true, Player.CompositeArmStretchAmount.Full, currentAngle - MathHelper.PiOver2);
 			player.itemLocation = player.MountedCenter + Vector2.UnitX.RotatedBy(currentAngle) * PLAYERARMLENGTH;
 		}
+
 		//Credit hitbox code to Stardust
 		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
 		{
-			if (item.ModItem is MeleeWeaponWithImprovedSwing)
+			if (item.ModItem is IMeleeWeaponWithImprovedSwing)
 			{
 				Vector2 handPos = Vector2.UnitY.RotatedBy(player.compositeFrontArm.rotation);
 				float length = new Vector2(item.width, item.height).Length() * player.GetAdjustedItemScale(player.HeldItem);
@@ -47,10 +49,12 @@ namespace CCMod.Common.GlobalItems
 			}
 		}
 	}
-	interface MeleeWeaponWithImprovedSwing
+
+	interface IMeleeWeaponWithImprovedSwing
 	{
-		float swingDegree { get; set; }
+		float SwingDegree { get; }
 	}
+
 	public class ImprovedSwingGlobalItemPlayer : ModPlayer
 	{
 		public Vector2 data = Vector2.Zero;
@@ -58,14 +62,14 @@ namespace CCMod.Common.GlobalItems
 		public override void PreUpdate()
 		{
 			Player.attackCD = 0;
-			if (Player.HeldItem.ModItem is not MeleeWeaponWithImprovedSwing || Player.HeldItem.noMelee)
+			if (Player.HeldItem.ModItem is not IMeleeWeaponWithImprovedSwing || Player.HeldItem.noMelee)
 			{
 				return;
 			}
 		}
 		public override void PostUpdate()
 		{
-			if (Player.HeldItem.ModItem is not MeleeWeaponWithImprovedSwing || Player.HeldItem.noMelee)
+			if (Player.HeldItem.ModItem is not IMeleeWeaponWithImprovedSwing || Player.HeldItem.noMelee)
 			{
 				return;
 			}
