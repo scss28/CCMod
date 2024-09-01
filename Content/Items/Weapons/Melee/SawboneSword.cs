@@ -117,7 +117,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (timer < 20)
 			{
@@ -270,7 +270,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Projectile.velocity += DirectionTo;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Vector2 pos = new Vector2(0, 60);
 			if (Projectile.ai[1] == 2)

@@ -241,7 +241,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 40; i++)
 			{
@@ -386,7 +386,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 				}
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Vector2 BetterTop = new Vector2(Projectile.Center.X, Projectile.Center.Y - Projectile.height * 0.5f);
 			for (int i = 0; i < 20; i++)
@@ -583,9 +583,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			if (!info.IsInSimulation)
 			{
 				return
-					info.player.ZoneGraveyard
-					&& info.player.ZoneUnderworldHeight
-					&& info.IsMasterMode || info.player.name.Equals("LowQualityTrashXinim");
+					info.player.ZoneGraveyard;
 			}
 
 			return false;
@@ -598,7 +596,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 
 		public string GetConditionDescription()
 		{
-			return "Beat Eye of Cthulhu in master mode and with some other conditions";
+			return "Beat Eye of Cthulhu in Graveyard";
 		}
 	}
 }

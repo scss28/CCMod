@@ -137,7 +137,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			swingDirection = -swingDirection;
 		}
@@ -229,7 +229,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 				Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GemEmerald, Scale: 0.6f).noGravity = true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenMoss, -Projectile.velocity.X * 0.3f, -Projectile.velocity.Y * 0.3f);

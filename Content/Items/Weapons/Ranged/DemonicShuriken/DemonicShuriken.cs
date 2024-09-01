@@ -122,7 +122,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 				}
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int randomProjectileNum = Main.rand.Next(3, 7);
 			for (int i = 0; i < randomProjectileNum; i++)
@@ -167,7 +167,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 				}
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int numProj = 4;
 			for (int i = 0; i < numProj; i++)
@@ -248,7 +248,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 				}
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + 10, Projectile.position.Y + 7, 0, 0, ModContent.ProjectileType<ShadowExplosion>(), 10, 2f, Projectile.owner);
 
@@ -288,7 +288,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 				Projectile.velocity.Y = 16f;
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ShadowExplosion>(), 10, 2f, Projectile.owner);
 		}
@@ -386,7 +386,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.DemonicShuriken
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ShadowExplosion>(), 1, 0, Projectile.owner);
 		}
