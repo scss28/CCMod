@@ -182,7 +182,7 @@ namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{
@@ -274,7 +274,7 @@ namespace CCMod.Content.Items.Weapons.Magic.GelVenomDagger
 			Projectile.velocity.Y *= 0.98f;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			CCModUtils.NewDustCircular(
 				Projectile.Center,

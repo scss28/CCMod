@@ -48,6 +48,11 @@ namespace CCMod.Content.Examples.Items.Weapons.Ranged
 	public class HomeInProjectile : ModProjectile
 	{
 		public override string Texture => CCModTool.GetVanillaTexture<Item>(ItemID.WoodenArrow);
+		public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.TrailCacheLength[Type] = 10;
+			ProjectileID.Sets.TrailingMode[Type] = 3;
+		}
 		public override void SetDefaults()
 		{
 			Projectile.width = Projectile.height = 8;
@@ -55,8 +60,6 @@ namespace CCMod.Content.Examples.Items.Weapons.Ranged
 			Projectile.tileCollide = true;
 			Projectile.timeLeft = 500;
 			Projectile.penetrate = 1;
-			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
-			ProjectileID.Sets.TrailingMode[Projectile.type] = 3;
 		}
 		public override void AI()
 		{
@@ -101,7 +104,7 @@ namespace CCMod.Content.Examples.Items.Weapons.Ranged
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{
-			//Easy draw trail, if you want it to scale correctly, do 1 / ProjectileID.Sets.TrailCacheLength[Projectile.type]
+			//Easy draw trail, if you want it to scale correctly, do 1 / ProjectileID.Sets.TrailCacheLength[Type]
 			Projectile.DrawTrail(lightColor, .1f);
 			return base.PreDraw(ref lightColor);
 		}

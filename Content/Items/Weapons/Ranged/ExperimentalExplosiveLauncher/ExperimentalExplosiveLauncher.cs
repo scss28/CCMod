@@ -425,7 +425,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.ExperimentalExplosiveLauncher
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundManager.Sounds["EEL_GuhEX2"] with { Pitch = Main.rand.NextFloat(0, 0.4f) }, Projectile.Center);
 			CCModUtils.ForeachNPCInRange(Projectile.Center, 130, npc =>

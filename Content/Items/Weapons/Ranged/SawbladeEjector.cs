@@ -178,7 +178,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
 			SoundEngine.PlaySound(SoundID.Item102, Player.Center);
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (SawProjectile is not null)
 			{
@@ -328,7 +328,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (!Main.dedServ)
 			{
