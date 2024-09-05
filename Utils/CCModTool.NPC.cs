@@ -33,7 +33,7 @@ namespace CCMod.Utils
 			npcsWithinRange.Sort(
 				(npc1, npc2) => npc1.Center.DistanceSQ(position).CompareTo(npc2.Center.DistanceSQ(position))
 			);
-			return (closestNPC = npcsWithinRange.FirstOrDefault()) is not null && closestNPC.type != NPCID.TargetDummy;
+			return (closestNPC = npcsWithinRange.FirstOrDefault()) is not null && closestNPC.type != NPCID.TargetDummy && !closestNPC.friendly;
 		}
 
 		/// <summary>Collects nearby npcs into a list.</summary>
@@ -42,7 +42,7 @@ namespace CCMod.Utils
 		/// <param name="distance">The max distance</param>
 		public static List<NPC> NPCsWithinRange(this Vector2 position, float distance)
 		{
-			return Main.npc.Where(npc => npc.active && npc.Center.WithinRange(position, distance)).ToList();
+			return Main.npc.Where(npc => npc.active && npc.Center.WithinRange(position, distance) && npc.type != NPCID.TargetDummy && !npc.friendly).ToList();
 		}
 	}
 }

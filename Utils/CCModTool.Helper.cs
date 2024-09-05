@@ -67,6 +67,10 @@ namespace CCMod.Utils
 				drama = 1;
 			}
 			int text = CombatText.NewText(new Rectangle(), color, combatMessage, dramatic, dot);
+			if(text < 0 || text >= Main.maxCombatText)
+			{
+				return;
+			}
 			CombatText cbtext = Main.combatText[text];
 			Vector2 vector = FontAssets.CombatText[drama].Value.MeasureString(cbtext.text);
 			cbtext.position.X = location.X + location.Width * 0.5f - vector.X * 0.5f;
