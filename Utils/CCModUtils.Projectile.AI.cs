@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace CCMod.Utils
 {
+	//Damn, I was wild back then
 	/// MOVED FROM PROJECTILEAI IN COMMON DUE TO IT BEING UTILS BUT IT WAS IN COMMON FOR SOME REASON
 	/// <summary>
 	/// for those who want to use this spagetti code i took from example javaline code and try to make it easy to use
@@ -178,6 +179,50 @@ namespace CCMod.Utils
 			{ // Otherwise, kill the projectile
 				projectile.Kill();
 			}
+		}
+
+		//Ported from my mod, don't uses it unless you know what it does
+		public static void ProjectileSwordSwingAI(Projectile projectile, Player player, int swing = 1, int swingdegree = 120, float holdoutoffset = 0)
+		{
+			if (projectile.timeLeft > player.itemAnimationMax)
+			{
+				projectile.timeLeft = player.itemAnimationMax;
+			}
+			player.heldProj = projectile.whoAmI;
+			float percentDone = player.itemAnimation / (float)player.itemAnimationMax;
+			if (swing == 2)
+			{
+				percentDone = 1 - percentDone;
+			}
+			percentDone = Math.Clamp(percentDone, 0, 1);
+			projectile.spriteDirection = player.direction;
+			float baseAngle = (Main.MouseWorld - player.Center).ToRotation();
+			float angle = MathHelper.ToRadians(baseAngle + swingdegree) * player.direction;
+			float start = baseAngle + angle;
+			float end = baseAngle - angle;
+			float currentAngle = MathHelper.SmoothStep(start, end, percentDone);
+			projectile.rotation = currentAngle;
+			projectile.rotation += player.direction > 0 ? MathHelper.PiOver4 : MathHelper.PiOver4 * 3f;
+			projectile.Center = player.MountedCenter + Vector2.UnitX.RotatedBy(currentAngle) * (42 + holdoutoffset);
+			player.compositeFrontArm = new Player.CompositeArmData(true, Player.CompositeArmStretchAmount.Full, currentAngle - MathHelper.PiOver2);
+		}
+		public static void ModifyProjectileDamageHitbox(ref Rectangle hitbox, Player player, int width, int height, float offset = 0)
+		{
+			float scale = player.GetAdjustedItemScale(player.HeldItem);
+			float length = new Vector2(width, height).Length() * scale;
+			Vector2 handPos = Vector2.UnitY.RotatedBy(player.compositeFrontArm.rotation);
+			Vector2 endPos = handPos;
+			endPos *= length;
+			Vector2 offsetVector = handPos * offset - handPos;
+			handPos += player.MountedCenter + offsetVector;
+			endPos += player.MountedCenter + offsetVector;
+			(int X1, int X2) XVals = Order(handPos.X, endPos.X);
+			(int Y1, int Y2) YVals = Order(handPos.Y, endPos.Y);
+			hitbox = new Rectangle(XVals.X1 - 2, YVals.Y1 - 2, XVals.X2 - XVals.X1 + 2, YVals.Y2 - YVals.Y1 + 2);
+		}
+		public static void ProjectileAlphaDecay(this Projectile projectile, float timeCountdown)
+		{
+			projectile.alpha = Math.Clamp((int)MathHelper.Lerp(0, 255, (timeCountdown - projectile.timeLeft) / timeCountdown), 0, 255);
 		}
 	}
 }

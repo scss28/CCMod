@@ -207,6 +207,11 @@ Mods: {
 				DisplayName: Home In Weapon
 				Tooltip: ""
 			}
+
+			Aikosword: {
+				DisplayName: Aikosword
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -250,6 +255,8 @@ Mods: {
 			VoidBubble2.DisplayName: Void Bubble2
 			VoidBubble3.DisplayName: Void Bubble3
 			HomeInProjectile.DisplayName: Home In Projectile
+			AikoswordProjectile.DisplayName: Aikosword Projectile
+			AikoswordSubProjectile.DisplayName: Aikosword Sub Projectile
 		}
 
 		Buffs: {

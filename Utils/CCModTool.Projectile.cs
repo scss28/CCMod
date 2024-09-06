@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using Terraria.ID;
 
 namespace CCMod.Utils
 {
@@ -32,6 +33,46 @@ namespace CCMod.Utils
 				Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + origin + new Vector2(0f, projectile.gfxOffY);
 				Color ColorAlpha = projectile.GetAlpha(color) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
 				Main.EntitySpriteDraw(texture, drawPos, null, ColorAlpha, projectile.rotation, origin, projectile.scale - k * ScaleAccordinglyToLength, SpriteEffects.None, 0);
+			}
+		}
+		public static void ProjectileDefaultDrawInfo(this Projectile projectile, out Texture2D texture, out Vector2 origin)
+		{
+			Main.instance.LoadProjectile(projectile.type);
+			texture = TextureAssets.Projectile[projectile.type].Value;
+			origin = texture.Size() * .5f;
+		}
+		/// <summary>
+		/// This method should be put in PreDraw hook, it is strictly work with projectile<br/>
+		/// Example :
+		/// <code>
+		/// public override bool PreDraw(Color lightcolor)
+		/// {
+		///		Projectile.DrawTrail(lightcolor, 0.02f);
+		///		return true;
+		/// }
+		/// </code>
+		/// </summary>
+		/// <param name="projectile"></param>
+		/// <param name="color"></param>
+		/// <param name="ScaleAccordinglyToLength"></param>
+		public static void DrawTrailWithoutColorAdjustment(this Projectile projectile, Color lightColor, float ManualScaleAccordinglyToLength = 0)
+		{
+			projectile.ProjectileDefaultDrawInfo(out Texture2D texture, out Vector2 origin);
+			if (ProjectileID.Sets.TrailingMode[projectile.type] != 2)
+			{
+				for (int k = 0; k < projectile.oldPos.Length; k++)
+				{
+					Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + origin + new Vector2(0f, projectile.gfxOffY);
+					Main.EntitySpriteDraw(texture, drawPos, null, lightColor, projectile.rotation, origin, projectile.scale - k * ManualScaleAccordinglyToLength, SpriteEffects.None, 0);
+				}
+			}
+			else
+			{
+				for (int k = 0; k < projectile.oldPos.Length; k++)
+				{
+					Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + origin + new Vector2(0f, projectile.gfxOffY);
+					Main.EntitySpriteDraw(texture, drawPos, null, lightColor, projectile.rotation, origin, projectile.scale - k * ManualScaleAccordinglyToLength, SpriteEffects.None, 0);
+				}
 			}
 		}
 		/// <summary>
