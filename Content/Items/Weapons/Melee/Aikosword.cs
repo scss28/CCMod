@@ -20,6 +20,16 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Item.noUseGraphic = true;
 			Item.noMelee = true;
 		}
+		public override void AddRecipes()
+		{
+			CreateRecipe()
+				.AddIngredient(ItemID.AshWoodSword)
+				.AddIngredient(ItemID.CrimtaneBar, 12)
+				.AddIngredient(ItemID.TissueSample, 10)
+				.AddIngredient(ItemID.Bone, 10)
+				.AddTile(TileID.DemonAltar)
+				.Register();
+		}
 	}
 	public class AikoswordProjectile : ModProjectile
 	{
