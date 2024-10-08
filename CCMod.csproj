@@ -7,8 +7,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Content\Items\Weapons\Melee\Aikosword.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Remove="Content\Items\Weapons\Ranged\IronDisk\IronDisk.png" />
+    <None Remove="Content\Items\Weapons\Ranged\WaterDisk\BubbleP.png" />
+    <None Remove="Content\Items\Weapons\Ranged\WaterDisk\WaterDisk.png" />
   </ItemGroup>
   <PropertyGroup>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>

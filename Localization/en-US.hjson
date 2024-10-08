@@ -212,6 +212,16 @@ Mods: {
 				DisplayName: Aikosword
 				Tooltip: ""
 			}
+
+			IronDisk: {
+				DisplayName: Iron Disk
+				Tooltip: Right click to throw out 4 disk deal 55% of damage
+			}
+
+			WaterDisk: {
+				DisplayName: Water Disk
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -257,6 +267,9 @@ Mods: {
 			HomeInProjectile.DisplayName: Home In Projectile
 			AikoswordProjectile.DisplayName: Aikosword Projectile
 			AikoswordSubProjectile.DisplayName: Aikosword Sub Projectile
+			IronDiskProjectile.DisplayName: Iron Disk Projectile
+			BubbleP.DisplayName: Bubble P
+			WaterDiskP.DisplayName: Water Disk P
 		}
 
 		Buffs: {
