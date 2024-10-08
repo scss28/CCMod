@@ -25,7 +25,7 @@ namespace CCMod.Content.Items.Weapons.Ranged
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.QuadBarrelShotgun, 1);
+			recipe.AddIngredient(ItemID.Boomstick, 1);
 			recipe.AddIngredient(ItemID.StickyGrenade, 150);
 			recipe.AddIngredient(ItemID.DemoniteBar, 15);
 			recipe.AddTile(TileID.Anvils);
