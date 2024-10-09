@@ -29,8 +29,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.WaterDisk
 		{
 
 			CreateRecipe()
-				.AddIngredient(ItemID.WaterBucket, 3)
-				.AddIngredient(ItemID.Sapphire, 1)
+				.AddIngredient(ItemID.WaterBucket, 4)
+				.AddIngredient(ItemID.Sapphire, 5)
 				.AddTile(TileID.DemonAltar)
 				.Register();
 		}

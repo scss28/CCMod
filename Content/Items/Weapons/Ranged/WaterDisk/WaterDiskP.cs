@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using CCMod.Utils;
+using Terraria.GameContent;
 
 namespace CCMod.Content.Items.Weapons.Ranged.WaterDisk
 {
@@ -20,14 +21,39 @@ namespace CCMod.Content.Items.Weapons.Ranged.WaterDisk
 		{
 			Projectile.width = Projectile.height = 46;
 			Projectile.friendly = true;
-			Projectile.penetrate = 3;
+			Projectile.penetrate = 5;
 			Projectile.DamageType = DamageClass.Ranged;
 			Projectile.tileCollide = true;
 			Projectile.timeLeft = 360;
 			Projectile.extraUpdates = 4;
 		}
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			Projectile.ai[1]++;
+			if (Projectile.ai[1] >= 30)
+			{
+				Projectile.Kill();
+			}
+			return false;
+		}
+		public override bool? CanDamage()
+		{
+			return Projectile.penetrate != 1;
+		}
 		public override void AI()
 		{
+			if (Projectile.penetrate == 1)
+			{
+				if (Projectile.timeLeft > 30)
+				{
+					Projectile.timeLeft = 30;
+					Projectile.penetrate = -1;
+					Projectile.friendly = false;
+					Projectile.hostile = false;
+					Projectile.velocity = Vector2.Zero;
+				}
+				return;
+			}
 			Projectile.rotation += 0.4f * Projectile.direction;
 			Projectile.ai[2]--;
 			if (++Projectile.ai[0] >= 40f)
@@ -38,7 +64,7 @@ namespace CCMod.Content.Items.Weapons.Ranged.WaterDisk
 				Vector2 pos = Projectile.Center;
 				Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, vec, ModContent.ProjectileType<BubbleP>(), Projectile.damage, 0f, Projectile.owner);
 			}
-			int dust = Dust.NewDust(Projectile.Center + Main.rand.NextVector2Circular(23, 23), 0, 0, DustID.BubbleBlock, Scale: Main.rand.NextFloat(.5f, .8f) );
+			int dust = Dust.NewDust(Projectile.Center + Main.rand.NextVector2Circular(23, 23), 0, 0, DustID.BubbleBlock, Scale: Main.rand.NextFloat(.5f, .8f));
 			Main.dust[dust].velocity = Vector2.Zero;
 			Main.dust[dust].noGravity = true;
 		}
@@ -67,6 +93,13 @@ namespace CCMod.Content.Items.Weapons.Ranged.WaterDisk
 		{
 			Projectile.DrawTrailWithoutColorAdjustment(new Color(255, 255, 255, 40) * .1f);
 			return base.PreDraw(ref lightColor);
+		}
+		public override void PostDraw(Color lightColor)
+		{
+			Projectile.ProjectileDefaultDrawInfo(out Texture2D texture, out Vector2 origin);
+			Color color = new Color(255, 255, 255, 50) * .3f;
+			Vector2 drawpos = Projectile.position - Main.screenPosition + origin + new Vector2(0f, Projectile.gfxOffY);
+			Main.EntitySpriteDraw(texture, drawpos, null, color, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0);
 		}
 	}
 }
