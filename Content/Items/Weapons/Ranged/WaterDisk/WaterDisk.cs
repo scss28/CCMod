@@ -1,10 +1,13 @@
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Ranged.WaterDisk
 {
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("LowQualityTrash-Xinim")]
+	[ConceptBy("LowQualityTrash-Xinim")]
 	public class WaterDisk : ModItem
 	{
 		public override void SetDefaults()
@@ -27,7 +30,6 @@ namespace CCMod.Content.Items.Weapons.Ranged.WaterDisk
 
 		public override void AddRecipes()
 		{
-
 			CreateRecipe()
 				.AddIngredient(ItemID.WaterBucket, 4)
 				.AddIngredient(ItemID.Sapphire, 5)

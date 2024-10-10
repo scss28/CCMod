@@ -4,9 +4,13 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using CCMod.Utils;
+using CCMod.Common.Attributes;
 
 namespace CCMod.Content.Items.Weapons.Ranged.IronDisk
 {
+	[CodedBy("LowQualityTrash-Xinim")]
+	[SpritedBy("LowQualityTrash-Xinim")]
+	[ConceptBy("LowQualityTrash-Xinim")]
 	public class IronDisk : ModItem
 	{
 		//public override void SetStaticDefaults()

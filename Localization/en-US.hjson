@@ -222,6 +222,20 @@ Mods: {
 				DisplayName: Water Disk
 				Tooltip: ""
 			}
+
+			PureSilver: {
+				DisplayName: Pure Silver
+				Tooltip: Purest Silver
+			}
+
+			BowOfLight: {
+				DisplayName: Bow Of Light
+				Tooltip:
+					'''
+					Shoot out barrage of fire arrow and your arrow
+					Alt click to shoot a powerful Phoenix
+					'''
+			}
 		}
 
 		Projectiles: {

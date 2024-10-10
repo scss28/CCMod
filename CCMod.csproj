@@ -6,7 +6,9 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\Items\Material\PureSilver.png" />
     <None Remove="Content\Items\Weapons\Melee\Aikosword.png" />
+    <None Remove="Content\Items\Weapons\Ranged\BowOfLight\BowOfLight.png" />
     <None Remove="Content\Items\Weapons\Ranged\IronDisk\IronDisk.png" />
     <None Remove="Content\Items\Weapons\Ranged\WaterDisk\BubbleP.png" />
     <None Remove="Content\Items\Weapons\Ranged\WaterDisk\WaterDisk.png" />
