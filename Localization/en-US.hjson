@@ -236,6 +236,11 @@ Mods: {
 					Alt click to shoot a powerful Phoenix
 					'''
 			}
+
+			mGun: {
+				DisplayName: m Gun
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -284,6 +289,12 @@ Mods: {
 			IronDiskProjectile.DisplayName: Iron Disk Projectile
 			BubbleP.DisplayName: Bubble P
 			WaterDiskP.DisplayName: Water Disk P
+			BAMcharacter.DisplayName: B A Mcharacter
+			Bcharacter.DisplayName: Bcharacter
+			Echaracter.DisplayName: Echaracter
+			Lcharacter.DisplayName: Lcharacter
+			Tcharacter.DisplayName: Tcharacter
+			Ucharacter.DisplayName: Ucharacter
 		}
 
 		Buffs: {
