@@ -12,7 +12,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static CCMod.Utils.CCModTool;
 
-namespace CCMod.Content.ProjModifiers
+namespace CCMod.Content.ProjectileModifiers
 {
 	internal class PowerOfLight : ProjectileModifier
 	{
@@ -44,23 +44,23 @@ namespace CCMod.Content.ProjModifiers
 		}
 	}
 
-/*
-	public class ECSTest : ModItem
-	{
-		public override string Texture => $"Terraria/Images/Item_{ItemID.Ale}";
-		public override void SetDefaults()
+	/*
+		public class ECSTest : ModItem
 		{
-			Item.DefaultToMagicWeapon(ProjectileID.ChlorophyteArrow, 24, 6, true);
-			Item.damage = 10;
+			public override string Texture => $"Terraria/Images/Item_{ItemID.Ale}";
+			public override void SetDefaults()
+			{
+				Item.DefaultToMagicWeapon(ProjectileID.ChlorophyteArrow, 24, 6, true);
+				Item.damage = 10;
+			}
+			public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+			{
+				var manager = (IEntity)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).GetGlobalProjectile<ProjectileModifierManager>();
+				PowerOfLight pol = new PowerOfLight(manager);
+				pol.R = 2;
+				manager.InstallComponent(pol);
+				return false;
+			}
 		}
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-		{
-			var manager = (IEntity)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).GetGlobalProjectile<ProjectileModifierManager>();
-			PowerOfLight pol = new PowerOfLight(manager);
-			pol.R = 2;
-			manager.InstallComponent(pol);
-			return false;
-		}
-	}
-*/
+	*/
 }
