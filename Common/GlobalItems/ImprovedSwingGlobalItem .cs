@@ -9,6 +9,13 @@ namespace CCMod.Common.GlobalItems
 	public class ImprovedSwingGlobalItem : GlobalItem
 	{
 		public const float PLAYERARMLENGTH = 12f;
+		/// <summary>
+		/// Do not mistake this with giving i frame to melee weapon<br/>
+		/// this instead will make it so that the NPC i frame reach faster by setting the end point equal to this<br/>
+		/// W.I.P
+		/// </summary>
+		public int? CustomIFrame = null;
+		public override bool InstancePerEntity => true;
 		public override void UseStyle(Item item, Player player, Rectangle heldItemFrame)
 		{
 			if (item.ModItem is IMeleeWeaponWithImprovedSwing itemswing && !item.noMelee)
@@ -17,7 +24,7 @@ namespace CCMod.Common.GlobalItems
 			}
 		}
 
-		private void SwipeAttack(Player player, ImprovedSwingGlobalItemPlayer modplayer,float swingdegree, int direct)
+		private void SwipeAttack(Player player, ImprovedSwingGlobalItemPlayer modplayer, float swingdegree, int direct)
 		{
 			float percentDone = player.itemAnimation / (float)player.itemAnimationMax;
 			percentDone = CCModUtils.InExpo(percentDone);
@@ -48,41 +55,68 @@ namespace CCMod.Common.GlobalItems
 				hitbox = new Rectangle(XVals.X1 - 2, YVals.Y1 - 2, XVals.X2 - XVals.X1 + 2, YVals.Y2 - YVals.Y1 + 2);
 			}
 		}
-	}
-
-	interface IMeleeWeaponWithImprovedSwing
-	{
-		float SwingDegree { get; }
-	}
-
-	public class ImprovedSwingGlobalItemPlayer : ModPlayer
-	{
-		public Vector2 data = Vector2.Zero;
-		public Vector2 mouseLastPosition = Vector2.Zero;
-		public override void PreUpdate()
+		public override bool? CanMeleeAttackCollideWithNPC(Item item, Rectangle meleeAttackHitbox, Player player, NPC target)
 		{
-			Player.attackCD = 0;
-			if (Player.HeldItem.ModItem is not IMeleeWeaponWithImprovedSwing || Player.HeldItem.noMelee)
+			if (item.ModItem is IMeleeWeaponWithImprovedSwing extradata)
 			{
-				return;
+				float itemsize = item.Size.Length() * player.GetAdjustedItemScale(player.HeldItem);
+				if (CustomIFrame == null && target.immune[player.whoAmI] > 0 || CustomIFrame != null && target.immune[player.whoAmI] > CustomIFrame)
+				{
+					return false;
+				}
+				int Amount = 36;
+				for (int i = 0; i < Amount; i++)
+				{
+					Vector2 point = player.Center + Vector2.UnitX.EvenArchSpread(Amount, extradata.SwingDegree, i)
+						.RotatedBy((player.GetModPlayer<ImprovedSwingGlobalItemPlayer>().MouseLastPositionBeforeAnimation - player.Center).ToRotation()) * itemsize;
+					if (Collision.CheckAABBvLineCollision(target.Hitbox.TopLeft(), target.Size * target.scale, player.Center, point))
+					{
+						return true;
+					}
+				}
 			}
+			return base.CanMeleeAttackCollideWithNPC(item, meleeAttackHitbox, player, target);
 		}
-		public override void PostUpdate()
-		{
-			if (Player.HeldItem.ModItem is not IMeleeWeaponWithImprovedSwing || Player.HeldItem.noMelee)
-			{
-				return;
-			}
-			if (Player.ItemAnimationJustStarted)
-			{
-				data = (Main.MouseWorld - Player.MountedCenter).SafeNormalize(Vector2.Zero);
-			}
-			if (Player.ItemAnimationActive)
-			{
-				Player.direction = data.X > 0 ? 1 : -1;
-			}
-			Player.attackCD = 0;
-		}
+	}
+}
+/// <summary>
+/// TODO : Remove this interface cause outdated design, not scalable
+/// </summary>
+interface IMeleeWeaponWithImprovedSwing
+{
+	float SwingDegree { get; }
+}
 
+public class ImprovedSwingGlobalItemPlayer : ModPlayer
+{
+	public Vector2 data = Vector2.Zero;
+	public Vector2 mouseLastPosition = Vector2.Zero;
+	public override void PreUpdate()
+	{
+		Player.attackCD = 0;
+		if (Player.HeldItem.ModItem is not IMeleeWeaponWithImprovedSwing || Player.HeldItem.noMelee)
+		{
+			return;
+		}
+	}
+	public Vector2 MouseLastPositionBeforeAnimation = Vector2.Zero;
+	public override void PostUpdate()
+	{
+		if (Player.HeldItem.ModItem is not IMeleeWeaponWithImprovedSwing || Player.HeldItem.noMelee)
+		{
+			return;
+		}
+		if (Player.ItemAnimationJustStarted)
+		{
+			data = (Main.MouseWorld - Player.MountedCenter).SafeNormalize(Vector2.Zero);
+		}
+		if (Player.ItemAnimationActive)
+		{
+			Player.direction = data.X > 0 ? 1 : -1;
+		}
+		else
+		{
+			MouseLastPositionBeforeAnimation = Main.MouseWorld;
+		}
 	}
 }

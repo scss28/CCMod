@@ -19,6 +19,7 @@ namespace CCMod.Content.Examples.Items.Weapons.Melee
 		public override void SetDefaults()
 		{
 			Item.SetDefaultMelee(40, 40, 30, 4f, 30, 30, ItemUseStyleID.Swing, true);
+			Item.Set_MeleeIFrame(12);
 		}
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
