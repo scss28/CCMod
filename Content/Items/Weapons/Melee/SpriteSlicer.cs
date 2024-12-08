@@ -10,6 +10,7 @@ using CCMod.Content.Projectiles;
 using CCMod.Common.ECS.Projectiles;
 using CCMod.Common.ECS;
 using CCMod.Content.ProjectileModifiers;
+using Terraria.GameContent.ItemDropRules;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
@@ -18,6 +19,14 @@ namespace CCMod.Content.Items.Weapons.Melee
 	[ConceptBy("Pexiltd")]
 	public class SpriteSlicer : ModItem, IMeleeWeaponWithImprovedSwing
 	{
+		public override bool CanRightClick()
+		{
+			return true;
+		}
+		public override void ModifyItemLoot(ItemLoot itemLoot)
+		{
+			itemLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<SpriteSmasher>()));
+		}
 		public float SwingDegree => 120;
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{		    
@@ -54,7 +63,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 		{
 			if (player.altFunctionUse == 2)
 			{
-				scale = 3f;
+				scale = 3.75f;
 			}
 		}
 		public override bool CanUseItem(Player player)
@@ -66,29 +75,29 @@ namespace CCMod.Content.Items.Weapons.Melee
 			if (player.altFunctionUse == 2)
 			{
 				Item.useStyle = ItemUseStyleID.Swing;
-				Item.useTime = 90;
-				Item.useAnimation = 90;
-				Item.damage = 150;
-				Item.crit = 50;
+				Item.useTime = 70;
+				Item.useAnimation = 70;
+				Item.damage = 200;
+				Item.crit = 100;
 				Item.width = 54;
 				Item.height = 52;
 				Item.shoot = ProjectileID.None;
-
+				Item.knockBack = 13;
 			}
 			else
 			{
 				Item.useStyle = ItemUseStyleID.Swing;
-				Item.knockBack = 10;
+				Item.knockBack = 3;
 				Item.useTime = 20;
 				Item.useAnimation = 20;
-				Item.damage = 20;
+				Item.damage = 30;
 				Item.autoReuse = true;
 				Item.scale = 2.15f;
-				Item.crit = 3;
+				Item.crit = 10;
 				Item.width = 54;
 				Item.height = 52;
-				Item.useTime = 20;
-				Item.useAnimation = 20;
+				Item.useTime = 25;
+				Item.useAnimation = 25;
 				Item.shootSpeed = 10;
 				Item.shoot = ModContent.ProjectileType<RGBFlame>();
 			}
@@ -104,7 +113,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			if (player.altFunctionUse == 2)
 			{
 				target.AddBuff(BuffID.Frostburn2, 2000);
-				player.AddBuff(ModContent.BuffType<Exhausted>(), 220);
+				player.AddBuff(ModContent.BuffType<Exhausted>(), 100);
 			}
 			else
 			{
@@ -112,10 +121,6 @@ namespace CCMod.Content.Items.Weapons.Melee
 				target.AddBuff(BuffID.Bleeding, 540);
 				target.AddBuff(BuffID.Frostburn, 580);
 			}
-		}
-		public override void SetStaticDefaults()
-		{
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpriteSmasher>();
 		}
 		public override void SetDefaults()
 		{
@@ -126,7 +131,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Item.useTime = 30;
 			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 5;
+			Item.knockBack = 3;
 			Item.CanRollPrefix(PrefixID.Legendary);
 			Item.CanRollPrefix(PrefixID.Awful);
 			Item.value = 50000;
@@ -135,8 +140,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Item.UseSound = item1;
 			Item.autoReuse = true;
 			Item.scale = 1.0f;
-			Item.crit = 30;
-
+			Item.crit = 20;
 		}
 	}
 }

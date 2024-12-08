@@ -135,12 +135,12 @@ Mods: {
 
 			DustyScarf: {
 				DisplayName: Dusty Scarf
-				Tooltip: Sometimes kindess isnt the best option
+				Tooltip: "'Sometimes kindess isnt the best option'"
 			}
 
 			Gattlinator: {
 				DisplayName: Gattlinator
-				Tooltip: A mis match of broken parts
+				Tooltip: "'What have you found'"
 			}
 
 			MushroomJavilen: {
@@ -150,12 +150,12 @@ Mods: {
 
 			ShroomishBranch: {
 				DisplayName: Shroomish Branch
-				Tooltip: A suprisingly good weapon made from magic shrooms and hope
+				Tooltip: made from Hope and magic shrooms
 			}
 
 			CodeBreaker: {
 				DisplayName: Code Breaker
-				Tooltip: Pop
+				Tooltip: "'Pop'"
 			}
 
 			GenericBlackStick: {
@@ -165,7 +165,7 @@ Mods: {
 
 			KnockbackStick: {
 				DisplayName: Knockback Stick
-				Tooltip: This shouldnt be here
+				Tooltip: "'This shouldnt be here'"
 			}
 
 			ShroomishRapier: {
@@ -175,12 +175,12 @@ Mods: {
 
 			SpriteSlicer: {
 				DisplayName: Sprite Slicer
-				Tooltip: A little bit of homing never harmed the user
+				Tooltip: "'This might be a bit too strong, Pex balance this later'"
 			}
 
 			SpriteSmasher: {
 				DisplayName: Sprite Smasher
-				Tooltip: It be a bit more like forcing a cut wouldnt it.
+				Tooltip: "'It be a bit more like forcing a cut wouldnt it with those corners'"
 			}
 
 			HomingTest: {
@@ -190,7 +190,7 @@ Mods: {
 
 			ShroomishStaff: {
 				DisplayName: Shroomish Staff
-				Tooltip: A magical alt
+				Tooltip: "'A magical transformation'"
 			}
 
 			MeleeImprovedSwingExample: {
@@ -200,7 +200,7 @@ Mods: {
 
 			Gunnade: {
 				DisplayName: Gunnade
-				Tooltip: ""
+				Tooltip: "'A piece from the mind of a demolitionist'"
 			}
 
 			HomeInWeapon: {
@@ -211,6 +211,11 @@ Mods: {
 			Aikosword: {
 				DisplayName: Aikosword
 				Tooltip: ""
+			}
+
+			Glimmering_dagger: {
+				DisplayName: Glimmering dagger
+				Tooltip: "'A light to gleam the way'"
 			}
 		}
 
@@ -257,6 +262,7 @@ Mods: {
 			HomeInProjectile.DisplayName: Home In Projectile
 			AikoswordProjectile.DisplayName: Aikosword Projectile
 			AikoswordSubProjectile.DisplayName: Aikosword Sub Projectile
+			Glimmering_dagger_projectile.DisplayName: Glimmering_dagger_projectile
 		}
 
 		Buffs: {

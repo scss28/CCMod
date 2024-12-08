@@ -11,7 +11,7 @@ using Microsoft.Build.Evaluation;
 using Microsoft.CodeAnalysis;
 
 namespace CCMod.Content.Items.Weapons.Ranged.Gunnade
-{
+{ // feel free to use on the condition you try to undnerstand who it does what it does lol, dont gotta but pls try
 	[CodedBy("Pexiltd")]
 	[SpritedBy("Pexiltd")]
 	[ConceptBy("Pexiltd")]
@@ -20,7 +20,8 @@ namespace CCMod.Content.Items.Weapons.Ranged.Gunnade
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Gunnade");
-			//Tooltip.SetDefault("[A piece from the mind of a demolitionist.]);
+			//Tooltip.SetDefault("A piece from the mind of a demolitionist.");
+			// to set a tool tip and display name go to en-US.JSON and look foryour item, might not be there so build then look again if it isnt
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 		public override void AddRecipes()
@@ -48,6 +49,12 @@ namespace CCMod.Content.Items.Weapons.Ranged.Gunnade
 			Item.SetDefaultRanged(12, 18, 21, 5, 75, 75, ItemUseStyleID.Shoot, ProjectileID.Grenade, 13, true);
 			Terraria.Audio.SoundStyle item36 = SoundID.Item36;
 			Item.UseSound = item36;
+			Item.CanRollPrefix(PrefixID.Unreal);
+			Item.CanRollPrefix(PrefixID.Powerful);
+			Item.CanRollPrefix(PrefixID.Hasty);
+			Item.CanRollPrefix(PrefixID.Frenzying);
+			Item.CanRollPrefix(PrefixID.Hasty2); // hasty 2??
+			Item.CanRollPrefix(PrefixID.Awkward);
 		}
 	}
 }
