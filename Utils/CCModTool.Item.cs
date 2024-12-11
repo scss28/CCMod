@@ -3,11 +3,19 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
+using CCMod.Common.GlobalItems;
 
 namespace CCMod.Utils
 {
 	static partial class CCModTool
 	{
+		public static void Set_MeleeIFrame(this Item item, int iframe)
+		{
+			if (item.TryGetGlobalItem(out ImprovedSwingGlobalItem globalitem))
+			{
+				globalitem.CustomIFrame = iframe;
+			}
+		}
 		public static void SetDefault(this Item item, int width, int height, int damage, float knockback, int useTime, int useAnimation, int useStyle, bool autoReuse)
 		{
 			item.width = width;

@@ -216,6 +216,35 @@ Mods: {
 			Glimmering_dagger: {
 				DisplayName: Glimmering dagger
 				Tooltip: "'A light to gleam the way'"
+      }
+      
+			IronDisk: {
+				DisplayName: Iron Disk
+				Tooltip: Right click to throw out 4 disk deal 55% of damage
+			}
+
+			WaterDisk: {
+				DisplayName: Water Disk
+				Tooltip: ""
+			}
+
+			PureSilver: {
+				DisplayName: Pure Silver
+				Tooltip: Purest Silver
+			}
+
+			BowOfLight: {
+				DisplayName: Bow Of Light
+				Tooltip:
+					'''
+					Shoot out barrage of fire arrow and your arrow
+					Alt click to shoot a powerful Phoenix
+					'''
+			}
+
+			mGun: {
+				DisplayName: m Gun
+				Tooltip: ""
 			}
 		}
 
@@ -263,6 +292,15 @@ Mods: {
 			AikoswordProjectile.DisplayName: Aikosword Projectile
 			AikoswordSubProjectile.DisplayName: Aikosword Sub Projectile
 			Glimmering_dagger_projectile.DisplayName: Glimmering_dagger_projectile
+			IronDiskProjectile.DisplayName: Iron Disk Projectile
+			BubbleP.DisplayName: Bubble P
+			WaterDiskP.DisplayName: Water Disk P
+			BAMcharacter.DisplayName: B A Mcharacter
+			Bcharacter.DisplayName: Bcharacter
+			Echaracter.DisplayName: Echaracter
+			Lcharacter.DisplayName: Lcharacter
+			Tcharacter.DisplayName: Tcharacter
+			Ucharacter.DisplayName: Ucharacter
 		}
 
 		Buffs: {
