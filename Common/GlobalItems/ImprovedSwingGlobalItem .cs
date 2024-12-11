@@ -3,6 +3,7 @@ using CCMod.Utils;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using CCMod.Common.GlobalItems;
 
 namespace CCMod.Common.GlobalItems
 {
@@ -60,7 +61,11 @@ namespace CCMod.Common.GlobalItems
 			if (item.ModItem is IMeleeWeaponWithImprovedSwing extradata)
 			{
 				float itemsize = item.Size.Length() * player.GetAdjustedItemScale(player.HeldItem);
-				if (CustomIFrame == null && target.immune[player.whoAmI] > 0 || CustomIFrame != null && target.immune[player.whoAmI] > CustomIFrame)
+				if (CustomIFrame == null)
+				{
+					return false;
+				}
+				if (target.immune[player.whoAmI] > 0)
 				{
 					return false;
 				}
@@ -109,6 +114,19 @@ public class ImprovedSwingGlobalItemPlayer : ModPlayer
 		if (Player.ItemAnimationJustStarted)
 		{
 			data = (Main.MouseWorld - Player.MountedCenter).SafeNormalize(Vector2.Zero);
+			Item item = Player.HeldItem;
+			ImprovedSwingGlobalItem globalitem = item.GetGlobalItem<ImprovedSwingGlobalItem>();
+			if (globalitem.CustomIFrame != null && globalitem.CustomIFrame > -1)
+			{
+				for (int i = 0; i < Player.meleeNPCHitCooldown.Length; i++)
+				{
+					if (Player.meleeNPCHitCooldown[i] > 0)
+					{
+						Player.meleeNPCHitCooldown[i] = (int)globalitem.CustomIFrame;
+					}
+
+				}
+			}
 		}
 		if (Player.ItemAnimationActive)
 		{
@@ -117,6 +135,18 @@ public class ImprovedSwingGlobalItemPlayer : ModPlayer
 		else
 		{
 			MouseLastPositionBeforeAnimation = Main.MouseWorld;
+		}
+	}
+	public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+	{
+		Item item = Player.HeldItem;
+		ImprovedSwingGlobalItem globalitem = item.GetGlobalItem<ImprovedSwingGlobalItem>();
+		if (globalitem.CustomIFrame != null && globalitem.CustomIFrame > -1)
+		{
+			if (Player.meleeNPCHitCooldown[target.whoAmI] > 0)
+			{
+				Player.meleeNPCHitCooldown[target.whoAmI] = (int)globalitem.CustomIFrame;
+			}
 		}
 	}
 }
