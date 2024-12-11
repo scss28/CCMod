@@ -6,6 +6,7 @@ using CCMod.Utils;
 using CCMod.Common.GlobalItems;
 using CCmod.Content.Effects.Debuffs;
 using CCMod.Common.Attributes;
+using Terraria.GameContent.ItemDropRules;
 
 namespace CCMod.Content.Items.Weapons.Melee
 {
@@ -14,7 +15,15 @@ namespace CCMod.Content.Items.Weapons.Melee
 	[ConceptBy("Pexiltd")]
 	public class SpriteSmasher : ModItem, IMeleeWeaponWithImprovedSwing
 	{
-		public float SwingDegree => 120;
+		public override bool CanRightClick()
+		{
+			return true;
+		}
+		public override void ModifyItemLoot(ItemLoot itemLoot)
+		{
+			itemLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<SpriteSlicer>()));
+		}
+		public float SwingDegree => 100;
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
 			if (Main.rand.NextFloat(1) < 0.6511628f)
@@ -24,7 +33,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 					int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Snow, 3f, 3f, 100, new(0, 0, 0), 2f);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.X += player.direction * 2f;
-					Main.dust[dust].velocity.Y += 2f;
+					Main.dust[dust].velocity.Y += 2f;				
 				}
 				else
 				{
@@ -35,8 +44,6 @@ namespace CCMod.Content.Items.Weapons.Melee
 				}
 			}
 		}
-		
-
 		public override bool AltFunctionUse(Player player)
 		{
 			return true;
@@ -45,7 +52,7 @@ namespace CCMod.Content.Items.Weapons.Melee
 		{
 			if (player.altFunctionUse == 2)
 			{
-				scale = 4f;
+				scale = 4.5f;
 			}
 		}
 		public override bool CanUseItem(Player player)
@@ -57,34 +64,30 @@ namespace CCMod.Content.Items.Weapons.Melee
 			if (player.altFunctionUse == 2)
 			{
 				Item.useStyle = ItemUseStyleID.Swing;
-				Item.useTime = 30;
-				Item.useAnimation = 30;
-				Item.damage = 140;
-				Item.crit = 50;
-				Item.width = 54;
+				Item.useTime = 45;
+				Item.useAnimation = 45;
+				Item.damage = 225;
+				Item.crit = 100;
+				Item.width = 84;
 				Item.height = 52;
-				Item.knockBack = 13;
-
+				Item.knockBack = 15;
 			}
 			else
 			{
-				Item.damage = 90;
+				Item.damage = 70;
 				Item.DamageType = DamageClass.Melee;
-				Item.width = 55;
-				Item.height = 58;
-				Item.useTime = 90;
-				Item.useAnimation = 90;
+				Item.width = 65;
+				Item.height = 68;
+				Item.useTime = 75;
+				Item.useAnimation = 75;
 				Item.useStyle = ItemUseStyleID.Swing;
-				Item.knockBack = 8;
-				Item.CanRollPrefix(PrefixID.Legendary);
-				Item.CanRollPrefix(PrefixID.Awful);
+				Item.knockBack = 6;
 				Item.value = 50000;
-				Item.rare = ItemRarityID.Orange;
 				Terraria.Audio.SoundStyle item1 = SoundID.Item1;
 				Item.UseSound = item1;
 				Item.autoReuse = true;
 				Item.scale = 3f;
-				Item.crit = 15;
+				Item.crit = 10;
 			}
 			return base.CanUseItem(player);
 		}
@@ -92,32 +95,28 @@ namespace CCMod.Content.Items.Weapons.Melee
 		{
 			if (player.altFunctionUse == 2)
 			{
-				target.AddBuff(BuffID.CursedInferno, 3000);
-				player.AddBuff(ModContent.BuffType<Exhausted>(), 180);
+				target.AddBuff(BuffID.CursedInferno, 1240);
+				target.AddBuff(BuffID.Dazed, 100);
+				player.AddBuff(ModContent.BuffType<Exhausted>(), 100);
 			}
 			else
 			{
-				target.AddBuff(BuffID.OnFire, 480);
-				target.AddBuff(BuffID.Bleeding, 540);
-				target.AddBuff(BuffID.Frostburn, 220);
+				target.AddBuff(BuffID.CursedInferno, 333);
+				target.AddBuff(BuffID.Weak, 333);
+				target.AddBuff(BuffID.Frostburn, 333);
 			}
-			CCModTool.LifeStealOnHit(player.whoAmI, target.whoAmI, 3, 3, 1, 3);
-		}
-		public override void SetStaticDefaults()
-		{
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpriteSlicer>();
-
+			CCModTool.LifeStealOnHit(player.whoAmI, target.whoAmI, 3, 1, 1, 3);
 		}
 		public override void SetDefaults()
 		{
-			Item.damage = 90;
+			Item.damage = 135;
 			Item.DamageType = DamageClass.Melee;
 			Item.width = 55;
 			Item.height = 58;
-			Item.useTime = 80;
-			Item.useAnimation = 80;
+			Item.useTime = 60;
+			Item.useAnimation = 60;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 8;
+			Item.knockBack = 6;
 			Item.CanRollPrefix(PrefixID.Legendary);
 			Item.CanRollPrefix(PrefixID.Awful);
 			Item.value = 50000;
@@ -125,10 +124,10 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Terraria.Audio.SoundStyle item1 = SoundID.Item1;
 			Item.UseSound = item1;
 			Item.autoReuse = true;
-			Item.scale = 2.75f;
-			Item.crit = 15;
-
-			}
+			Item.scale = 3.1f;
+			Item.crit = 10;
+			Item.useLimitPerAnimation = 5;
+		}
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();

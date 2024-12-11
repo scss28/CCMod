@@ -142,7 +142,8 @@ namespace CCMod.Content.Items.Weapons.Melee
 			Item.autoReuse = true;
 			Item.scale = 2.5f;
 			Item.crit = 40;
-
+			Item.CanRollPrefix(PrefixID.Legendary);
+			Item.CanRollPrefix(PrefixID.Legendary2); //2 huh?
 		}
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
