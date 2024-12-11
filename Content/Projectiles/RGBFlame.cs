@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using Microsoft.Build.Evaluation;
 
 namespace CCMod.Content.Projectiles
 {
@@ -36,14 +37,17 @@ namespace CCMod.Content.Projectiles
 			Projectile.height = 64;
 			Projectile.friendly = true;
 			Projectile.penetrate = 3;
-			Projectile.tileCollide = false;
+			Projectile.tileCollide = true;
 			Projectile.ignoreWater = true;
 			Projectile.timeLeft = 300;
 			Projectile.alpha = 0;
 			Projectile.light = 2.0f;
-			Projectile.damage = 10;
-			Projectile.CritChance = 3;
+			Projectile.damage = 25;
+			Projectile.CritChance = 15;
 			Projectile.spriteDirection = Math.Sign(Projectile.velocity.X);
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 1;
+			Projectile.DamageType = DamageClass.Melee;
 		}
 
 		public override void AI()
